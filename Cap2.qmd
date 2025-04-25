@@ -343,3 +343,63 @@ H\) `echo Downloading $strain`
 B, F, H, G, D
 :::
 :::::
+
+Just as before, we should decompress the downloaded genome files using `gunzip`. To do so, we can use the `*` wildcard, which means “anything”, instead of unzipping one by one.
+
+``` bash
+$ gunzip agalactiae_*/refseq/bacteria/*/*gz
+```
+
+Let’s visualize the structure of the results
+
+``` bash
+$ tree agalactiae_*
+```
+
+::: callout-note
+## Output
+
+```         
+agalactiae_2603V
+└── R
+    └── refseq
+        └── bacteria
+            └── GCF_000007265.1
+                ├── GCF_000007265.1_ASM726v1_genomic.fna.gz
+                └── MD5SUMS
+agalactiae_515
+└── GCF_012593885.1_ASM1259388v1_genomic.fna
+agalactiae_A909
+└── refseq
+    └── bacteria
+        └── GCF_000012705.1
+            ├── GCF_000012705.1_ASM1270v1_genomic.fna
+            └── MD5SUMS
+agalactiae_CJB111
+└── refseq
+    └── bacteria
+        ├── GCF_000167755.1
+        │   ├── GCF_000167755.1_ASM16775v1_genomic.fna
+        │   └── MD5SUMS
+        └── GCF_015221735.2
+            ├── GCF_015221735.2_ASM1522173v2_genomic.fna
+            └── MD5SUMS
+agalactiae_COH1
+└── refseq
+    └── bacteria
+        └── GCF_000689235.1
+            ├── GCF_000689235.1_GBCO_p1_genomic.fna
+            └── MD5SUMS
+agalactiae_H36B
+├── Streptococcus_agalactiae_H36B.fna
+└── Streptococcus_agalactiae_H36B.gbk
+agalactiae_NEM316
+└── refseq
+    └── bacteria
+        └── GCF_000196055.1
+            ├── GCF_000196055.1_ASM19605v1_genomic.fna
+            └── MD5SUMS
+
+3 directories, 2 files
+```
+:::
