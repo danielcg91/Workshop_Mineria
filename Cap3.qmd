@@ -108,7 +108,7 @@ c) Prokka identifies tRNA genes but doesn’t mention the anticodon located on t
 d) Prokka doesn’t provide the positions in which a feature starts or ends.\
 e) The coding sequences are identified with the CDS acronym in the `FEATURES` section of each `LOCUS`.
 
-::: {.callout-note r, collapse="TRUE"}
+::: {.callout-note collapse="TRUE"}
 ## Solution
 
 a\) FALSE. Prokka successfully identifies non-coding sequences and doesn’t translate them. Instead, it provides alternative information (e.g. if it’s a rRNA gene, it tells if it’s 5S, 16S, or 23S).\
