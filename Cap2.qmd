@@ -521,7 +521,7 @@ Until now we have downloaded only specific strains that we were looking for. Wri
 
 **Bonus**: Make a file with the output of your search.
 
-:::: callout-tip
+:::: {.callout-warning collapse="TRUE" appearance="simple"}
 ## Solution
 
 Use the `-n` flag to make it a dry run. Search only for the genus *Streptococcus* without using the strain flag.
@@ -535,10 +535,10 @@ $  ncbi-genome-download -F fasta --genera "Streptococcus" -n bacteria
 
 ```         
 Considering the following 18331 assemblies for download:
-GCF_000959925.1	Streptococcus gordonii	G9B
-GCF_000959965.1	Streptococcus gordonii	UB10712
-GCF_000963345.1	Streptococcus gordonii	I141
-GCF_000970665.2	Streptococcus gordonii	IE35
+GCF_000959925.1 Streptococcus gordonii  G9B
+GCF_000959965.1 Streptococcus gordonii  UB10712
+GCF_000963345.1 Streptococcus gordonii  I141
+GCF_000970665.2 Streptococcus gordonii  IE35
 .
 .
 .
