@@ -197,7 +197,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Cap3.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Introducción a Minería Genómica</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Anotación</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -216,9 +216,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#downloading-genomic-data" id="toc-downloading-genomic-data" class="nav-link active" data-scroll-target="#downloading-genomic-data"><span class="header-section-number">4</span> <strong>Downloading Genomic Data</strong></a>
+  <li><a href="#downloading-genomic-data" id="toc-downloading-genomic-data" class="nav-link active" data-scroll-target="#downloading-genomic-data"><span class="header-section-number">3.1</span> <strong>Downloading Genomic Data</strong></a>
   <ul>
-  <li><a href="#getting-genomic-data-from-the-ncbi" id="toc-getting-genomic-data-from-the-ncbi" class="nav-link" data-scroll-target="#getting-genomic-data-from-the-ncbi"><span class="header-section-number">4.1</span> <strong>Getting Genomic Data from the NCBI</strong></a></li>
+  <li><a href="#getting-genomic-data-from-the-ncbi" id="toc-getting-genomic-data-from-the-ncbi" class="nav-link" data-scroll-target="#getting-genomic-data-from-the-ncbi"><span class="header-section-number">3.1.1</span> <strong>Getting Genomic Data from the NCBI</strong></a></li>
   </ul></li>
   </ul>
 </nav>
@@ -245,10 +245,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="downloading-genomic-data" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> <strong>Downloading Genomic Data</strong></h1>
-<section id="getting-genomic-data-from-the-ncbi" class="level2" data-number="4.1">
-<h2 data-number="4.1" class="anchored" data-anchor-id="getting-genomic-data-from-the-ncbi"><span class="header-section-number">4.1</span> <strong>Getting Genomic Data from the NCBI</strong></h2>
+<section id="downloading-genomic-data" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="downloading-genomic-data"><span class="header-section-number">3.1</span> <strong>Downloading Genomic Data</strong></h2>
+<section id="getting-genomic-data-from-the-ncbi" class="level3" data-number="3.1.1">
+<h3 data-number="3.1.1" class="anchored" data-anchor-id="getting-genomic-data-from-the-ncbi"><span class="header-section-number">3.1.1</span> <strong>Getting Genomic Data from the NCBI</strong></h3>
 <p>In the <a href="https://paumayell.github.io/pangenomics/01-introduction/index.html">previous episode</a>, we downloaded the working directory for this workshop that already contains the genomes of GBS strains <code>18RS21</code> and <code>H36B</code> within our <code>pan_workshop/data</code> directory. However, we need another six GBS strains that will be downloaded in this episode. For this purpose, we will learn how to use the specialized <code>ncbi-genome-download</code> <a href="https://github.com/kblin/ncbi-genome-download">package</a>, which was designed to automatically download one or several genomes directly from the NCBI by following specific filters set by user.</p>
 <p>The <code>ncbi-genome-download</code> package can be installed with Conda. In our case, we have already installed it into the environment under the same name. To use the package, we just have to activate the <em>ncbi-genome-download</em> conda environment.</p>
 <p>To start using the <code>ncbi-genome-download package</code>, we have to activate the conda environment where it was installed</p>
@@ -264,6 +264,184 @@ Output
 </div>
 <div class="callout-body-container callout-body">
 <pre><code>(ncbi-genome-download) $</code></pre>
+</div>
+</div>
+<p>For practicality, the prompt will be written only as <code>$</code> instead of <code>(ncbi-genome-download) $</code>.</p>
+<p>Exploring the range of options available in the package is highly recommended in order to choose well and get what you really need. To access the complete list of parameters to incorporate in your downloads, simply type the following command:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ncbi-genome-download</span> <span class="at">--help</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Output
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code>usage:  
+ ncbi-genome-download [-h] [-s {refseq,genbank}] [-F FILE_FORMATS]  
+                        [-l ASSEMBLY_LEVELS] [-g GENERA] [--genus GENERA]  
+                        [--fuzzy-genus] [-S STRAINS] [-T SPECIES_TAXIDS]  
+                        [-t TAXIDS] [-A ASSEMBLY_ACCESSIONS]  
+                        [-R REFSEQ_CATEGORIES]  
+                        [--refseq-category REFSEQ_CATEGORIES] [-o OUTPUT]  
+                        [--flat-output] [-H] [-P] [-u URI] [-p N] [-r N]  
+                        [-m METADATA_TABLE] [-n] [-N] [-v] [-d] [-V]  
+                        [-M TYPE_MATERIALS]
+                        groups
+    -F FILE_FORMATS, --formats FILE_FORMATS  
+                        Which formats to download (default: genbank).A comma-
+                        separated list of formats is also possible. For
+                        example: "fasta,assembly-report". Choose from:
+                        ['genbank', 'fasta', 'rm', 'features', 'gff',
+                        'protein-fasta', 'genpept', 'wgs', 'cds-fasta', 'rna-
+                        fna', 'rna-fasta', 'assembly-report', 'assembly-
+                        stats', 'all']
+    -g GENERA, --genera GENERA  
+                        Only download sequences of the provided genera. A
+                        comma-separated list of genera is also possible. For
+                        example: "Streptomyces coelicolor,Escherichia coli".
+                        (default: [])  
+    -S STRAINS, --strains STRAINS   
+                        Only download sequences of the given strain(s). A
+                        comma-separated list of strain names is possible, as
+                        well as a path to a filename containing one name per
+                        line.
+    -A ASSEMBLY_ACCESSIONS, --assembly-accessions ASSEMBLY_ACCESSIONS  
+                        Only download sequences matching the provided NCBI
+                        assembly accession(s). A comma-separated list of
+                        accessions is possible, as well as a path to a
+                        filename containing one accession per line.
+    -o OUTPUT, --output-folder OUTPUT   
+                        Create output hierarchy in specified folder (default:
+                        /home/betterlab)
+    -n, --dry-run       Only check which files to download, don't download
+                        genome files. </code></pre>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Importantly, when using the <code>ncbi-genome-download</code> command, we must specify the <em>group</em> to which the organisms we want to download from NCBI belong. This name must be indicated at the end of the command, after specifying all the search parameters for the genomes of interest that we want to download. The groups’ names include: bacteria, fungi, viral, vertebrates_mammalian, among others.</p>
+</div>
+</div>
+<p>Now, we have to move into our <code>data/</code> directory</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cd ~/pan_workshop/data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>If you list the contents of this directory (using the <code>ls</code> command), you’ll see several directories, each of which contains the raw data of different strains of <em>Streptococcus agalactiae</em> used in <a href="https://www.pnas.org/doi/10.1073/pnas.0506758102">Tettelin <em>et al</em>., (2005)</a> in <code>.gbk</code> and <code>.fasta</code> formats.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ls</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Output
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code>agalactiae_18RS21   agalactiae_H36B   annotated_mini</code></pre>
+</div>
+</div>
+<p>Downloading several complete genomes could consume significant memory and time. It is essential to ensure the accuracy of the filters or parameters we use before downloading a potentially incorrect list of genomes. A recommended strategy is to utilize the –dry-run (or -n) flag included in the ncbi-genome-download package, which conducts a search of the specified genomes without downloading the files. Once we confirm that the list of genomes found is correct, we can proceed with the same command, removing the –dry-run flag</p>
+<p>So, first, let’s confirm the availability of one of the genomes we aim to download, namely <em>Streptococcus agalactiae</em> 515, on NCBI. To do so, we will employ the –dry-run flag mentioned earlier, specifying the genus and strain name, selecting the FASTA format, and indicating its group (bacteria).</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ncbi-genome-download <span class="at">--dry-run</span> <span class="at">--genera</span> <span class="st">"Streptococcus agalactiae"</span> <span class="at">-S</span> 515 <span class="at">--formats</span> fasta bacteria </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Output
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Considering the following 1 assemblies for download: GCF_012593885.1 Streptococcus agalactiae 515 515</p>
+</div>
+</div>
+<p>Great! The genome is available!</p>
+<p>Now, we can proceed to download it. To better organize our data, we can save this file into a specific directory for this strain. We can indicate this instruction with the <code>--output-folder</code> or <code>-o</code> flag followed by the name we choose. In this case, will be <code>-o agalactie_515</code>. Notice that now we no longer need the flag the <code>-n</code>.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ncbi-genome-download <span class="at">--genera</span> <span class="st">"Streptococcus agalactiae"</span> <span class="at">-S</span> 515 <span class="at">--formats</span> fasta <span class="at">-o</span> agalactiae_515 bacteria</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Once the prompt <code>$</code> appears again, use the command <code>tree</code> to show the contents of the recently downloaded directory <code>agalactiae_515</code>.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> tree agalactiae_515</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Output
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code>agalactiae_515
+└── refseq
+    └── bacteria
+        └── GCF_012593885.1
+            ├── GCF_012593885.1_ASM1259388v1_genomic.fna.gz
+            └── MD5SUMS
+
+3 directories, 2 files</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+MD5SUMS file
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Apart from the fasta file that we wanted, a file called <code>MD5SUMS</code> was also downloaded. This file has a unique code that identifies the contents of the files of interest, so you can use it to check the integrity of your downloaded copy. We will not cover that step in the lesson but you can check this <a href="https://www.geeksforgeeks.org/md5sum-linux-command/">article</a> to see how you can use it.</p>
+</div>
+</div>
+<p>The genome file <code>GCF_012593885.1_ASM1259388v1_genomic.fna.gz</code> is a compressed file located inside the directory <code>agalactiae_515/refseq/bacteria/GCF_012593885.1/</code>. Let’s decompress the file with <code>gunzip</code> and visualize with <code>tree</code> to corroborate the file status.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> gunzip agalactiae_515/refseq/bacteria/GCF_012593885.1/GCF_012593885.1_ASM1259388v1_genomic.fna.gz</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> tree agalactiae_515/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Output
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code>agalactiae_515/
+└── refseq
+    └── bacteria
+        └── GCF_012593885.1
+            ├── GCF_012593885.1_ASM1259388v1_genomic.fna
+            └── MD5SUMS
+
+3 directories, 2 files</code></pre>
+</div>
+</div>
+<p><code>GCF_012593885.1_ASM1259388v1_genomic.fna</code> is now with <code>fna</code> extension which means is in a nucleotide <code>fasta</code> format. Let’s move the file to the <code>agalactiae_515/</code> directory and remove the extra content that we will not use again in this lesson.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> mv agalactiae_515/refseq/bacteria/GCF_012593885.1/GCF_012593885.1_ASM1259388v1_genomic.fna agalactiae_515/.</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> rm <span class="at">-r</span> agalactiae_515/refseq</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ls agalactiae_515/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Output
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code>GCF_012593885.1_ASM1259388v1_genomic.fna  </code></pre>
 </div>
 </div>
 
@@ -843,8 +1021,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./Cap3.html" class="pagination-link" aria-label="Introducción a Minería Genómica">
-        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Introducción a Minería Genómica</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./Cap3.html" class="pagination-link" aria-label="Anotación">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Anotación</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

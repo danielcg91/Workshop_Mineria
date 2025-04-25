@@ -1,4 +1,4 @@
-# Descarga y exploración de datos 
+# Descarga y exploración de datos
 
 ## **Downloading Genomic Data**
 
@@ -36,43 +36,43 @@ ncbi-genome-download --help
 ```         
 usage:  
  ncbi-genome-download [-h] [-s {refseq,genbank}] [-F FILE_FORMATS]  
-                      	[-l ASSEMBLY_LEVELS] [-g GENERA] [--genus GENERA]  
-                      	[--fuzzy-genus] [-S STRAINS] [-T SPECIES_TAXIDS]  
-                      	[-t TAXIDS] [-A ASSEMBLY_ACCESSIONS]  
-                      	[-R REFSEQ_CATEGORIES]  
-                      	[--refseq-category REFSEQ_CATEGORIES] [-o OUTPUT]  
-                      	[--flat-output] [-H] [-P] [-u URI] [-p N] [-r N]  
-                      	[-m METADATA_TABLE] [-n] [-N] [-v] [-d] [-V]  
-                      	[-M TYPE_MATERIALS]
-                      	groups
-	-F FILE_FORMATS, --formats FILE_FORMATS  
-                    	Which formats to download (default: genbank).A comma-
-                    	separated list of formats is also possible. For
-                    	example: "fasta,assembly-report". Choose from:
-                    	['genbank', 'fasta', 'rm', 'features', 'gff',
-                    	'protein-fasta', 'genpept', 'wgs', 'cds-fasta', 'rna-
-                    	fna', 'rna-fasta', 'assembly-report', 'assembly-
-                    	stats', 'all']
-	-g GENERA, --genera GENERA  
-                    	Only download sequences of the provided genera. A
-                    	comma-separated list of genera is also possible. For
-                    	example: "Streptomyces coelicolor,Escherichia coli".
-                    	(default: [])  
-	-S STRAINS, --strains STRAINS   
-                    	Only download sequences of the given strain(s). A
-                    	comma-separated list of strain names is possible, as
-                    	well as a path to a filename containing one name per
-                    	line.
-	-A ASSEMBLY_ACCESSIONS, --assembly-accessions ASSEMBLY_ACCESSIONS  
-                    	Only download sequences matching the provided NCBI
-                    	assembly accession(s). A comma-separated list of
-                    	accessions is possible, as well as a path to a
-                    	filename containing one accession per line.
-	-o OUTPUT, --output-folder OUTPUT   
-                    	Create output hierarchy in specified folder (default:
-                    	/home/betterlab)
-	-n, --dry-run     	Only check which files to download, don't download
-                    	genome files. 
+                        [-l ASSEMBLY_LEVELS] [-g GENERA] [--genus GENERA]  
+                        [--fuzzy-genus] [-S STRAINS] [-T SPECIES_TAXIDS]  
+                        [-t TAXIDS] [-A ASSEMBLY_ACCESSIONS]  
+                        [-R REFSEQ_CATEGORIES]  
+                        [--refseq-category REFSEQ_CATEGORIES] [-o OUTPUT]  
+                        [--flat-output] [-H] [-P] [-u URI] [-p N] [-r N]  
+                        [-m METADATA_TABLE] [-n] [-N] [-v] [-d] [-V]  
+                        [-M TYPE_MATERIALS]
+                        groups
+    -F FILE_FORMATS, --formats FILE_FORMATS  
+                        Which formats to download (default: genbank).A comma-
+                        separated list of formats is also possible. For
+                        example: "fasta,assembly-report". Choose from:
+                        ['genbank', 'fasta', 'rm', 'features', 'gff',
+                        'protein-fasta', 'genpept', 'wgs', 'cds-fasta', 'rna-
+                        fna', 'rna-fasta', 'assembly-report', 'assembly-
+                        stats', 'all']
+    -g GENERA, --genera GENERA  
+                        Only download sequences of the provided genera. A
+                        comma-separated list of genera is also possible. For
+                        example: "Streptomyces coelicolor,Escherichia coli".
+                        (default: [])  
+    -S STRAINS, --strains STRAINS   
+                        Only download sequences of the given strain(s). A
+                        comma-separated list of strain names is possible, as
+                        well as a path to a filename containing one name per
+                        line.
+    -A ASSEMBLY_ACCESSIONS, --assembly-accessions ASSEMBLY_ACCESSIONS  
+                        Only download sequences matching the provided NCBI
+                        assembly accession(s). A comma-separated list of
+                        accessions is possible, as well as a path to a
+                        filename containing one accession per line.
+    -o OUTPUT, --output-folder OUTPUT   
+                        Create output hierarchy in specified folder (default:
+                        /home/betterlab)
+    -n, --dry-run       Only check which files to download, don't download
+                        genome files. 
 ```
 :::
 
