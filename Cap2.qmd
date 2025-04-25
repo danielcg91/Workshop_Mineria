@@ -188,3 +188,158 @@ $ ls agalactiae_515/
 GCF_012593885.1_ASM1259388v1_genomic.fna  
 ```
 :::
+
+## **Download multiple genomes**
+
+So far, we have learned how to download a single genome using the `ncbi-genome-download` package. Now, we need to retrieve an additional five GBS strains using the same method. However, this time, we will explore how to utilize loops to automate and expedite the process of downloading multiple genomes in batches.
+
+Using the `nano` editor, create a file to include the name of the other four strains: A909, COH1, CJB111, NEM316, and 2603V/R. Each strain should be written on a separate line in the file, which should be named “TettelinList.txt”
+
+``` bash
+$ nano TettelinList.txt  
+```
+
+::: callout-note
+## The "nano" editor
+
+Nano is a straightforward and user-friendly text editor designed for use within the terminal interface. After launching Nano, you can immediately begin typing and utilize your arrow keys to navigate between characters and lines. When your text is ready, press the `Esc` key and type `:wq` to save your changes and exit Nano, confirming the filename if prompted. Conversely, if you wish to exit Nano without saving any changes, press `Esc` followed by `:q!`. For more advanced functionalities, you can refer to the [nano manual](https://www.nano-editor.org/dist/v2.0/nano.html).
+:::
+
+Visualize “Tettelin.txt” contents with the `cat` command.
+
+``` bash
+$ cat TettelinList.txt  
+```
+
+::: callout-note
+## Output
+
+```         
+A909  
+COH1  
+CJB111 
+NEM316
+2603V/R
+```
+:::
+
+First, let’s read the lines of the file in a loop, and print them in the terminal with the `echo strain $line` command.\
+`strain` is just a word that we will print, and `$line` will store the value of each of the lines of the `Tettelin.txt` file.
+
+``` bash
+$ cat TettelinList.txt | while read line 
+do 
+echo strain $line
+done
+```
+
+::: callout-note
+## Output
+
+```         
+strain A909  
+strain COH1  
+strain CJB111 
+strain NEM316
+strain 2603V/R
+```
+:::
+
+We can now check if these strains are available in NCBI (remember to use the `-n` flag so genome files aren’t downloaded).
+
+``` bash
+$ cat TettelinList.txt | while read line
+do
+echo strain $line
+ncbi-genome-download --formats fasta --genera "Streptococcus agalactiae" -S $line -n bacteria
+done
+```
+
+::: callout-note
+## Output
+
+```         
+strain A909  
+Considering the following 1 assemblies for download:  
+GCF_000012705.1 Streptococcus agalactiae A909   A909  
+strain COH1  
+Considering the following 1 assemblies for download:  
+GCF_000689235.1 Streptococcus agalactiae COH1   COH1  
+strain CJB111  
+Considering the following 2 assemblies for download:  
+GCF_000167755.1 Streptococcus agalactiae CJB111 CJB111  
+GCF_015221735.2 Streptococcus agalactiae CJB111 CJB111  
+strain NEM316
+Considering the following 1 assemblies for download:
+GCF_000196055.1 Streptococcus agalactiae NEM316 NEM316
+strain 2603V/R
+Considering the following 1 assemblies for download:
+GCF_000007265.1 Streptococcus agalactiae 2603V/R        2603V/R
+```
+:::
+
+The tool has successfully found the five strains. Notice that the strain CJB111 contains two versions.
+
+We can now proceed to download these strains to their corresponding output directories by adding the `-o` flag followed by the directory name and removing the `-n` flag).
+
+``` bash
+$ cat TettelinList.txt | while read line 
+do
+echo downloading strain $line
+ncbi-genome-download --formats fasta --genera "Streptococcus agalactiae" -S $line -o agalactiae_$line bacteria
+done
+```
+
+::: callout-note
+## Output
+
+```         
+downloading strain A909
+downloading strain COH1
+downloading strain CJB111
+downloading strain NEM316
+downloading strain 2603V/R
+```
+:::
+
+::::: callout-tip
+## Exercise 1(Begginer): Loops
+
+Let’s further practice using loops to download genomes in batches. For the sentences below, select only the necessary and their correct order to achieve the desired output:
+
+A\) `ncbi-genome-download --formats fasta --genera "Streptococcus agalactiae" -S strain -o agalactiae_strain bacteria`
+
+B\) `cat TettlinList.txt | while read strain`
+
+C\) `done`
+
+D\) `echo Downloading line`
+
+E\) `cat TettlinList.txt | while read line`
+
+F\) `do`
+
+G\) `ncbi-genome-download --formats fasta --genera "Streptococcus agalactiae" -S $strain -o agalactiae_$strain bacteria`
+
+H\) `echo Downloading $strain`
+
+**Desired Output**
+
+::: callout-note
+## Output
+
+```         
+ Downloading A909
+ Downloading COH1
+ Downloading CJB111
+ Downloading NEM316
+ Downloading 2603V/R
+```
+:::
+
+::: {.callout-note collapse="TRUE"}
+## Solution
+
+B, F, H, G, D
+:::
+:::::
