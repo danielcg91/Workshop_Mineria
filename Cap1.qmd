@@ -1,0 +1,51 @@
+# Introducción a la Resistencia a Antibióticos 
+
+# **Genome database for this workshop** 
+
+### **Description of the dataset**
+
+In this lesson, we will follow a standard pangenomics pipeline that involves genomic annotation, clustering of genes to identify orthologous sequences and build the gene families, and analyzing the pangenome partitions and openness. To illustrate these concepts, we will work with a dataset consisting of eight strains of *Streptococcus agalactiae* as included in the pioneering pangenome study by *Tettelin et al., 2005* (See the **Table** below).
+
+We already have the genomes of strains 18RS21 and H36B available in our `pan_workshop/data` directory. However, the remaining strains will be downloaded and annotated in the upcoming episodes, allowing us to explore the complete dataset.
+
+**General description of the *S. agalactiae* genomes**
+
+| Strain                  | Host  | Serotype |
+|:------------------------|:------|:---------|
+| *S. agalactiae* 18RS21  | Human | II       |
+| *S. agalactiae* 515     | Human | Ia       |
+| *S. agalactiae* A909    | Human | Ia       |
+| *S. agalactiae* CJB111  | Human | V        |
+| *S. agalactiae* COH1    | Human | III      |
+| *S. agalactiae* H36B    | Human | Ib       |
+| *S. agalactiae* NEM316  | Human | III      |
+| *S. agalactiae* 2603V/R | Human | V        |
+
+::: callout-note
+## Prepare your genome database
+
+Make sure you have the `pan_workshop/` directory in your home directory. If you do not have it, you can download it with the following instructions.
+
+``` bash
+$ cd ~ #Make sure you are in the home directory
+$ wget https://zenodo.org/record/7974915/files/pan_workshop.zip?download=1 #Download the `zip` file.
+$ unzip 'pan_workshop.zip?download=1' 
+$ rm 'pan_workshop.zip?download=1'
+```
+:::
+
+::: {.callout-tip appearance="simple"}
+## Key Points
+
+-   A **pangenome** encompasses the complete collection of genes found in all genomes within a specific group, typically a species.
+
+-   Comparing the complete genome sequences of all members within a clade allows for the construction of a pangenome.
+
+-   The pangenome consists of two main components: the **core genome** and the **accessory genome**.
+
+-   The accessory genome can be further divided into the **shell genome** and the **cloud genome**.
+
+-   In an **open pangenome**, the size of the pangenome significantly increases with the addition of each new genome.
+
+-   In a **closed pangenome**, only a few gene families are added to the pangenome when a new genome is introduced.
+:::
