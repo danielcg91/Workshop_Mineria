@@ -1,8 +1,8 @@
 # Descarga y exploración de datos 
 
-# **Downloading Genomic Data**
+## **Downloading Genomic Data**
 
-## **Getting Genomic Data from the NCBI**
+### **Getting Genomic Data from the NCBI**
 
 In the [previous episode](https://paumayell.github.io/pangenomics/01-introduction/index.html), we downloaded the working directory for this workshop that already contains the genomes of GBS strains `18RS21` and `H36B` within our `pan_workshop/data` directory. However, we need another six GBS strains that will be downloaded in this episode. For this purpose, we will learn how to use the specialized `ncbi-genome-download` [package](https://github.com/kblin/ncbi-genome-download), which was designed to automatically download one or several genomes directly from the NCBI by following specific filters set by user.
 
@@ -19,5 +19,172 @@ $ conda activate /miniconda3/envs/ncbi-genome-download
 
 ```         
 (ncbi-genome-download) $
+```
+:::
+
+For practicality, the prompt will be written only as `$` instead of `(ncbi-genome-download) $`.
+
+Exploring the range of options available in the package is highly recommended in order to choose well and get what you really need. To access the complete list of parameters to incorporate in your downloads, simply type the following command:
+
+``` bash
+ncbi-genome-download --help
+```
+
+::: callout-note
+## Output
+
+```         
+usage:  
+ ncbi-genome-download [-h] [-s {refseq,genbank}] [-F FILE_FORMATS]  
+                      	[-l ASSEMBLY_LEVELS] [-g GENERA] [--genus GENERA]  
+                      	[--fuzzy-genus] [-S STRAINS] [-T SPECIES_TAXIDS]  
+                      	[-t TAXIDS] [-A ASSEMBLY_ACCESSIONS]  
+                      	[-R REFSEQ_CATEGORIES]  
+                      	[--refseq-category REFSEQ_CATEGORIES] [-o OUTPUT]  
+                      	[--flat-output] [-H] [-P] [-u URI] [-p N] [-r N]  
+                      	[-m METADATA_TABLE] [-n] [-N] [-v] [-d] [-V]  
+                      	[-M TYPE_MATERIALS]
+                      	groups
+	-F FILE_FORMATS, --formats FILE_FORMATS  
+                    	Which formats to download (default: genbank).A comma-
+                    	separated list of formats is also possible. For
+                    	example: "fasta,assembly-report". Choose from:
+                    	['genbank', 'fasta', 'rm', 'features', 'gff',
+                    	'protein-fasta', 'genpept', 'wgs', 'cds-fasta', 'rna-
+                    	fna', 'rna-fasta', 'assembly-report', 'assembly-
+                    	stats', 'all']
+	-g GENERA, --genera GENERA  
+                    	Only download sequences of the provided genera. A
+                    	comma-separated list of genera is also possible. For
+                    	example: "Streptomyces coelicolor,Escherichia coli".
+                    	(default: [])  
+	-S STRAINS, --strains STRAINS   
+                    	Only download sequences of the given strain(s). A
+                    	comma-separated list of strain names is possible, as
+                    	well as a path to a filename containing one name per
+                    	line.
+	-A ASSEMBLY_ACCESSIONS, --assembly-accessions ASSEMBLY_ACCESSIONS  
+                    	Only download sequences matching the provided NCBI
+                    	assembly accession(s). A comma-separated list of
+                    	accessions is possible, as well as a path to a
+                    	filename containing one accession per line.
+	-o OUTPUT, --output-folder OUTPUT   
+                    	Create output hierarchy in specified folder (default:
+                    	/home/betterlab)
+	-n, --dry-run     	Only check which files to download, don't download
+                    	genome files. 
+```
+:::
+
+::: {.callout-note appearance="simple"}
+## Note
+
+Importantly, when using the `ncbi-genome-download` command, we must specify the *group* to which the organisms we want to download from NCBI belong. This name must be indicated at the end of the command, after specifying all the search parameters for the genomes of interest that we want to download. The groups’ names include: bacteria, fungi, viral, vertebrates_mammalian, among others.
+:::
+
+Now, we have to move into our `data/` directory
+
+``` bash
+$ cd ~/pan_workshop/data
+```
+
+If you list the contents of this directory (using the `ls` command), you’ll see several directories, each of which contains the raw data of different strains of *Streptococcus agalactiae* used in [Tettelin *et al*., (2005)](https://www.pnas.org/doi/10.1073/pnas.0506758102) in `.gbk` and `.fasta` formats.
+
+``` bash
+$ ls
+```
+
+::: callout-note
+## Output
+
+```         
+agalactiae_18RS21   agalactiae_H36B   annotated_mini
+```
+:::
+
+Downloading several complete genomes could consume significant memory and time. It is essential to ensure the accuracy of the filters or parameters we use before downloading a potentially incorrect list of genomes. A recommended strategy is to utilize the –dry-run (or -n) flag included in the ncbi-genome-download package, which conducts a search of the specified genomes without downloading the files. Once we confirm that the list of genomes found is correct, we can proceed with the same command, removing the –dry-run flag
+
+So, first, let’s confirm the availability of one of the genomes we aim to download, namely *Streptococcus agalactiae* 515, on NCBI. To do so, we will employ the –dry-run flag mentioned earlier, specifying the genus and strain name, selecting the FASTA format, and indicating its group (bacteria).
+
+``` bash
+$ ncbi-genome-download --dry-run --genera "Streptococcus agalactiae" -S 515 --formats fasta bacteria 
+```
+
+::: callout-note
+## Output
+
+Considering the following 1 assemblies for download: GCF_012593885.1 Streptococcus agalactiae 515 515
+:::
+
+Great! The genome is available!
+
+Now, we can proceed to download it. To better organize our data, we can save this file into a specific directory for this strain. We can indicate this instruction with the `--output-folder` or `-o` flag followed by the name we choose. In this case, will be `-o agalactie_515`. Notice that now we no longer need the flag the `-n`.
+
+``` bash
+$ ncbi-genome-download --genera "Streptococcus agalactiae" -S 515 --formats fasta -o agalactiae_515 bacteria
+```
+
+Once the prompt `$` appears again, use the command `tree` to show the contents of the recently downloaded directory `agalactiae_515`.
+
+``` bash
+$ tree agalactiae_515
+```
+
+::: callout-note
+## Output
+
+```         
+agalactiae_515
+└── refseq
+    └── bacteria
+        └── GCF_012593885.1
+            ├── GCF_012593885.1_ASM1259388v1_genomic.fna.gz
+            └── MD5SUMS
+
+3 directories, 2 files
+```
+:::
+
+::: callout-note
+## MD5SUMS file
+
+Apart from the fasta file that we wanted, a file called `MD5SUMS` was also downloaded. This file has a unique code that identifies the contents of the files of interest, so you can use it to check the integrity of your downloaded copy. We will not cover that step in the lesson but you can check this [article](https://www.geeksforgeeks.org/md5sum-linux-command/) to see how you can use it.
+:::
+
+The genome file `GCF_012593885.1_ASM1259388v1_genomic.fna.gz` is a compressed file located inside the directory `agalactiae_515/refseq/bacteria/GCF_012593885.1/`. Let’s decompress the file with `gunzip` and visualize with `tree` to corroborate the file status.
+
+``` bash
+$ gunzip agalactiae_515/refseq/bacteria/GCF_012593885.1/GCF_012593885.1_ASM1259388v1_genomic.fna.gz
+$ tree agalactiae_515/
+```
+
+::: callout-note
+## Output
+
+```         
+agalactiae_515/
+└── refseq
+    └── bacteria
+        └── GCF_012593885.1
+            ├── GCF_012593885.1_ASM1259388v1_genomic.fna
+            └── MD5SUMS
+
+3 directories, 2 files
+```
+:::
+
+`GCF_012593885.1_ASM1259388v1_genomic.fna` is now with `fna` extension which means is in a nucleotide `fasta` format. Let’s move the file to the `agalactiae_515/` directory and remove the extra content that we will not use again in this lesson.
+
+``` bash
+$ mv agalactiae_515/refseq/bacteria/GCF_012593885.1/GCF_012593885.1_ASM1259388v1_genomic.fna agalactiae_515/.
+$ rm -r agalactiae_515/refseq
+$ ls agalactiae_515/
+```
+
+::: callout-note
+## Output
+
+```         
+GCF_012593885.1_ASM1259388v1_genomic.fna  
 ```
 :::
