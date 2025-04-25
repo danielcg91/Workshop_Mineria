@@ -32,21 +32,21 @@
   {
     "objectID": "Cap2.html",
     "href": "Cap2.html",
-    "title": "3  Instalar Git Bash en Windows",
+    "title": "3  Introduction to Genome Mining",
     "section": "",
-    "text": "3.1 Referencia",
+    "text": "3.1 What is Genome Mining?\nIn bioinformatics, genomic mining is defined as the computational analysis of nucleotide sequence data based on the comparison and recognition of conserved patterns. Under this definition, any computational method that involves searching for and predicting physiological or metabolic properties is considered part of genomic mining. The specific focus of genomic mining, when applied to natural products (NPs), is centered on the identification of biosynthetic gene clusters (BGCs) of NPs.\nNatural products (NPs) are low molecular weight organic molecules that encompass a wide and diverse range of chemical entities with multiple biological functions. These molecules can be produced by bacteria, fungi, plants, and animals. Natural products (NPs) thus play various roles that can be analyzed from two main perspectives:",
     "crumbs": [
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Instalar Git Bash en Windows</span>"
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>**Introduction to Genome Mining**</span>"
     ]
   },
   {
-    "objectID": "Cap2.html#referencia",
-    "href": "Cap2.html#referencia",
-    "title": "3  Instalar Git Bash en Windows",
+    "objectID": "Cap2.html#what-is-genome-mining",
+    "href": "Cap2.html#what-is-genome-mining",
+    "title": "3  Introduction to Genome Mining",
     "section": "",
-    "text": "Guia de instalacion de Git Bash",
+    "text": "Biological function: This refers to the role the molecule plays in the producing organism.\nAnthropocentric function: This focuses on the utility of NPs for humans, including their use in medicine, agriculture, and other areas.",
     "crumbs": [
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Instalar Git Bash en Windows</span>"
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>**Introduction to Genome Mining**</span>"
     ]
   },
   {
