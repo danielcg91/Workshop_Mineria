@@ -118,3 +118,19 @@ d) FALSE. Right next to each feature, there’s a pair of numbers indicating the
 e) TRUE. Each coding sequence is identified by the CDS acronym on the left and information such as coordinates, gene name, locus tag, product description and translation on the right.
 :::
 ::::
+
+## **Annotating multiple genomes**
+
+Now that we know how to annotate genomes with Prokka we can annotate all of the *S. agalactiae* in one run. For this purpose, we will use a complex `while` loop that, for each of the *S. agalactiae* genomes, first extracts the strain name and saves it in a variable, and then uses it inside the Prokka command.
+
+To get the strain names easily we will update our `TettelinList.txt` to add the strain names that it does not have and change the problematic name of the strain 2603V/R. We could just open the file in nano and edit it, but we will do it by coding the changes.\
+With `echo` we will add each strain name in a new line, and with `sed` we will remove the characters `/R` of the problematic strain name.
+
+``` bash
+$ cd ~/pan_workshop/data/
+$ echo "18RS21" >> TettelinList.txt 
+$ echo "H36B" >> TettelinList.txt
+$ echo "515" >> TettelinList.txt 
+$ sed -i 's/\/R//' TettelinList.txt
+$ cat TettelinList.txt
+```
