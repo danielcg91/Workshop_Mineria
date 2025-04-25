@@ -1,3 +1,34 @@
-# Anotación 
+# Anotación
 
-## 
+# **Annotating Genomic Data**
+
+## **Annotating genomes**
+
+[Annotation](https://en.wikipedia.org/wiki/DNA_annotation) is the process of identifying the coordinates of genes and all the coding regions in a genome and determining what proteins are produced from them. In order to do this, an unknown sequence is enriched with information relating to genomic position, regulatory sequences, repeats, gene names, and protein products. This information is stored in genomic databases to help future analysis processing of new data.
+
+[Prokka](https://github.com/tseemann/prokka) is a command-line software tool created in Perl to annotate bacterial, archaeal and viral genomes and reproduce standards-compliant output files. It requires preassembled genomic DNA sequences in FASTA format as input file, which is the only mandatory parameter to the software. For annotation, Prokka relies on external features and databases to identify the genomic features within the contigs.
+
+| Tool (reference)                    | Features predicted         |
+|:------------------------------------|:---------------------------|
+| Prodigal (Hyatt 2010)               | Coding Sequences (CDS)     |
+| RNAmmer (Lagesen et al., 2007)      | Ribosomal RNA genes (rRNA) |
+| Aragorn (Laslett and Canback, 2004) | Transfer RNA genes         |
+| SignalP (Petersen et al., 2011)     | Signal leader peptides     |
+| Infernal (Kolbe and Eddy, 2011)     | Non-coding RNAs            |
+
+Protein coding genes are annotated in two stages. Prodigal identifies the coordinates of candidate genes, but does not describe the putative gene product. Usually, in order to predict what a gene encodes for, it is compared with a large database of known sequences, usually at the protein level, and transferred the annotation of the best significant match. Prokka uses this method but in a hierarchical manner. It starts with a small trustworthy database, it then moves to medium sized but domain-specific databases and finally curated models of protein families.
+
+In this lesson, we’ll annotate the `FASTA` files we have downloaded in the previous lesson. First, we need to create a new directory where our annotated genomes will be.
+
+``` bash
+$ mkdir -p ~/pan_workshop/results/annotated/
+$ cd ~/pan_workshop/results/annotated/
+$ conda deactivate
+$ conda activate /miniconda3/envs/Prokka_Global
+```
+
+Once inside the environment, we are ready to run our first annotation.
+
+``` bash
+(Prokka_Global) $
+```
