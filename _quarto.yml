@@ -15,6 +15,7 @@ book:
     - Cap3.qmd
     - Cap4.qmd
     - Cap5.qmd
+    
   # Information
   repo-url: https://github.com/ISCB-RSG-MEXICO/Workshop_template # link de Github
   sharing: [twitter, facebook, linkedin]
