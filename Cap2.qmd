@@ -81,11 +81,17 @@ Here we will provide tips and tricks to plan and execute a genome mining project
 
 -   Give time to make your science repeatable and help your community.
 
-::: callout-note
+:::: callout-note
 ## **Discussion 1: Describe your project**
 
 What are the advantages of documenting your work? Are there other things you can do to make your mining work more reproducible, like commenting on your scripts, etc.?
+
+::: {.callout-tip collapse="TRUE"}
+## solution
+
+Documenting your work helps others (including your future self) understand what you have done and facilitates troubleshooting. To make your work more reproducible, you can detail the code logic by commenting on your scripts, use version control systems like [Git](https://carpentries-incubator.github.io/git-novice-branch-pr/), have backups of your scripts, share your data and code with others to facilitate feedback, and follow standardized workflows or protocols like those taught in this lesson. You can also name your files properly with a consistent format, structure your directories well, and back up your work regularly. Additionally, keeping a log (or “bitácora”) can serve as a tutorial for your future self, making it easier to understand your work later on.
 :::
+::::
 
 ## **Starting a genome mining project**
 
