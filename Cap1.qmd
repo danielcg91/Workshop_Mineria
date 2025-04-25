@@ -1,6 +1,6 @@
-# Introducción a la Resistencia a Antibióticos 
+# Introducción a la Resistencia a Antibióticos
 
-# **Genome database for this workshop** 
+# **Genome database for this workshop**
 
 ### **Description of the dataset**
 

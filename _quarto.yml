@@ -4,8 +4,8 @@ project:
 
 book:
   title: "Workshop"
-  author: "Dra. Evelia Coss"
-  date: "27/03/2025"
+  author: "Dr. Daniel Chávez"
+  date: "28/04/2025"
   page-navigation: true
   chapters:
     - index.qmd
