@@ -22,251 +22,171 @@
   {
     "objectID": "Cap1.html",
     "href": "Cap1.html",
-    "title": "2  Introducción a la Resistencia a Antibióticos",
+    "title": "2  Descripción de los datos",
     "section": "",
     "text": "3 Genome database for this workshop\n\n3.0.1 Description of the dataset\nIn this lesson, we will follow a standard pangenomics pipeline that involves genomic annotation, clustering of genes to identify orthologous sequences and build the gene families, and analyzing the pangenome partitions and openness. To illustrate these concepts, we will work with a dataset consisting of eight strains of Streptococcus agalactiae as included in the pioneering pangenome study by Tettelin et al., 2005 (See the Table below).\nWe already have the genomes of strains 18RS21 and H36B available in our pan_workshop/data directory. However, the remaining strains will be downloaded and annotated in the upcoming episodes, allowing us to explore the complete dataset.\nGeneral description of the S. agalactiae genomes\n\n\n\nStrain\nHost\nSerotype\n\n\n\n\nS. agalactiae 18RS21\nHuman\nII\n\n\nS. agalactiae 515\nHuman\nIa\n\n\nS. agalactiae A909\nHuman\nIa\n\n\nS. agalactiae CJB111\nHuman\nV\n\n\nS. agalactiae COH1\nHuman\nIII\n\n\nS. agalactiae H36B\nHuman\nIb\n\n\nS. agalactiae NEM316\nHuman\nIII\n\n\nS. agalactiae 2603V/R\nHuman\nV\n\n\n\n\n\n\n\n\n\nPrepare your genome database\n\n\n\nMake sure you have the pan_workshop/ directory in your home directory. If you do not have it, you can download it with the following instructions.\n$ cd ~ #Make sure you are in the home directory\n$ wget https://zenodo.org/record/7974915/files/pan_workshop.zip?download=1 #Download the `zip` file.\n$ unzip 'pan_workshop.zip?download=1' \n$ rm 'pan_workshop.zip?download=1'\n\n\n\n\n\n\n\n\nKey Points\n\n\n\n\nA pangenome encompasses the complete collection of genes found in all genomes within a specific group, typically a species.\nComparing the complete genome sequences of all members within a clade allows for the construction of a pangenome.\nThe pangenome consists of two main components: the core genome and the accessory genome.\nThe accessory genome can be further divided into the shell genome and the cloud genome.\nIn an open pangenome, the size of the pangenome significantly increases with the addition of each new genome.\nIn a closed pangenome, only a few gene families are added to the pangenome when a new genome is introduced.",
     "crumbs": [
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Introducción a la Resistencia a Antibióticos</span>"
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Descripción de los datos</span>"
     ]
   },
   {
     "objectID": "Cap2.html",
     "href": "Cap2.html",
-    "title": "3  Introduction to Genome Mining",
+    "title": "3  Descarga y exploración de datos",
     "section": "",
-    "text": "3.1 What is Genome Mining?\nIn bioinformatics, genomic mining is defined as the computational analysis of nucleotide sequence data based on the comparison and recognition of conserved patterns. Under this definition, any computational method that involves searching for and predicting physiological or metabolic properties is considered part of genomic mining. The specific focus of genomic mining, when applied to natural products (NPs), is centered on the identification of biosynthetic gene clusters (BGCs) of NPs.\nNatural products (NPs) are low molecular weight organic molecules that encompass a wide and diverse range of chemical entities with multiple biological functions. These molecules can be produced by bacteria, fungi, plants, and animals. Natural products (NPs) thus play various roles that can be analyzed from two main perspectives:",
+    "text": "4 Downloading Genomic Data",
     "crumbs": [
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>**Introduction to Genome Mining**</span>"
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Descarga y exploración de datos</span>"
     ]
   },
   {
-    "objectID": "Cap2.html#what-is-genome-mining",
-    "href": "Cap2.html#what-is-genome-mining",
-    "title": "3  Introduction to Genome Mining",
-    "section": "",
-    "text": "Biological function: This refers to the role the molecule plays in the producing organism.\nAnthropocentric function: This focuses on the utility of NPs for humans, including their use in medicine, agriculture, and other areas.",
+    "objectID": "Cap2.html#getting-genomic-data-from-the-ncbi",
+    "href": "Cap2.html#getting-genomic-data-from-the-ncbi",
+    "title": "3  Descarga y exploración de datos",
+    "section": "4.1 Getting Genomic Data from the NCBI",
+    "text": "4.1 Getting Genomic Data from the NCBI\nIn the previous episode, we downloaded the working directory for this workshop that already contains the genomes of GBS strains 18RS21 and H36B within our pan_workshop/data directory. However, we need another six GBS strains that will be downloaded in this episode. For this purpose, we will learn how to use the specialized ncbi-genome-download package, which was designed to automatically download one or several genomes directly from the NCBI by following specific filters set by user.\nThe ncbi-genome-download package can be installed with Conda. In our case, we have already installed it into the environment under the same name. To use the package, we just have to activate the ncbi-genome-download conda environment.\nTo start using the ncbi-genome-download package, we have to activate the conda environment where it was installed\n$ conda activate /miniconda3/envs/ncbi-genome-download\n\n\n\n\n\n\nOutput\n\n\n\n(ncbi-genome-download) $",
     "crumbs": [
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>**Introduction to Genome Mining**</span>"
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Descarga y exploración de datos</span>"
     ]
   },
   {
     "objectID": "Cap3.html",
     "href": "Cap3.html",
-    "title": "4  Conectar a GitHub con SSH",
+    "title": "4  Introducción a Minería Genómica",
     "section": "",
-    "text": "4.1 Paso 1. Generar una llave pública\nCuando ejecutes el programa, te va a preguntar si quieres generar una frase, identificar y como quieres nombrar la llave. Si no quieres complicarte presiona 3 veces ENTER, hasta que te parezca una pantalla como al siguiente:\nPosteriormente, tendras una carpeta llamada .ssh/, entra en esa carpeta y tendras dos archivos, si no los renombraste tendran el nombre de id_ed25519.\nVamos a abrir la terminal y vamos a ver el contenido de la carpeta .ssh/:",
+    "text": "4.1 Introduction to Genome Mining",
     "crumbs": [
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Conectar a GitHub con SSH</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Introducción a Minería Genómica</span>"
     ]
   },
   {
-    "objectID": "Cap3.html#paso-1.-generar-una-llave-pública",
-    "href": "Cap3.html#paso-1.-generar-una-llave-pública",
-    "title": "4  Conectar a GitHub con SSH",
+    "objectID": "Cap3.html#introduction-to-genome-mining",
+    "href": "Cap3.html#introduction-to-genome-mining",
+    "title": "4  Introducción a Minería Genómica",
     "section": "",
-    "text": "Actividad (15 min)\n\n\n\nDeberan contar con:\n\nUna cuenta en GitHub\nR y RStudio actualizados\nGit instalado\nColoca en la terminal la siguiente información para generar una clave con el mismo correo que usaste para registrar tu cuenta en GitHub.\nssh-keygen -t ed25519 -C \"your_email@example.com\"\nNOTA: Si no cuentas con ssh-keygen instalado, primero corre este código.\nsudo apt-get install ssh-keygen\n\n\n\n\n\n\n\nid_ed25519: llave local, no la vamos a usar. Tampoco la compartas.\nid_ed25519.pub : llave publica. La usaremos para copiarla en los servidores que usaremos.\n\n\nls .ssh/",
+    "text": "4.1.1 What is Genome Mining?\n\nIn bioinformatics, genomic mining is defined as the computational analysis of nucleotide sequence data based on the comparison and recognition of conserved patterns. Under this definition, any computational method that involves searching for and predicting physiological or metabolic properties is considered part of genomic mining. The specific focus of genomic mining, when applied to natural products (NPs), is centered on the identification of biosynthetic gene clusters (BGCs) of NPs.\nNatural products (NPs) are low molecular weight organic molecules that encompass a wide and diverse range of chemical entities with multiple biological functions. These molecules can be produced by bacteria, fungi, plants, and animals. Natural products (NPs) thus play various roles that can be analyzed from two main perspectives:\n\nBiological function: This refers to the role the molecule plays in the producing organism.\nAnthropocentric function: This focuses on the utility of NPs for humans, including their use in medicine, agriculture, and other areas.\n\n\nCurrently, more than 126,000 NPs are known to originate from various sources and are classified into six main groups. These groups are defined based on their chemical structure, the enzymes involved in their synthesis, the precursors used, and the final modifications they undergo.\n\n\n\n\n\n\n\n\nClass\nDescription\nExample\n\n\n\n\nPolyketides (PKs)\nPolyketides are organic molecules characterized by a repetitive chain of ketone (&gt;C=O) and methylene (&gt;CH2) groups. Their biosynthesis is similar to fatty acid synthesis, which is crucial to their diversity. These versatile molecules are found in bacteria, fungi, plants, and marine organisms. Notable examples include erythromycin, an antibiotic used to treat respiratory infections, and lovastatin, a lipid-lowering drug that reduces cholesterol. In summary, polyketides have a structure based on the repetition of ketone and methylene groups, with significant medical and pharmacological applications.\nErythromycin\n\n\nNon-Ribosomal Peptides (NRPs)\nNRPs are a family of natural products that differ from ribosomal peptides due to their non-linear synthesis. Their main structure is based on non-ribosomal modules, which include three key domains: Adenylation, acyl carrier, and condensation domain. Relevant examples include Daptomycin, an antibiotic widely used in various infections. Its NRP structure contributes to its antimicrobial activity. Cyclosporine is an immunosuppressant used in organ transplants. Its NRP structure is crucial to its function. In summary, NRPs feature a non-linear modular structure and play a significant role in medicine and chemical biology.\nDaptomycin\n\n\nRibosomally synthesized and Post-translationally modified Peptides (RiPPs)\nRiPPs are a diverse class of natural products of ribosomal origin. These peptides are produced in the ribosomes and then undergo enzymatic modifications after their synthesis. Historically, RiPPs were studied individually, but in 2013, uniform naming guidelines were established for these natural products. RiPPs include examples such as Microcin J25, an antibacterial RiPP produced by Escherichia coli, and Nisin, an antimicrobial RiPP produced by Lactococcus lactis. Their diversity and applications continue to be the subject of ongoing research.\nNisin\n\n\nSaccharides\nSaccharides produced in bacterial secondary metabolism are molecules synthesized by various mechanisms and then undergo subsequent enzymatic modifications based on the addition of carbohydrates. Two notable examples are Kanamycin, an aminoglycoside produced by Streptomyces kanamyceticus, used to treat bacterial infections, and Streptomycin, another aminoglycoside produced by Streptomyces griseus, which was one of the first antibiotics used to treat tuberculosis. Although their use has decreased due to bacterial resistance, they remain important in some cases.\nKanamycin\n\n\nTerpenes\nTraditionally, terpenes have been considered derivatives of 2-methyl-butadiene, better known as isoprene. Although they have been related to isoprene, terpenes do not directly derive from isoprene, as it has never been found as a natural product. The true precursor of terpenes is mevalonic acid, which comes from acetyl coenzyme A. Terpenes originate through the enzymatic polymerization of two or more isoprene units, assembled and modified in many different ways. Most terpenes have multicentric structures that differ not only in functional group but also in their basic carbon skeleton. These compounds are the main constituent of the essential oils of some plants and flowers, such as lemon and orange trees. They serve various functions in plants, such as being part of chlorophyll, carotenoid pigments, gibberellin and abscisic acid hormones, and increasing the fixation of proteins to cell membranes through isoprenylation. Additionally, terpenes are used in traditional medicine, aromatherapy, and as potential pharmacological agents. Two notable examples of terpenes are limonene, present in citrus peels and used in perfumery and cleaning products, and hopanoids, pentacyclic compounds similar to sterols, whose main function is to confer rigidity to the plasma membrane in prokaryotes.\nDiplopterol\n\n\nAlkaloids\nAlkaloids are a class of natural, basic organic compounds that contain at least one nitrogen atom. They are mainly derived from amino acids and are characterized by their water solubility in acidic pH and solubility in organic solvents at alkaline pH. These compounds are found in various organisms, such as plants, fungi, and bacteria. Alkaloids have a wide range of pharmacological activities, such as Quinine, used against malaria, and Ephedrine, a bronchodilator. Additionally, some alkaloids, such as BE-54017, have an unusual structure, as it presents an indenotryptoline skeleton, rarely observed in other bis-indoles; however, its specific application is not well documented.\nBE-54017",
     "crumbs": [
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Conectar a GitHub con SSH</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Introducción a Minería Genómica</span>"
     ]
   },
   {
-    "objectID": "Cap3.html#paso-2.-copiar-la-clave-ssh-pública",
-    "href": "Cap3.html#paso-2.-copiar-la-clave-ssh-pública",
-    "title": "4  Conectar a GitHub con SSH",
-    "section": "4.2 Paso 2. Copiar la clave SSH pública",
-    "text": "4.2 Paso 2. Copiar la clave SSH pública\n\nAccede a la terminal en tu computadora.\nCopia la clave SSH generada anteriormente usando el siguiente comando:\n\ncat ~/.ssh/id_ed25519.pub\nEste comando mostrará tu clave pública en la terminal.\n\nSelecciona y copia toda la clave que aparece en la terminal. Asegúrate de copiar desde ssh-rsa hasta el final de tu correo electrónico.",
+    "objectID": "Cap3.html#genome-mining-aims-to-find-bgcs",
+    "href": "Cap3.html#genome-mining-aims-to-find-bgcs",
+    "title": "4  Introducción a Minería Genómica",
+    "section": "4.2 Genome mining aims to find BGCs",
+    "text": "4.2 Genome mining aims to find BGCs\nNatural products are encoded in Biosynthetic Gene Clusters (BGCs) in Bacteria. These BGCs are clusters of genes generally placed together in the same genome region. These include the genes encoding the biosynthetic enzymes and those related to the metabolite’s transport or resistance against antibacterial metabolites. Most BGCs are composed of several types of genes, so genome mining is based on the identification of these genes in a genome.\n\nEach class of biosynthetic gene clusters (BGCs) is distinguished by the types of essential and accessory genes it contains. The most common classes of BGCs for natural products include polyketide synthases (PKSs), non-ribosomal peptide synthetases (NRPSs), ribosomally synthesized and post-translationally modified peptides (RiPPs), and terpenes. For example, non-ribosomal peptides (NRPs) are a class of metabolites characterized by the assembly of amino acid residues or their derivatives, with non-ribosomal peptide synthetases being the enzymes responsible for assembling these molecules. NRPSs are large enzymes organized into modules and domains, similar to other common classes of BGCs. Below, we show you an animation created by Michael W. Mullowney of the biosynthesis of a fictitious NP called “fakeomycin”, which is of the NRPS class with a cyclization domain.\n\nGenome mining consists in analyzing genomes with specialized algorithms designed to find some BGCs. Chemists in the last century diligently characterized some of these clusters. We have extensive databases that contain information about which genes belong to which BGCs and some control sets of genes that do not. The use of genome mining methodologies facilitates the prioritization of BGCs for the search of novel metabolites. Since the era of next-generation sequencing, genomes have been explored as a source for discovering new BGCs.",
     "crumbs": [
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Conectar a GitHub con SSH</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Introducción a Minería Genómica</span>"
     ]
   },
   {
-    "objectID": "Cap3.html#paso-3.-agregar-la-clave-ssh-a-tu-cuenta-de-github",
-    "href": "Cap3.html#paso-3.-agregar-la-clave-ssh-a-tu-cuenta-de-github",
-    "title": "4  Conectar a GitHub con SSH",
-    "section": "4.3 Paso 3. Agregar la clave SSH a tu cuenta de GitHub",
-    "text": "4.3 Paso 3. Agregar la clave SSH a tu cuenta de GitHub\n\nInicia sesión en GitHub en tu navegador.\nHaz clic en tu foto de perfil en la esquina superior derecha y selecciona “Settings” (Configuración).\nEn el menú lateral izquierdo, selecciona “SSH and GPG keys”.\nHaz clic en el botón verde “New SSH key”.\nEn el campo “Title”, ingresa un nombre descriptivo para tu clave (por ejemplo, “Mi computadora personal”).\nEn el campo “Key”, pega la clave SSH que copiaste previamente de la terminal.\nHaz clic en “Add SSH key” para guardar la clave.",
+    "objectID": "Cap3.html#chloramphenicol-is-a-known-antibiotic-produced-in-a-bgc",
+    "href": "Cap3.html#chloramphenicol-is-a-known-antibiotic-produced-in-a-bgc",
+    "title": "4  Introducción a Minería Genómica",
+    "section": "4.3 Chloramphenicol is a known antibiotic produced in a BGC",
+    "text": "4.3 Chloramphenicol is a known antibiotic produced in a BGC\nFor example, let’s look into the BGC responsible for chloramphenicol biosynthesis. This is a BGC described for the first time in a Streptomyces venezuelae genome.\n\n\n\n\n\n\n\nExercise 1: Sort the Steps to Identify BGCs Similar to Clavulanic Acid\n\n\n\nBelow is a list of steps in disarray that are part of the process of identifying BGCs similar to clavulanic acid. Your task is to logically order them to establish a coherent methodology that allows the effective identification of such BGCs.\nDisordered Steps:\na. Annotate the genes within the identified BGCs to predict their function.\nb. Compare the identified BGCs against databases of known BGCs to find similarities to clavulanic acid.\nc. Extract DNA from samples of interest, such as microorganism-rich soils or specific bacterial cultures.\nd. Conduct phylogenetic analysis of the BGCs to explore their evolutionary relationship.\ne. Use bioinformatics tools to assemble DNA sequences and detect potential BGCs.\nf. Sequence the extracted DNA using next-generation sequencing (NGS) techniques.",
     "crumbs": [
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Conectar a GitHub con SSH</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Introducción a Minería Genómica</span>"
     ]
   },
   {
-    "objectID": "Cap3.html#paso-4.-configurar-rstudio-para-usar-git-bash-como-terminal",
-    "href": "Cap3.html#paso-4.-configurar-rstudio-para-usar-git-bash-como-terminal",
-    "title": "4  Conectar a GitHub con SSH",
-    "section": "4.4 Paso 4. Configurar RStudio para usar Git Bash como terminal",
-    "text": "4.4 Paso 4. Configurar RStudio para usar Git Bash como terminal\n\nAbre RStudio.\nDirígete a Tools (Herramientas) en la barra superior y selecciona Global Options (Opciones globales).\nEn el menú de opciones globales, selecciona la pestaña Terminal.\nEn el campo New terminal open with, selecciona Git Bash.\n\nHaz clic en Apply y luego en OK.",
+    "objectID": "Cap3.html#planning-a-genome-mining-project",
+    "href": "Cap3.html#planning-a-genome-mining-project",
+    "title": "4  Introducción a Minería Genómica",
+    "section": "4.4 Planning a genome mining project",
+    "text": "4.4 Planning a genome mining project\nHere we will provide tips and tricks to plan and execute a genome mining project. Firstly, choose a set of genomes from taxa. In this lesson we will be working with S. agalactiae genomes (Tettelin et al., 2005). Although this genus is not know for its potential as a Natural products producer, it is good enough to show different approaches to genome mining. Recently, metagenomes have been considered in genome mining studies. Here are some considerations that might be useful as a genome miner:\n\nThink about a research question before starting to analyze the data.\nRemember, raw metadata should remain intact during all genome mining processes. It could be a good idea to change its file permissions to read-only.\nGather as much information as metadata of all the genomes you work with.\nAll your intermediate steps should be considered temporal and may be removed without risk.\nSave your scripts using a version manager, GitHub for example.\nShare your data in public repositories.\nGive time to make your science repeatable and help your community.\n\n\n\n\n\n\n\nDiscussion 1: Describe your project\n\n\n\nWhat are the advantages of documenting your work? Are there other things you can do to make your mining work more reproducible, like commenting on your scripts, etc.?\n\n\n\n\n\n\nsolution\n\n\n\n\n\nDocumenting your work helps others (including your future self) understand what you have done and facilitates troubleshooting. To make your work more reproducible, you can detail the code logic by commenting on your scripts, use version control systems like Git, have backups of your scripts, share your data and code with others to facilitate feedback, and follow standardized workflows or protocols like those taught in this lesson. You can also name your files properly with a consistent format, structure your directories well, and back up your work regularly. Additionally, keeping a log (or “bitácora”) can serve as a tutorial for your future self, making it easier to understand your work later on.",
     "crumbs": [
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Conectar a GitHub con SSH</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Introducción a Minería Genómica</span>"
     ]
   },
   {
-    "objectID": "Cap3.html#paso-5.-abrir-la-terminal-de-git-bash-en-rstudio",
-    "href": "Cap3.html#paso-5.-abrir-la-terminal-de-git-bash-en-rstudio",
-    "title": "4  Conectar a GitHub con SSH",
-    "section": "4.5 Paso 5. Abrir la terminal de Git Bash en RStudio",
-    "text": "4.5 Paso 5. Abrir la terminal de Git Bash en RStudio\nAhora, para abrir la terminal de Git Bash dentro de RStudio, solo tienes que:\n\nIr al Tools , hacer clic en Terminal y en abrir New terminal.\nDeberías ver que se abre una nueva sesión con Git Bash como la terminal predeterminada.",
+    "objectID": "Cap3.html#starting-a-genome-mining-project",
+    "href": "Cap3.html#starting-a-genome-mining-project",
+    "title": "4  Introducción a Minería Genómica",
+    "section": "4.5 Starting a genome mining project",
+    "text": "4.5 Starting a genome mining project\nOnce you have chosen your set of genomes, you need to annotate the sequences. The process of genome annotation needs two steps. First, a gene calling approach (structural annotation), which looks for CDS or RNAs within the DNA sequences. Once these features have been detected, you need to assign a function for each CDS (functional annotation). This is usually done through comparison against protein databases. There are tens of bioinformatics tools to annotate genomes, but some of the most broadly used are; RAST (Aziz et al. 2008), and Prokka (Seeman, 2014). Here, we will start the genome mining lesson with S. agalactiae genomes already annotated by Prokka. You can download this data from this repository. The annotated genomes are written in GeneBank format (extension “.gbk”). To learn more about the basic annotation of genomes, see the lesson named “Pangenome Analysis in Prokaryotes: Annotating Genomic Data”. These files are also accessible in the… Insert introduction related to the access to the server??",
     "crumbs": [
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Conectar a GitHub con SSH</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Introducción a Minería Genómica</span>"
     ]
   },
   {
-    "objectID": "Cap3.html#paso-6.-verificar-la-conexión",
-    "href": "Cap3.html#paso-6.-verificar-la-conexión",
-    "title": "4  Conectar a GitHub con SSH",
-    "section": "4.6 Paso 6. Verificar la conexión",
-    "text": "4.6 Paso 6. Verificar la conexión\nVuelve a la terminal y ejecuta el siguiente comando para verificar que tu clave SSH está correctamente configurada con GitHub:\nssh -T git@github.com\nEn caso de que se necesite, puedes especificar la llave que usaste:\nssh -i ~/.ssh/id_ed25519.pub -T git@github.com\nEl comando ssh -T git@github.com simplemente verifica que tu clave privada se está usando correctamente y que tu clave pública ha sido registrada en GitHub.\nSi es la primera vez que te conectas a GitHub con SSH, puede que veas un mensaje que te pregunte si deseas continuar conectándote. Escribe “yes”.\nSi todo está bien configurado, deberías ver un mensaje similar a este:\nHi username! You've successfully authenticated, but GitHub does not provide shell access.\nEsto confirmará que tu clave SSH se ha agregado correctamente a tu cuenta de GitHub y que la conexión es exitosa.\n\n4.6.1 Solución a Error de Configuración de Usuario en Git\nEl comando git config se utiliza para configurar opciones en Git, y los siguientes comandos en particular se usan para establecer tu nombre y correo electrónico globalmente en tu configuración de Git:\ngit config --global user.email \"you@example.com\"\ngit config --global user.name \"Your Name\"\n\ngit config --global user.email \"you@example.com\"\n\nEste comando configura tu dirección de correo electrónico, la cual será utilizada en todos tus commits de Git. El correo electrónico asociado con los commits es importante porque ayuda a identificar quién realizó qué cambios en el repositorio. –global significa que esta configuración se aplicará a todos los repositorios en tu máquina.\n\ngit config --global user.name \"Your Name\"\n\nEste comando establece tu nombre de usuario, que también se asociará con los commits que realices. Al igual que el correo electrónico, se utilizará en todos tus commits en cualquier repositorio de Git en tu máquina.",
+    "objectID": "Cap3.html#references",
+    "href": "Cap3.html#references",
+    "title": "4  Introducción a Minería Genómica",
+    "section": "4.6 References",
+    "text": "4.6 References\n\nAziz, R. K., Bartels, D., Best, A. A., DeJongh, M., Disz, T., Edwards, R. A., … & Zagnitko, O. (2008). The RAST Server: rapid annotations using subsystems technology. BMC genomics, 9(1), 1-15.\nSeemann, T. (2014). Prokka: rapid prokaryotic genome annotation. Bioinformatics, 30(14), 2068-2069.\nTettelin, H., Masignani, V., Cieslewicz, M. J., Donati, C., Medini, D., Ward, N. L., … & Fraser, C. M. (2005). Genome analysis of multiple pathogenic isolates of Streptococcus agalactiae: implications for the microbial “pan-genome”. Proceedings of the National Academy of Sciences, 102(39), 13950-13955.\nNett, Markus (2014). Kinghorn, A. D., ed. Genome Mining: Concept and Strategies for Natural Product Discovery. Springer International Publishing. pp. 199-245. ISBN 978-3-319-04900-7. doi:10.1007/978-3-319-04900-7_4.\nKatz, Leonard; Baltz, Richard H. «Natural product discovery: past, present, and future». Journal of Industrial Microbiology and Biotechnology 43 (2-3): 155-176. ISSN 1476-5535. doi:10.1007/s10295-015-1723-5.\nMejía Ponce, Paulina M.(2017). Análisis filogenético de familias de enzimas que utilizan tRNA, indicios para el descubrimiento de productos naturales ocultos en Actinobacteria. Tesis (M.C.)–Centro de Investigación y de Estudios Avanzados del I.P.N. Unidad Irapuato. Laboratorio Nacional de Genómica para la Biodiversidad. 2020-08-13T02:57:32Z.",
     "crumbs": [
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Conectar a GitHub con SSH</span>"
-    ]
-  },
-  {
-    "objectID": "Cap3.html#referencias",
-    "href": "Cap3.html#referencias",
-    "title": "4  Conectar a GitHub con SSH",
-    "section": "4.7 Referencias",
-    "text": "4.7 Referencias\n\nHaydee tutorial: Temas Selectos de Análisis Numérico y Computación Científica: Computo científico para el análisis de datos\nAlejandra Medina tutorial: Control de versiones con GitHub y RStudio",
-    "crumbs": [
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Conectar a GitHub con SSH</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Introducción a Minería Genómica</span>"
     ]
   },
   {
     "objectID": "Cap4.html",
     "href": "Cap4.html",
-    "title": "5  Comandos usados en Github y RStudio",
+    "title": "5  Introducción a Minería Genómica",
     "section": "",
-    "text": "5.1 GitHub primero, RStudio después…\nEsto nos generará los siguientes elementos:\nCon este procedimiento ya no es necesario preocuparse por configurar controles remotos Git y rastrear ramas en la línea de comandos.",
+    "text": "5.1 Introduction to Genome Mining",
     "crumbs": [
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Comandos usados en Github y RStudio</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Introducción a Minería Genómica</span>"
     ]
   },
   {
-    "objectID": "Cap4.html#github-primero-rstudio-después",
-    "href": "Cap4.html#github-primero-rstudio-después",
-    "title": "5  Comandos usados en Github y RStudio",
+    "objectID": "Cap4.html#introduction-to-genome-mining",
+    "href": "Cap4.html#introduction-to-genome-mining",
+    "title": "5  Introducción a Minería Genómica",
     "section": "",
-    "text": "Crea un repositorio en GitHub: mi_repositorio &gt; Public &gt; YES initialize this repository with a README &gt; clicken el gran botón verde “Create repository”\nEn RStudio crea un nuevo proyecto: File &gt; New Project &gt; Version Control &gt; Git. Ahi pega el URL del repositorio https://github.com/mi_usuario/mi_repositorio.git. Da click en Create Project.\n\n\n\nUn directorio nuevo\nUn repositorio Git enlazado a al repositorio de GitHub\nUn proyecto en RStudio",
+    "text": "5.1.1 What is Genome Mining?\n\nIn bioinformatics, genomic mining is defined as the computational analysis of nucleotide sequence data based on the comparison and recognition of conserved patterns. Under this definition, any computational method that involves searching for and predicting physiological or metabolic properties is considered part of genomic mining. The specific focus of genomic mining, when applied to natural products (NPs), is centered on the identification of biosynthetic gene clusters (BGCs) of NPs.\nNatural products (NPs) are low molecular weight organic molecules that encompass a wide and diverse range of chemical entities with multiple biological functions. These molecules can be produced by bacteria, fungi, plants, and animals. Natural products (NPs) thus play various roles that can be analyzed from two main perspectives:\n\nBiological function: This refers to the role the molecule plays in the producing organism.\nAnthropocentric function: This focuses on the utility of NPs for humans, including their use in medicine, agriculture, and other areas.\n\n\nCurrently, more than 126,000 NPs are known to originate from various sources and are classified into six main groups. These groups are defined based on their chemical structure, the enzymes involved in their synthesis, the precursors used, and the final modifications they undergo.\n\n\n\n\n\n\n\n\nClass\nDescription\nExample\n\n\n\n\nPolyketides (PKs)\nPolyketides are organic molecules characterized by a repetitive chain of ketone (&gt;C=O) and methylene (&gt;CH2) groups. Their biosynthesis is similar to fatty acid synthesis, which is crucial to their diversity. These versatile molecules are found in bacteria, fungi, plants, and marine organisms. Notable examples include erythromycin, an antibiotic used to treat respiratory infections, and lovastatin, a lipid-lowering drug that reduces cholesterol. In summary, polyketides have a structure based on the repetition of ketone and methylene groups, with significant medical and pharmacological applications.\nErythromycin\n\n\nNon-Ribosomal Peptides (NRPs)\nNRPs are a family of natural products that differ from ribosomal peptides due to their non-linear synthesis. Their main structure is based on non-ribosomal modules, which include three key domains: Adenylation, acyl carrier, and condensation domain. Relevant examples include Daptomycin, an antibiotic widely used in various infections. Its NRP structure contributes to its antimicrobial activity. Cyclosporine is an immunosuppressant used in organ transplants. Its NRP structure is crucial to its function. In summary, NRPs feature a non-linear modular structure and play a significant role in medicine and chemical biology.\nDaptomycin\n\n\nRibosomally synthesized and Post-translationally modified Peptides (RiPPs)\nRiPPs are a diverse class of natural products of ribosomal origin. These peptides are produced in the ribosomes and then undergo enzymatic modifications after their synthesis. Historically, RiPPs were studied individually, but in 2013, uniform naming guidelines were established for these natural products. RiPPs include examples such as Microcin J25, an antibacterial RiPP produced by Escherichia coli, and Nisin, an antimicrobial RiPP produced by Lactococcus lactis. Their diversity and applications continue to be the subject of ongoing research.\nNisin\n\n\nSaccharides\nSaccharides produced in bacterial secondary metabolism are molecules synthesized by various mechanisms and then undergo subsequent enzymatic modifications based on the addition of carbohydrates. Two notable examples are Kanamycin, an aminoglycoside produced by Streptomyces kanamyceticus, used to treat bacterial infections, and Streptomycin, another aminoglycoside produced by Streptomyces griseus, which was one of the first antibiotics used to treat tuberculosis. Although their use has decreased due to bacterial resistance, they remain important in some cases.\nKanamycin\n\n\nTerpenes\nTraditionally, terpenes have been considered derivatives of 2-methyl-butadiene, better known as isoprene. Although they have been related to isoprene, terpenes do not directly derive from isoprene, as it has never been found as a natural product. The true precursor of terpenes is mevalonic acid, which comes from acetyl coenzyme A. Terpenes originate through the enzymatic polymerization of two or more isoprene units, assembled and modified in many different ways. Most terpenes have multicentric structures that differ not only in functional group but also in their basic carbon skeleton. These compounds are the main constituent of the essential oils of some plants and flowers, such as lemon and orange trees. They serve various functions in plants, such as being part of chlorophyll, carotenoid pigments, gibberellin and abscisic acid hormones, and increasing the fixation of proteins to cell membranes through isoprenylation. Additionally, terpenes are used in traditional medicine, aromatherapy, and as potential pharmacological agents. Two notable examples of terpenes are limonene, present in citrus peels and used in perfumery and cleaning products, and hopanoids, pentacyclic compounds similar to sterols, whose main function is to confer rigidity to the plasma membrane in prokaryotes.\nDiplopterol\n\n\nAlkaloids\nAlkaloids are a class of natural, basic organic compounds that contain at least one nitrogen atom. They are mainly derived from amino acids and are characterized by their water solubility in acidic pH and solubility in organic solvents at alkaline pH. These compounds are found in various organisms, such as plants, fungi, and bacteria. Alkaloids have a wide range of pharmacological activities, such as Quinine, used against malaria, and Ephedrine, a bronchodilator. Additionally, some alkaloids, such as BE-54017, have an unusual structure, as it presents an indenotryptoline skeleton, rarely observed in other bis-indoles; however, its specific application is not well documented.\nBE-54017",
     "crumbs": [
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Comandos usados en Github y RStudio</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Introducción a Minería Genómica</span>"
     ]
   },
   {
-    "objectID": "Cap4.html#comentar-pull-y-push-en-rstudio",
-    "href": "Cap4.html#comentar-pull-y-push-en-rstudio",
-    "title": "5  Comandos usados en Github y RStudio",
-    "section": "5.2 Comentar, pull y push en Rstudio",
-    "text": "5.2 Comentar, pull y push en Rstudio\n\nCon la flecha azul podemos hacer pull (RECUERDA HACERLO ANTES DE HACER UN PUSH), y con la flecha verde un push. Para poder comentar y hacer push debemos marcar con una palomita mediante un click en las pequeñas cajas blancas de la columna Staged, damos click en commit lo cual nos abre la siguiente ventana.\n\nVolvemos a dar click en commit, y finalizamos con push (flecha verde).",
+    "objectID": "Cap4.html#genome-mining-aims-to-find-bgcs",
+    "href": "Cap4.html#genome-mining-aims-to-find-bgcs",
+    "title": "5  Introducción a Minería Genómica",
+    "section": "5.2 Genome mining aims to find BGCs",
+    "text": "5.2 Genome mining aims to find BGCs\nNatural products are encoded in Biosynthetic Gene Clusters (BGCs) in Bacteria. These BGCs are clusters of genes generally placed together in the same genome region. These include the genes encoding the biosynthetic enzymes and those related to the metabolite’s transport or resistance against antibacterial metabolites. Most BGCs are composed of several types of genes, so genome mining is based on the identification of these genes in a genome.\n\nEach class of biosynthetic gene clusters (BGCs) is distinguished by the types of essential and accessory genes it contains. The most common classes of BGCs for natural products include polyketide synthases (PKSs), non-ribosomal peptide synthetases (NRPSs), ribosomally synthesized and post-translationally modified peptides (RiPPs), and terpenes. For example, non-ribosomal peptides (NRPs) are a class of metabolites characterized by the assembly of amino acid residues or their derivatives, with non-ribosomal peptide synthetases being the enzymes responsible for assembling these molecules. NRPSs are large enzymes organized into modules and domains, similar to other common classes of BGCs. Below, we show you an animation created by Michael W. Mullowney of the biosynthesis of a fictitious NP called “fakeomycin”, which is of the NRPS class with a cyclization domain.\n\nGenome mining consists in analyzing genomes with specialized algorithms designed to find some BGCs. Chemists in the last century diligently characterized some of these clusters. We have extensive databases that contain information about which genes belong to which BGCs and some control sets of genes that do not. The use of genome mining methodologies facilitates the prioritization of BGCs for the search of novel metabolites. Since the era of next-generation sequencing, genomes have been explored as a source for discovering new BGCs.",
     "crumbs": [
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Comandos usados en Github y RStudio</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Introducción a Minería Genómica</span>"
     ]
   },
   {
-    "objectID": "Cap4.html#pagina-de-inicio-en-github",
-    "href": "Cap4.html#pagina-de-inicio-en-github",
-    "title": "5  Comandos usados en Github y RStudio",
-    "section": "5.3 Pagina de inicio en GitHub",
-    "text": "5.3 Pagina de inicio en GitHub\n\n\n\n\n\n\nActividad\n\n\n\n\nEn GitHub, crea un repositorio con el mismo nombre de usuario. Ejemplo: Mi usuario es EveliaCoss y mi repositorio se llama EveliaCoss, dandome la siguiente liga https://github.com/EveliaCoss/EveliaCoss\nAgrega un README al repositorio con tu informacion. Por Default ya trae una plantilla, modificala y adaptala a tu gusto.\nVisualiza como cambia tu inicio en el Github.\nSincroniza el GitHub en RStudio y realiza los cambios desde ahi.",
+    "objectID": "Cap4.html#chloramphenicol-is-a-known-antibiotic-produced-in-a-bgc",
+    "href": "Cap4.html#chloramphenicol-is-a-known-antibiotic-produced-in-a-bgc",
+    "title": "5  Introducción a Minería Genómica",
+    "section": "5.3 Chloramphenicol is a known antibiotic produced in a BGC",
+    "text": "5.3 Chloramphenicol is a known antibiotic produced in a BGC\nFor example, let’s look into the BGC responsible for chloramphenicol biosynthesis. This is a BGC described for the first time in a Streptomyces venezuelae genome.\n\n\n\n\n\n\n\nExercise 1: Sort the Steps to Identify BGCs Similar to Clavulanic Acid\n\n\n\nBelow is a list of steps in disarray that are part of the process of identifying BGCs similar to clavulanic acid. Your task is to logically order them to establish a coherent methodology that allows the effective identification of such BGCs.\nDisordered Steps:\na. Annotate the genes within the identified BGCs to predict their function.\nb. Compare the identified BGCs against databases of known BGCs to find similarities to clavulanic acid.\nc. Extract DNA from samples of interest, such as microorganism-rich soils or specific bacterial cultures.\nd. Conduct phylogenetic analysis of the BGCs to explore their evolutionary relationship.\ne. Use bioinformatics tools to assemble DNA sequences and detect potential BGCs.\nf. Sequence the extracted DNA using next-generation sequencing (NGS) techniques.",
     "crumbs": [
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Comandos usados en Github y RStudio</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Introducción a Minería Genómica</span>"
     ]
   },
   {
-    "objectID": "Cap4.html#referencias",
-    "href": "Cap4.html#referencias",
-    "title": "5  Comandos usados en Github y RStudio",
-    "section": "5.4 Referencias",
-    "text": "5.4 Referencias\n\nHaydee tutorial: Temas Selectos de Análisis Numérico y Computación Científica: Computo científico para el análisis de datos\nAlejandra Medina tutorial: Control de versiones con GitHub y RStudio",
+    "objectID": "Cap4.html#planning-a-genome-mining-project",
+    "href": "Cap4.html#planning-a-genome-mining-project",
+    "title": "5  Introducción a Minería Genómica",
+    "section": "5.4 Planning a genome mining project",
+    "text": "5.4 Planning a genome mining project\nHere we will provide tips and tricks to plan and execute a genome mining project. Firstly, choose a set of genomes from taxa. In this lesson we will be working with S. agalactiae genomes (Tettelin et al., 2005). Although this genus is not know for its potential as a Natural products producer, it is good enough to show different approaches to genome mining. Recently, metagenomes have been considered in genome mining studies. Here are some considerations that might be useful as a genome miner:\n\nThink about a research question before starting to analyze the data.\nRemember, raw metadata should remain intact during all genome mining processes. It could be a good idea to change its file permissions to read-only.\nGather as much information as metadata of all the genomes you work with.\nAll your intermediate steps should be considered temporal and may be removed without risk.\nSave your scripts using a version manager, GitHub for example.\nShare your data in public repositories.\nGive time to make your science repeatable and help your community.\n\n\n\n\n\n\n\nDiscussion 1: Describe your project\n\n\n\nWhat are the advantages of documenting your work? Are there other things you can do to make your mining work more reproducible, like commenting on your scripts, etc.?\n\n\n\n\n\n\nsolution\n\n\n\n\n\nDocumenting your work helps others (including your future self) understand what you have done and facilitates troubleshooting. To make your work more reproducible, you can detail the code logic by commenting on your scripts, use version control systems like Git, have backups of your scripts, share your data and code with others to facilitate feedback, and follow standardized workflows or protocols like those taught in this lesson. You can also name your files properly with a consistent format, structure your directories well, and back up your work regularly. Additionally, keeping a log (or “bitácora”) can serve as a tutorial for your future self, making it easier to understand your work later on.",
     "crumbs": [
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Comandos usados en Github y RStudio</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Introducción a Minería Genómica</span>"
     ]
   },
   {
-    "objectID": "Cap5.html",
-    "href": "Cap5.html",
-    "title": "6  Buenas practicas en R",
-    "section": "",
-    "text": "6.1 Materiales informativos\n💪 Estuve muy intensa viendo su codigo. Muchas gracias por tenerlos publico.",
+    "objectID": "Cap4.html#starting-a-genome-mining-project",
+    "href": "Cap4.html#starting-a-genome-mining-project",
+    "title": "5  Introducción a Minería Genómica",
+    "section": "5.5 Starting a genome mining project",
+    "text": "5.5 Starting a genome mining project\nOnce you have chosen your set of genomes, you need to annotate the sequences. The process of genome annotation needs two steps. First, a gene calling approach (structural annotation), which looks for CDS or RNAs within the DNA sequences. Once these features have been detected, you need to assign a function for each CDS (functional annotation). This is usually done through comparison against protein databases. There are tens of bioinformatics tools to annotate genomes, but some of the most broadly used are; RAST (Aziz et al. 2008), and Prokka (Seeman, 2014). Here, we will start the genome mining lesson with S. agalactiae genomes already annotated by Prokka. You can download this data from this repository. The annotated genomes are written in GeneBank format (extension “.gbk”). To learn more about the basic annotation of genomes, see the lesson named “Pangenome Analysis in Prokaryotes: Annotating Genomic Data”. These files are also accessible in the… Insert introduction related to the access to the server??",
     "crumbs": [
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Buenas practicas en R</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Introducción a Minería Genómica</span>"
     ]
   },
   {
-    "objectID": "Cap5.html#materiales-informativos",
-    "href": "Cap5.html#materiales-informativos",
-    "title": "6  Buenas practicas en R",
-    "section": "",
-    "text": "Curso de Joselyn Cristina Chávez Fuentes\nMe ayudo mucho este Video\nDocumentación de funciones de Andrés Arredondo Cruz",
+    "objectID": "Cap4.html#references",
+    "href": "Cap4.html#references",
+    "title": "5  Introducción a Minería Genómica",
+    "section": "5.6 References",
+    "text": "5.6 References\n\nAziz, R. K., Bartels, D., Best, A. A., DeJongh, M., Disz, T., Edwards, R. A., … & Zagnitko, O. (2008). The RAST Server: rapid annotations using subsystems technology. BMC genomics, 9(1), 1-15.\nSeemann, T. (2014). Prokka: rapid prokaryotic genome annotation. Bioinformatics, 30(14), 2068-2069.\nTettelin, H., Masignani, V., Cieslewicz, M. J., Donati, C., Medini, D., Ward, N. L., … & Fraser, C. M. (2005). Genome analysis of multiple pathogenic isolates of Streptococcus agalactiae: implications for the microbial “pan-genome”. Proceedings of the National Academy of Sciences, 102(39), 13950-13955.\nNett, Markus (2014). Kinghorn, A. D., ed. Genome Mining: Concept and Strategies for Natural Product Discovery. Springer International Publishing. pp. 199-245. ISBN 978-3-319-04900-7. doi:10.1007/978-3-319-04900-7_4.\nKatz, Leonard; Baltz, Richard H. «Natural product discovery: past, present, and future». Journal of Industrial Microbiology and Biotechnology 43 (2-3): 155-176. ISSN 1476-5535. doi:10.1007/s10295-015-1723-5.\nMejía Ponce, Paulina M.(2017). Análisis filogenético de familias de enzimas que utilizan tRNA, indicios para el descubrimiento de productos naturales ocultos en Actinobacteria. Tesis (M.C.)–Centro de Investigación y de Estudios Avanzados del I.P.N. Unidad Irapuato. Laboratorio Nacional de Genómica para la Biodiversidad. 2020-08-13T02:57:32Z.",
     "crumbs": [
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Buenas practicas en R</span>"
-    ]
-  },
-  {
-    "objectID": "Cap5.html#un-algoritmo-nos-permite-resolver-un-problema",
-    "href": "Cap5.html#un-algoritmo-nos-permite-resolver-un-problema",
-    "title": "6  Buenas practicas en R",
-    "section": "6.2 Un algoritmo nos permite resolver un problema ⭐",
-    "text": "6.2 Un algoritmo nos permite resolver un problema ⭐\nUn algoritmo es un método para resolver un problema mediante una serie de pasos definidos, precisos y finitos.\n\nDefinido: si se sigue dos veces, se obtiene el mismo resultado. Es reproducible.\nPreciso: implica el orden de realización de cada uno de los pasos.\nFinito: Tiene un numero determinado de pasos, implica que tiene un fin.\n\n\nUn algoritmo podemos definirlo como un programa o software.",
-    "crumbs": [
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Buenas practicas en R</span>"
-    ]
-  },
-  {
-    "objectID": "Cap5.html#para-escribir-un-buen-software-necesitas",
-    "href": "Cap5.html#para-escribir-un-buen-software-necesitas",
-    "title": "6  Buenas practicas en R",
-    "section": "6.3 Para escribir un buen software necesitas:",
-    "text": "6.3 Para escribir un buen software necesitas:\n\nEscribir código mantenible (maintainable code), usar control de versiones (version control) y rastreadores de problemas (issue trackers), revisiones de código (code reviews), pruebas unitarias (unit testing) y automatización de tareas (task automation).\nWilson, et al. 2014. PLOS Biology\n\nCon el fin de previnir retracciones.\n\n\n\n\n\n\nPasos para escribir un buen software\n\n\n\n\nAnálisis del problema / Definir el problema\nDiseño del algoritmo / Diseño del programa\nCodificación / Escribir el código\nCompilación y ejecución del programa\nVerificación / Realizar pruebas\nDepuración / Detectar los errores y corregirlos\n\n\nProgramacion defensiva\n\n\nDocumentación",
-    "crumbs": [
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Buenas practicas en R</span>"
-    ]
-  },
-  {
-    "objectID": "Cap5.html#paso-7-documentación",
-    "href": "Cap5.html#paso-7-documentación",
-    "title": "6  Buenas practicas en R",
-    "section": "6.4 Paso 7: Documentación",
-    "text": "6.4 Paso 7: Documentación\n\n\n\n\n\n\nNote\n\n\n\n\nAutor (author): Su nombre\nDia (date): Fecha de creación\nPaquetes (packages)\nDirectorio de trabajo (Working directory): En que carpeta se encuentra tu datos y programa.\nInformación descriptiva del programa (Description): ¿Para qué sirve el programa? Ej: El siguiente programa realiza la suma de dos numeros enteros a partir de la entrada del usuario y posteriormente la imprime en pantalla.\nUsage ¿Cómo se utiliza?\nArgumentos (Arguments)\n\nInformación de entrada (Data Inputs): Ej: Solo numeros enteros (sin decimales).\nInformación de salida (Outpus): Graficas, figuras, tablas, etc.",
-    "crumbs": [
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Buenas practicas en R</span>"
-    ]
-  },
-  {
-    "objectID": "Cap5.html#puntos-claves-para-buenas-practicas-en-bioinfo",
-    "href": "Cap5.html#puntos-claves-para-buenas-practicas-en-bioinfo",
-    "title": "6  Buenas practicas en R",
-    "section": "6.5 Puntos claves para buenas practicas en bioinfo ⭐",
-    "text": "6.5 Puntos claves para buenas practicas en bioinfo ⭐\n\nEscriba programas para personas, no para computadoras (Documenta qué hace y por qué). - Se coherente en la nomenclatura, indentación y otros aspectos del estilo.\nDivide los programas en funciones cortas de un solo propósito. 💻 📚\nNo repitas tu código. Crea pasos reproducibles o que se repitan por si solas. ➰\nPlanifique los errores (Programacion defensiva) 🚩\nOptimice el software sólo después de que funcione correctamente. - Si funciona no lo modifiques, simplificalo.\nColaborar - Busque siempre bibliotecas de software bien mantenidas que hagan lo que necesita. 👥\n\n\n\n\n\n\n\nEjemplo de como realizo mis documentos 💜\n\n\n\nAqui les dejo el script que les doy a mis alumnos VisualizacionDatos.R del curso de Análisis de datos de RNA-Seq.",
-    "crumbs": [
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Buenas practicas en R</span>"
-    ]
-  },
-  {
-    "objectID": "Cap5.html#pagina-web-en-github",
-    "href": "Cap5.html#pagina-web-en-github",
-    "title": "6  Buenas practicas en R",
-    "section": "6.6 Pagina web en GitHub",
-    "text": "6.6 Pagina web en GitHub\n\n\n\n\n\n\nActividad\n\n\n\n\nEn GitHub, crea un repositorio con el mismo nombre de usuario y agregale “.github.io”. Ejemplo: Mi usuario es EveliaCoss y mi repositorio se llama “EveliaCoss.github.io”, dandome la siguiente liga https://github.com/EveliaCoss/EveliaCoss.github.io\nDescarga el archivo index.Rmd y modificalo con tu informacion en tu repositorio.\nNo olvides sincronizar el GitHub en RStudio y realiza los cambios desde ahi.\nEn GitHub, convierte en pagina web tu repositorio en Settings &gt; Pages &gt; Branch cambia a Main y root &gt; Save",
-    "crumbs": [
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Buenas practicas en R</span>"
-    ]
-  },
-  {
-    "objectID": "Cap5.html#top-github-users-by-public-contributions-in-mexico",
-    "href": "Cap5.html#top-github-users-by-public-contributions-in-mexico",
-    "title": "6  Buenas practicas en R",
-    "section": "6.7 Top GitHub Users By Public Contributions in Mexico",
-    "text": "6.7 Top GitHub Users By Public Contributions in Mexico",
-    "crumbs": [
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Buenas practicas en R</span>"
-    ]
-  },
-  {
-    "objectID": "Cap5.html#referencias",
-    "href": "Cap5.html#referencias",
-    "title": "6  Buenas practicas en R",
-    "section": "6.8 Referencias",
-    "text": "6.8 Referencias\n\nHaydee tutorial: Temas Selectos de Análisis Numérico y Computación Científica: Computo científico para el análisis de datos\nAlejandra Medina tutorial: Control de versiones con GitHub y RStudio\nWilson, et al. 2014. Best Practices for Scientific Computing. PLOS Biology\nEvelia Coss - tutorial Buenas practicas en R\nEvelia Coss - Make your CV tutorial",
-    "crumbs": [
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Buenas practicas en R</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Introducción a Minería Genómica</span>"
     ]
   }
 ]

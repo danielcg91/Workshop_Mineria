@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>3&nbsp; Introduction to Genome Mining – Workshop</title>
+<title>3&nbsp; Descarga y exploración de datos – Workshop</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +19,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -84,7 +118,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Cap2.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title"><strong>Introduction to Genome Mining</strong></span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Cap2.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Descarga y exploración de datos</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -151,31 +185,25 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Cap1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introducción a la Resistencia a Antibióticos</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Descripción de los datos</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Cap2.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title"><strong>Introduction to Genome Mining</strong></span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Descarga y exploración de datos</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Cap3.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Conectar a GitHub con SSH</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Introducción a Minería Genómica</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Cap4.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Comandos usados en Github y RStudio</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./Cap5.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Buenas practicas en R</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Introducción a Minería Genómica</span></span></a>
   </div>
 </li>
     </ul>
@@ -188,7 +216,10 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#what-is-genome-mining" id="toc-what-is-genome-mining" class="nav-link active" data-scroll-target="#what-is-genome-mining"><span class="header-section-number">3.1</span> <strong>What is Genome Mining?</strong></a></li>
+  <li><a href="#downloading-genomic-data" id="toc-downloading-genomic-data" class="nav-link active" data-scroll-target="#downloading-genomic-data"><span class="header-section-number">4</span> <strong>Downloading Genomic Data</strong></a>
+  <ul>
+  <li><a href="#getting-genomic-data-from-the-ncbi" id="toc-getting-genomic-data-from-the-ncbi" class="nav-link" data-scroll-target="#getting-genomic-data-from-the-ncbi"><span class="header-section-number">4.1</span> <strong>Getting Genomic Data from the NCBI</strong></a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -197,7 +228,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title"><strong>Introduction to Genome Mining</strong></span></h1>
+<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Descarga y exploración de datos</span></h1>
 </div>
 
 
@@ -214,17 +245,30 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="what-is-genome-mining" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="what-is-genome-mining"><span class="header-section-number">3.1</span> <strong>What is Genome Mining?</strong></h2>
-<p><img src="https://carpentries-incubator.github.io/genome-mining/fig/Chapter1Fig1.png" class="img-fluid"></p>
-<p>In bioinformatics, genomic mining is defined as the computational analysis of nucleotide sequence data based on the comparison and recognition of conserved patterns. Under this definition, any computational method that involves searching for and predicting physiological or metabolic properties is considered part of genomic mining. The specific focus of genomic mining, when applied to natural products (NPs), is centered on the identification of biosynthetic gene clusters (BGCs) of NPs.</p>
-<p>Natural products (NPs) are low molecular weight organic molecules that encompass a wide and diverse range of chemical entities with multiple biological functions. These molecules can be produced by bacteria, fungi, plants, and animals. Natural products (NPs) thus play various roles that can be analyzed from two main perspectives:</p>
-<ul>
-<li><p><strong>Biological function</strong>: This refers to the role the molecule plays in the producing organism.</p></li>
-<li><p><strong>Anthropocentric function</strong>: This focuses on the utility of NPs for humans, including their use in medicine, agriculture, and other areas.</p></li>
-</ul>
+<section id="downloading-genomic-data" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> <strong>Downloading Genomic Data</strong></h1>
+<section id="getting-genomic-data-from-the-ncbi" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="getting-genomic-data-from-the-ncbi"><span class="header-section-number">4.1</span> <strong>Getting Genomic Data from the NCBI</strong></h2>
+<p>In the <a href="https://paumayell.github.io/pangenomics/01-introduction/index.html">previous episode</a>, we downloaded the working directory for this workshop that already contains the genomes of GBS strains <code>18RS21</code> and <code>H36B</code> within our <code>pan_workshop/data</code> directory. However, we need another six GBS strains that will be downloaded in this episode. For this purpose, we will learn how to use the specialized <code>ncbi-genome-download</code> <a href="https://github.com/kblin/ncbi-genome-download">package</a>, which was designed to automatically download one or several genomes directly from the NCBI by following specific filters set by user.</p>
+<p>The <code>ncbi-genome-download</code> package can be installed with Conda. In our case, we have already installed it into the environment under the same name. To use the package, we just have to activate the <em>ncbi-genome-download</em> conda environment.</p>
+<p>To start using the <code>ncbi-genome-download package</code>, we have to activate the conda environment where it was installed</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> conda activate /miniconda3/envs/ncbi-genome-download</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Output
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code>(ncbi-genome-download) $</code></pre>
+</div>
+</div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -794,13 +838,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./Cap1.html" class="pagination-link" aria-label="Introducción a la Resistencia a Antibióticos">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introducción a la Resistencia a Antibióticos</span></span>
+      <a href="./Cap1.html" class="pagination-link" aria-label="Descripción de los datos">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Descripción de los datos</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./Cap3.html" class="pagination-link" aria-label="Conectar a GitHub con SSH">
-        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Conectar a GitHub con SSH</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./Cap3.html" class="pagination-link" aria-label="Introducción a Minería Genómica">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Introducción a Minería Genómica</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
