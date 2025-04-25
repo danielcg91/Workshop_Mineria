@@ -36,7 +36,7 @@ Once inside the environment, we are ready to run our first annotation.
 In this example, we will use the following options:
 
 | Code | Meaning |
-|:---|:---|
+|:-----------------------------------|:-----------------------------------|
 | –prefix | Filename output prefix \[auto\] (default ‘’) |
 | –outdir | Output folder \[auto\] (default ‘’) |
 | –kingdom | Annotation mode: Archaea Bacteria Mitochondria Viruses (default ‘Bacteria’) |
@@ -81,7 +81,7 @@ tree
 We encourage you to explore each output. The following table describes the contents of each output file:
 
 | Extension | Description |
-|:---|:---|
+|:-----------------------------------|:-----------------------------------|
 | .gff | This is the master annotation in GFF3 format, containing both sequences and annotations. It can be viewed directly in Artemis or IGV. |
 | .gbk | This is a standard GenBank file derived from the master `.gff`. If the input to Prokka was a multi-FASTA, then this will be a multi-GenBank, with one record for each sequence. |
 | .fna | Nucleotide FASTA file of the input contig sequences. |
@@ -108,7 +108,7 @@ c) Prokka identifies tRNA genes but doesn’t mention the anticodon located on t
 d) Prokka doesn’t provide the positions in which a feature starts or ends.\
 e) The coding sequences are identified with the CDS acronym in the `FEATURES` section of each `LOCUS`.
 
-::: {.callout-note collapse="TRUE"}
+::: {.callout-warning collapse="TRUE" appearance="simple"}
 ## Solution
 
 a\) FALSE. Prokka successfully identifies non-coding sequences and doesn’t translate them. Instead, it provides alternative information (e.g. if it’s a rRNA gene, it tells if it’s 5S, 16S, or 23S).\
