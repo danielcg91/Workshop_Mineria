@@ -4,7 +4,7 @@ project:
 
 book:
   title: "Workshop"
-  author: "Dr. Daniel Chávez"
+  author: "Dr. Daniel Chávez, Marisol Navarro"
   date: "28/04/2025"
   page-navigation: true
   chapters:
@@ -22,7 +22,6 @@ book:
 
 
 format:
-  html:
     toc-depth: 4
     number-depth: 3
   # Boton para cambiar tema de oscuro a claro
