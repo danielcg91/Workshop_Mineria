@@ -15,13 +15,13 @@
 
     #### **Instructores:**
 
-    -   **Evelia Coss** - posdoctoral LIIGH-UNAM. Miembro de [LupusRGMX](https://lupusrgmx.liigh.unam.mx/quienes-somos.html), [Project JAGUAR](https://jaguar.liigh.unam.mx/), [RiaBio](https://twitter.com/RiaBioNet), [CDSB-Mexico](https://twitter.com/CDSBMexico), [RSG-México](https://comunidadbioinfo.github.io/es/#:~:text=%C2%A1Bienvenidos%20a%20la%20Comunidad%20de,la%20comunidad%20de%20software%20libre.) y [RLadies Morelia](https://r-ladies-morelia.github.io/). Coordinadora de los [VieRnes de Bioinformatica en el LIIGH](https://viernesbioinformatica.github.io/). Instructora Certificada de [The Carpentries](https://carpentries.org/). Contacto: [correo](https://iscb-rsg-mexico.github.io/Reprohack2025_RLadiesMorelia_RSGMexico/docs/ecoss@liigh.unam.mx), [pagina web](https://eveliacoss.github.io/)
-
     -   **Marisol Navarro** - [RSG-México](https://comunidadbioinfo.github.io/es/#:~:text=%C2%A1Bienvenidos%20a%20la%20Comunidad%20de,la%20comunidad%20de%20software%20libre.) y [RLadies Morelia](https://r-ladies-morelia.github.io/).
 
     -   **Johana Castelán** - [RSG-México](https://comunidadbioinfo.github.io/es/#:~:text=%C2%A1Bienvenidos%20a%20la%20Comunidad%20de,la%20comunidad%20de%20software%20libre.) y [RLadies Morelia](https://r-ladies-morelia.github.io/).
 
-    Ayudantes:
+    -   **Evelia Coss** - posdoctoral LIIGH-UNAM. Miembro de [LupusRGMX](https://lupusrgmx.liigh.unam.mx/quienes-somos.html), [Project JAGUAR](https://jaguar.liigh.unam.mx/), [RiaBio](https://twitter.com/RiaBioNet), [CDSB-Mexico](https://twitter.com/CDSBMexico), [RSG-México](https://comunidadbioinfo.github.io/es/#:~:text=%C2%A1Bienvenidos%20a%20la%20Comunidad%20de,la%20comunidad%20de%20software%20libre.) y [RLadies Morelia](https://r-ladies-morelia.github.io/). Coordinadora de los [VieRnes de Bioinformatica en el LIIGH](https://viernesbioinformatica.github.io/). Instructora Certificada de [The Carpentries](https://carpentries.org/). Contacto: [correo](https://iscb-rsg-mexico.github.io/Reprohack2025_RLadiesMorelia_RSGMexico/docs/ecoss@liigh.unam.mx), [pagina web](https://eveliacoss.github.io/)
+
+    **Ayudantes:**
 
     -   Mayela Fosado - Instituto de Neurobiología (INB)-UNAM.
 
@@ -53,31 +53,79 @@
 
     -   Contar con una terminal con Git, en Windows puedes usar [Git Bash.](https://miguel-mx.github.io/2024-01-24-ccm-unam-swc/)
 
-    ### Agenda 📆 {#agenda}
+    ### Agenda 29 de abril📆 {#agenda}
 
-    +----------------------------------------------------+----------+
-    | Tema                                               | Tiempo   |
-    +====================================================+:========:+
-    | 🔷 **Sección** **1 - (11:30 - 13:30 h) (7 marzo)** |          |
-    +----------------------------------------------------+----------+
-    | -   Creación de una cuenta en GitHub               | 5 min    |
-    +----------------------------------------------------+----------+
-    | -   Introducción a Git / GitHub                    | 15 min   |
-    +----------------------------------------------------+----------+
-    | -   **Actividad 1**: Sincronización y llaves       | 15 min   |
-    +----------------------------------------------------+----------+
-    | ☕ *Coffee break (10 min) - (12:00-12:10) ☕*      | 10 min   |
-    +----------------------------------------------------+----------+
-    | 🔷  **Sección** **2 - (12:10-13:00 h)**            |          |
-    +----------------------------------------------------+----------+
-    | -   Comandos usados en Github y RStudio            | 25 min   |
-    +----------------------------------------------------+----------+
-    | -   **Actividad 2:** Pagina de inicio en GitHub    | 15 min   |
-    +----------------------------------------------------+----------+
-    | 🔷  **Sección 3 - (11:30 - 13:30 h) (14 marzo)**   |          |
-    +----------------------------------------------------+----------+
-    | -   Buenas practicas en R                          | 30 min   |
-    +----------------------------------------------------+----------+
-    | -   **Actividad 3:** Pagina web en GitHub          | 1:30 min |
-    +----------------------------------------------------+----------+
+    +---------------------------------------------------------------------------------------------------------------------------+---------------+
+    | **Martes**                                                                                                                |               |
+    +---------------------------------------------------------------------------------------------------------------------------+---------------+
+    | Tema                                                                                                                      | Tiempo        |
+    +---------------------------------------------------------------------------------------------------------------------------+---------------+
+    | 1.  **Presentación del taller (15 min)**                                                                                  | 09:00 a 09:30 |
+    |                                                                                                                           |               |
+    | 2.  **Introducción a la Resistencia a Antibióticos (15 min)**                                                             |               |
+    +---------------------------------------------------------------------------------------------------------------------------+---------------+
+    | 3.  **Descripción de los datos (10 min)**                                                                                 | 09:30 a 10:00 |
+    |                                                                                                                           |               |
+    | <https://carpentries-incubator.github.io/pangenomics/01-introduction/index.html>                                          |               |
+    |                                                                                                                           |               |
+    | 4.  **Descarga y exploración de datos (20 min)**                                                                          |               |
+    |                                                                                                                           |               |
+    | https://carpentries-incubator.github.io/pangenomics/02-downloading-genomes/index.html                                     |               |
+    +---------------------------------------------------------------------------------------------------------------------------+---------------+
+    | 5.  **Anotación (25 min)**                                                                                                | 10:00 a 10:30 |
+    |                                                                                                                           |               |
+    | https://carpentries-incubator.github.io/pangenomics/03-annotation-with-Prokka/index.html#annotating-antibiotic-resistance |               |
+    |                                                                                                                           |               |
+    | -   Encuesta 1 de 3 (05 min)                                                                                              |               |
+    +---------------------------------------------------------------------------------------------------------------------------+---------------+
+    | ☕ *Coffee break (30 min) - (12:00-12:10) ☕*                                                                             | 10:30 a 11:00 |
+    +---------------------------------------------------------------------------------------------------------------------------+---------------+
+    | 6.  **CARD (25 min)**                                                                                                     | 11:00 a 11:30 |
+    +---------------------------------------------------------------------------------------------------------------------------+---------------+
+    | 7.  **Introducción a Minería Genómica (30 min)**                                                                          | 11:30 a 12:00 |
+    |                                                                                                                           |               |
+    | https://carpentries-incubator.github.io/genome-mining/01-introduction/index.html                                          |               |
+    +---------------------------------------------------------------------------------------------------------------------------+---------------+
+    | 8.  **Bases de datos de Minería Genómica (30 min)**                                                                       | 12:00 a 12:30 |
+    |                                                                                                                           |               |
+    | https://carpentries-incubator.github.io/genome-mining/03-antiSMASHdb-MiBiG/index.html                                     |               |
+    +---------------------------------------------------------------------------------------------------------------------------+---------------+
+    | -   Encuesta 2 de 3 (05 min)                                                                                              | 12:30 a 13:00 |
+    |                                                                                                                           |               |
+    | -   Plática Reynaldo (15 min) más preguntas                                                                               |               |
+    +---------------------------------------------------------------------------------------------------------------------------+---------------+
+
+    ### Agenda 30 de abril 📆
+
+    +-----------------------------------------------------------------------------------------------+---------------+
+    | **Miercoles**                                                                                 |               |
+    +-----------------------------------------------------------------------------------------------+---------------+
+    | Tema                                                                                          | Tiempo        |
+    +-----------------------------------------------------------------------------------------------+---------------+
+    | 1.  **Identificación de Clusters de Genes Biosintéticos de metabolitos secundarios (30 min)** | 09:00 a 09:30 |
+    |                                                                                               |               |
+    | https://carpentries-incubator.github.io/genome-mining/02-antismash/index.html                 |               |
+    +-----------------------------------------------------------------------------------------------+---------------+
+    | 2.  Redes de similitud de BGCs (30 min)                                                       | 09:30 a 10:00 |
+    |                                                                                               |               |
+    | https://carpentries-incubator.github.io/genome-mining/04-bigscape/index.html                  |               |
+    +-----------------------------------------------------------------------------------------------+---------------+
+    |                                                                                               | 10:00 a 10:30 |
+    +-----------------------------------------------------------------------------------------------+---------------+
+    | ☕ *Coffee break (30 min) - (12:00-12:10) ☕*                                                 | 10:30 a 11:00 |
+    +-----------------------------------------------------------------------------------------------+---------------+
+    |                                                                                               | 11:00 a 11:30 |
+    +-----------------------------------------------------------------------------------------------+---------------+
+    | https://carpentries-incubator.github.io/genome-mining/01-introduction/index.html              | 11:30 a 12:00 |
+    +-----------------------------------------------------------------------------------------------+---------------+
+    | 8.  **Bases de datos de Minería Genómica (30 min)**                                           | 12:00 a 12:30 |
+    |                                                                                               |               |
+    | https://carpentries-incubator.github.io/genome-mining/03-antiSMASHdb-MiBiG/index.html         |               |
+    +-----------------------------------------------------------------------------------------------+---------------+
+    | -   Encuesta 2 de 3 (05 min)                                                                  | 12:30 a 13:00 |
+    |                                                                                               |               |
+    | -   Plática Reynaldo (15 min) más preguntas                                                   |               |
+    +-----------------------------------------------------------------------------------------------+---------------+
+
+    
     :::

@@ -1,6 +1,6 @@
 # Introducción Sobre el Workshop
 
-Agregar informacion y figuras.
+**Minería Genómica Bacteriana: Identificación de genes de producción y resistencia antimicrobiana**
 
 ## Referencias
 
