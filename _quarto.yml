@@ -23,7 +23,6 @@ book:
 
 format:
   html:
-   css: styles.css
     toc-depth: 4
     number-depth: 3
   # Boton para cambiar tema de oscuro a claro
