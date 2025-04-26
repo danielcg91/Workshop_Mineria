@@ -280,7 +280,7 @@ FEATURES             Location/Qualifiers
 
 Voilà! Our `gbk` files now have the strain code in the `ORGANISM` line.
 
-:::: callout-note
+:::::: callout-note
 ## Exercise 2(Intermediate): Counting coding sequences
 
 \
@@ -290,7 +290,9 @@ Use your `grep`, looping, and piping abilities to count the number of coding seq
 
 Note: We will use the `gff` file because the `gbk` contains the aminoacid sequences, so it is possible that with the `grep` command we find the string `CDS` in these sequences, and not only in the description of the features. The `gff` files also have the description of the features but in a different format.
 
-::: {.callout-warning collapse="TRUE"}
+<div>
+
+:::: {.callout-warning collapse="TRUE"}
 First inspect a `gff` file to see what you are working with. Open it with `nano` and scroll through the file to see its contents.
 
 ``` bash
@@ -306,5 +308,58 @@ Now make a loop that goes through every `gff` finding and counting each line wit
 > grep "CDS" $genome | wc -l # Find the lines with the string "CDS" and pipe that to the command wc with the flag -l to count the lines
 > done
 ```
+
+::: callout-note
+## Output
+
+```         
+Streptococcus_agalactiae_18RS21_prokka/Streptococcus_agalactiae_18RS21_prokka.gff
+1960
+Streptococcus_agalactiae_2603V_prokka/Streptococcus_agalactiae_2603V_prokka.gff
+2108
+Streptococcus_agalactiae_515_prokka/Streptococcus_agalactiae_515_prokka.gff
+1963
+Streptococcus_agalactiae_A909_prokka/Streptococcus_agalactiae_A909_prokka.gff
+2067
+Streptococcus_agalactiae_CJB111_prokka/Streptococcus_agalactiae_CJB111_prokka.gff
+2044
+Streptococcus_agalactiae_COH1_prokka/Streptococcus_agalactiae_COH1_prokka.gff
+1992
+Streptococcus_agalactiae_H36B_prokka/Streptococcus_agalactiae_H36B_prokka.gff
+2166
+Streptococcus_agalactiae_NEM316_prokka/Streptococcus_agalactiae_NEM316_prokka.gff
+2139
+```
 :::
 ::::
+
+</div>
+::::::
+
+::: callout-note
+## Annotating your assemblies
+
+> f you work with your own assembled genomes, other problems may arise when annotating them. One likely problem is that the name of your contigs is very long, and since Prokka will use those names as the LOCUS names, the LOCUS names may turn out problematic.\
+> Example of contig name:
+>
+> ``` bash
+> NODE_1_length_44796_cov_57.856817
+> ```
+>
+> Result of LOCUS name in `gbk` file:
+>
+> ``` bash
+> LOCUS       NODE_1_length_44796_cov_57.85681744796 bp   DNA linear
+> ```
+>
+> Here the coverage and the length of the locus are fused, so this will give problems downstream in your analysis.
+>
+> The tool [anvi-script-reformat-fasta](https://anvio.org/help/main/programs/anvi-script-reformat-fasta/) can help you simplify the names of your assemblies and do other magic, such as removing the small contigs or sequences with too many gaps.
+>
+> ``` bash
+> anvi-script-reformat-fasta my_new_assembly.fasta -o my_reformated_assembly.fasta --simplify-names
+> ```
+>
+> This will convert `>NODE_1_length_44796_cov_57.856817` into `>c_000000000001` and the LOCUS name into `LOCUS c_000000000001 44796 bp DNA linear`.\
+> Problem solved!
+:::
