@@ -1,14 +1,14 @@
 # Descripción de los datos
 
-## **Genome database for this workshop**
+## Genome database for this workshop
 
-### **Description of the dataset**
+### Description of the dataset
 
-In this lesson, we will follow a standard pangenomics pipeline that involves genomic annotation, clustering of genes to identify orthologous sequences and build the gene families, and analyzing the pangenome partitions and openness. To illustrate these concepts, we will work with a dataset consisting of eight strains of *Streptococcus agalactiae* as included in the pioneering pangenome study by *Tettelin et al., 2005* (See the **Table** below).
+In this lesson, we will follow a standard pangenomics pipeline that involves genomic annotation, clustering of genes to identify orthologous sequences and build the gene families, and analyzing the pangenome partitions and openness. To illustrate these concepts, we will work with a dataset consisting of eight strains of *Streptococcus agalactiae* as included in the pioneering pangenome study by *Tettelin et al., 2005* (See the Table below).
 
 We already have the genomes of strains 18RS21 and H36B available in our `pan_workshop/data` directory. However, the remaining strains will be downloaded and annotated in the upcoming episodes, allowing us to explore the complete dataset.
 
-**General description of the *S. agalactiae* genomes**
+General description of the *S. agalactiae* genomes
 
 | Strain                  | Host  | Serotype |
 |:------------------------|:------|:---------|
@@ -34,8 +34,8 @@ $ rm 'pan_workshop.zip?download=1'
 ```
 :::
 
-::: {.callout-tip appearance="simple"}
-## Key Points
+::: {.callout-tip style="color:darkgreen" appearance="minimal"}
+## Key Points {style="color:black"}
 
 -   A **pangenome** encompasses the complete collection of genes found in all genomes within a specific group, typically a species.
 

@@ -1,0 +1,8 @@
+.custom-callout {
+  border-left: 5px solid #2e7d32; /* borde verde oscuro */
+  background-color: #e8f5e9;      /* fondo verde claro */
+  padding: 1em;
+  margin: 1em 0;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
