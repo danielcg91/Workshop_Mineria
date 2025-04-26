@@ -221,6 +221,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#annotating-genomes" id="toc-annotating-genomes" class="nav-link" data-scroll-target="#annotating-genomes"><span class="header-section-number">5.1</span> <strong>Annotating genomes</strong></a></li>
   <li><a href="#annotating-multiple-genomes" id="toc-annotating-multiple-genomes" class="nav-link" data-scroll-target="#annotating-multiple-genomes"><span class="header-section-number">5.2</span> <strong>Annotating multiple genomes</strong></a></li>
   <li><a href="#curating-prokka-output-files" id="toc-curating-prokka-output-files" class="nav-link" data-scroll-target="#curating-prokka-output-files"><span class="header-section-number">5.3</span> <strong>Curating Prokka output files</strong></a></li>
+  <li><a href="#annotating-antibiotic-resistance" id="toc-annotating-antibiotic-resistance" class="nav-link" data-scroll-target="#annotating-antibiotic-resistance"><span class="header-section-number">5.4</span> <strong>Annotating antibiotic resistance</strong></a></li>
   </ul></li>
   </ul>
 </nav>
@@ -625,13 +626,13 @@ Before we build our pangenome it can be useful to take a quick look at how many 
 <p>Use your <code>grep</code>, looping, and piping abilities to count the number of coding sequences in the <code>gff</code> files of each genome.</p>
 <p>Note: We will use the <code>gff</code> file because the <code>gbk</code> contains the aminoacid sequences, so it is possible that with the <code>grep</code> command we find the string <code>CDS</code> in these sequences, and not only in the description of the features. The <code>gff</code> files also have the description of the features but in a different format.</p>
 <div>
-<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Warning
+Important
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -701,6 +702,433 @@ Example of contig name:</p>
 <p>This will convert <code>&gt;NODE_1_length_44796_cov_57.856817</code> into <code>&gt;c_000000000001</code> and the LOCUS name into <code>LOCUS c_000000000001 44796 bp DNA linear</code>.<br>
 Problem solved!</p>
 </blockquote>
+</div>
+</div>
+</section>
+<section id="annotating-antibiotic-resistance" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="annotating-antibiotic-resistance"><span class="header-section-number">5.4</span> <strong>Annotating antibiotic resistance</strong></h2>
+<p>Whereas Prokka is useful to identify all kinds of genomic elements, other more specialized pipelines are also available. For example, <a href="https://antismash.secondarymetabolites.org/">antiSMASH</a> searches genomes for biosynthetic gene clusters, responsible for the production of secondary metabolites. Another pipeline of interest is <a href="https://github.com/arpcard/rgi">RGI</a>: the Resistance Gene Identifier. This program allows users to predict genes and SNPs which confer antibiotic resistance to an organism. It is a very complex piece of software subdivided into several subprograms; RGI main, for instance, is used to annotate contigs, and RGI bwt, on the other hand, annotates reads. In this lesson, we’ll learn how to use RGI main. To use it, first activate its virtual environment:</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> conda activate /miniconda3/envs/rgi/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>You can type <code>rgi --help</code> to list all subprograms that RGI provides. In order to get a manual of a specific subcommand, type <code>rgi [command] --help</code>, replacing <code>[command]</code> with your subprogram of interest. Before you do anything with RGI, however, you must download <a href="https://card.mcmaster.ca/">CARD</a> (the Comprehensive Antibiotic Resistance Database), which is used by RGI as reference. To do so, we will use <code>wget</code> and one of the subcommands of RGI, <code>rgi load</code>, as follows:</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cd ~/pan_workshop/data/</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> wget <span class="at">-O</span> card_archive.tar.gz https://card.mcmaster.ca/latest/data</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> tar <span class="at">-xf</span> card_archive.tar.gz ./card.json</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> rgi load <span class="at">--local</span> <span class="at">-i</span> card.json</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> rm card_archive.tar.gz card.json</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>After performing this sequence of commands, you’ll find a directory called <code>localDB/</code> in your current working directory. Its location and name are extremely important: <strong>you must always run RGI inside the parent directory of <code>localDB/</code></strong> (which, in our case, is <code>~/pan_workshop/data/</code>), and <strong>you shall not rename <code>localDB/</code> to anything else</strong>. RGI will fail if you don’t follow these rules.</p>
+<p>As we’ll be using RGI main, write <code>rgi main --help</code> and take a moment to read through the help page. The parameters we’ll be using in this lesson are:</p>
+<ul>
+<li><p><code>-i</code> or <code>--input_sequence</code>. Sets the genomic sequence (in <code>fasta</code> or <code>fasta.gz</code> format) we want to annotate.</p></li>
+<li><p><code>-o</code> or <code>--output_file</code>. Specifies the basename for the two output files RGI produces; for example, if you set this option to <code>outputs</code>, you’ll get two files: <code>outputs.json</code> and <code>outputs.txt</code>.</p></li>
+<li><p><code>--include_loose</code>. When not using this option, RGI will only return hits with strict boundaries; on the other hand, if provided, RGI will also include hits with loose boundaries.</p></li>
+<li><p><code>--local</code>. Tells RGI to use the database stored in <code>localDB/</code>.</p></li>
+<li><p><code>--clean</code>. Removes temporary files created by RGI.</p></li>
+</ul>
+<p>We are now going to create a new directory for RGI main’s outputs:</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> mkdir <span class="at">-p</span> ../results/resistomes/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Next, let’s see how we would find the resistance genes in the 18RS21 strain of <em>S. agalactiae</em>:</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> rgi main <span class="at">--clean</span> <span class="at">--local</span> <span class="at">--include_loose</span> <span class="dt">\</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> -i agalactiae_18RS21/Streptococcus_agalactiae_18RS21.fna <span class="dt">\</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> -o ../results/resistomes/agalactiae_18RS21</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Recall that RGI produces two output files; let’s have a look at them:</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cd ../results/resistomes/</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ls</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Output
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code>agalactiae_18RS21.json
+agalactiae_18RS21.txt</code></pre>
+</div>
+</div>
+<p>The <code>JSON</code> file stores the complete output whereas the <code>.TXT</code> file contains a subset of this information. However, the former isn’t very human-readable, and is mostly useful for downstream analyses with RGI; the latter, on the contrary, has everything we might need in a “friendlier” format. This file is tab-delimited, meaning that it is a table file which uses the tab symbol as separator. Have a look at the file by running <code>less -S agalactiae_18RS21.txt</code>; use the arrow keys to move left and right. A detailed description of the meaning of each column can be found in the table below (taken from RGI’s documentation):</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Column</th>
+<th style="text-align: left;">Field</th>
+<th style="text-align: left;">Contents</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">ORF_ID</td>
+<td style="text-align: left;">Open Reading Frame identifier (internal to RGI)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">Contig</td>
+<td style="text-align: left;">Source Sequence</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">Start</td>
+<td style="text-align: left;">Start co-ordinate of ORF</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">Stop</td>
+<td style="text-align: left;">End co-ordinate of ORF</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">Orientation</td>
+<td style="text-align: left;">Strand of ORF</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">6</td>
+<td style="text-align: left;">Cut_Off</td>
+<td style="text-align: left;">RGI Detection Paradigm (Perfect, Strict, Loose)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">7</td>
+<td style="text-align: left;">Pass_Bitscore</td>
+<td style="text-align: left;">Strict detection model bitscore cut-off</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">8</td>
+<td style="text-align: left;">Best_Hit_Bitscore</td>
+<td style="text-align: left;">Bitscore value of match to top hit in CARD</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">9</td>
+<td style="text-align: left;">Best_Hit_ARO</td>
+<td style="text-align: left;">ARO term of top hit in CARD</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">10</td>
+<td style="text-align: left;">Best_Identities</td>
+<td style="text-align: left;">Percent identity of match to top hit in CARD</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">11</td>
+<td style="text-align: left;">ARO</td>
+<td style="text-align: left;">ARO accession of match to top hit in CARD</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">12</td>
+<td style="text-align: left;">Model_type</td>
+<td style="text-align: left;">CARD detection model type</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">13</td>
+<td style="text-align: left;">SNPs_in_Best_Hit_ARO</td>
+<td style="text-align: left;">Mutations observed in the ARO term of top hit in CARD (if applicable)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">14</td>
+<td style="text-align: left;">Other_SNPs</td>
+<td style="text-align: left;">Mutations observed in ARO terms of other hits indicated by model id (if applicable)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">15</td>
+<td style="text-align: left;">Drug Class</td>
+<td style="text-align: left;">ARO Categorization</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">16</td>
+<td style="text-align: left;">Resistance Mechanism</td>
+<td style="text-align: left;">ARO Categorization</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">17</td>
+<td style="text-align: left;">AMR Gene Family</td>
+<td style="text-align: left;">ARO Categorization</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">18</td>
+<td style="text-align: left;">Predicted_DNA</td>
+<td style="text-align: left;">ORF predicted nucleotide sequence</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">19</td>
+<td style="text-align: left;">Predicted_Protein</td>
+<td style="text-align: left;">ORF predicted protein sequence</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">20</td>
+<td style="text-align: left;">CARD_Protein_Sequence</td>
+<td style="text-align: left;">Protein sequence of top hit in CARD</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">21</td>
+<td style="text-align: left;">Percentage Length of Reference Sequence</td>
+<td style="text-align: left;">(length of ORF protein / length of CARD reference protein)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">22</td>
+<td style="text-align: left;">ID</td>
+<td style="text-align: left;">HSP identifier (internal to RGI)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">23</td>
+<td style="text-align: left;">Model_id</td>
+<td style="text-align: left;">CARD detection model id</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">24</td>
+<td style="text-align: left;">Nudged</td>
+<td style="text-align: left;">TRUE = Hit nudged from Loose to Strict</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">25</td>
+<td style="text-align: left;">Note</td>
+<td style="text-align: left;">Reason for nudge or other notes</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">26</td>
+<td style="text-align: left;">Hit_Start</td>
+<td style="text-align: left;">Start co-ordinate for HSP in CARD reference</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">27</td>
+<td style="text-align: left;">Hit_End</td>
+<td style="text-align: left;">End co-ordinate for HSP in CARD reference</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">28</td>
+<td style="text-align: left;">Antibiotic</td>
+<td style="text-align: left;">ARO Categorization</td>
+</tr>
+</tbody>
+</table>
+<p>When viewing wide tab-delimited files like this one, it might be useful to look at them one column at a time, which can be accomplished with the <code>cut</code> command. For example, if we wanted to look at the Drug Class field (which is the 15th column), we would write the following:</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cut <span class="at">-f</span> 15 agalactiae_18RS21.txt <span class="kw">|</span> <span class="fu">head</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Output
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Drug Class carbapenem mupirocin-like antibiotic phenicol antibiotic macrolide antibiotic macrolide antibiotic; tetracycline antibiotic; disinfecting agents and antiseptics diaminopyrimidine antibiotic carbapenem phenicol antibiotic carbapenem; cephalosporin; penam</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Exercise 3(Intermediate): The most abundant resistance mechanisms
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Complete the following bash command to get the counts of each unique resistance mechanism. Which one is the abundant?</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cut <span class="at">-f</span> ____ agalactiae_18RS21.txt <span class="kw">|</span> <span class="fu">tail</span> +2 <span class="kw">|</span> <span class="ex">____</span> <span class="kw">|</span> <span class="ex">____</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-16-contents" aria-controls="callout-16" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-16" class="callout-16-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>The resistance mechanism is the 16th column, so we should pass the number 16 to <code>cut -f</code>. The <code>tail +2</code> part simply removes the header row. Next, we should sort the rows using <code>sort</code>, and, finally, count each occurrence with <code>uniq -c</code>. Thus, we get the following command:</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cut <span class="at">-f</span> 16 agalactiae_18RS21.txt <span class="kw">|</span> <span class="fu">tail</span> +2 <span class="kw">|</span> <span class="fu">sort</span> <span class="kw">|</span> <span class="fu">uniq</span> <span class="at">-c</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Output
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code> 574 antibiotic efflux
+      7 antibiotic efflux; reduced permeability to antibiotic
+    697 antibiotic inactivation
+    342 antibiotic target alteration
+     11 antibiotic target alteration; antibiotic efflux
+      2 antibiotic target alteration; antibiotic efflux; reduced permeability to antibiotic
+     12 antibiotic target alteration; antibiotic target replacement
+    170 antibiotic target protection
+     49 antibiotic target replacement
+     24 reduced permeability to antibiotic
+      2 resistance by host-dependent nutrient acquisition</code></pre>
+<p>From here, we can see that the <strong>antibiotic inactivation</strong> mechanism is the most abundant.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Exercise 4(Advanced): Annotating antibiotic resistance of multiple genomes
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Fill in the blanks in the following bash loop in order to annotate each of the eight genomes with RGI main and save outputs into <code>~/pan_workshop/results/resistomes/</code>. The basenames of the output files must have the form <code>agalactiae_[strain]</code>, where <code>[strain]</code> shall be replaced with the corresponding strain.</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cd ~/pan_workshop/data/</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cat TettelinList.txt <span class="kw">|</span> <span class="cf">while</span> <span class="bu">read</span> <span class="va">strain</span><span class="kw">;</span> <span class="cf">do</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> rgi <span class="ex">main</span> <span class="at">--clean</span> <span class="at">--local</span> <span class="at">--include_loose</span> <span class="dt">\</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> -i ___________________________ <span class="dt">\</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> -o ___________________________</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> done</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>To check your answer, confirm that you get the same output when running the following:</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ls ~/pan_workshop/results/resistomes/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Output
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code>agalactiae_18RS21.json  agalactiae_515.json   agalactiae_CJB111.json  agalactiae_H36B.json
+agalactiae_18RS21.txt   agalactiae_515.txt    agalactiae_CJB111.txt   agalactiae_H36B.txt
+agalactiae_2603V.json   agalactiae_A909.json  agalactiae_COH1.json    agalactiae_NEM316.json
+agalactiae_2603V.txt    agalactiae_A909.txt   agalactiae_COH1.txt     agalactiae_NEM316.txt</code></pre>
+</div>
+</div>
+<p><strong>Bonus:</strong> Notice that this command will execute RGI main even if the outputs already exist. How would you modify this script so that already processed files are skipped?</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-19-contents" aria-controls="callout-19" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-19" class="callout-19-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>Because <code>TettelinList.txt</code> only stores strains, we must write the complete name by appending <code>agalactiae_</code> before the <code>strain</code> variable and the corresponding file extensions. As such, we get the following command:</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cd ~/pan_workshop/data/</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cat TettelinList.txt <span class="kw">|</span> <span class="cf">while</span> <span class="bu">read</span> <span class="va">strain</span><span class="kw">;</span> <span class="cf">do</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> rgi <span class="ex">main</span> <span class="at">--clean</span> <span class="at">--local</span> <span class="at">--include_loose</span> <span class="dt">\</span></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> -i agalactiae_<span class="va">$strain</span>/<span class="pp">*</span>.fna <span class="dt">\</span></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> -o ../results/resistomes/agalactiae_<span class="va">$strain</span></span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> done</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Bonus:</strong> In order to skip already processed files, we can add a conditional statement which tests for the existence of one of the output files, and run the command if this test fails. We’ll use the <code>.txt</code> file for this check. Recall that to test for the existence of a file, we use the following syntax: <code>if [ -f path/to/file ]</code>; taking this into account, we can now build our command:</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cd ~/pan_workshop/data/</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cat TettelinList.txt <span class="kw">|</span> <span class="cf">while</span> <span class="bu">read</span> <span class="va">strain</span><span class="kw">;</span> <span class="cf">do</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> if <span class="bu">[</span> <span class="ot">-f</span> ../results/resistomes/agalactiae_<span class="va">$strain</span>.txt <span class="bu">]</span><span class="kw">;</span> <span class="cf">then</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> echo <span class="st">"Skipping </span><span class="va">$strain</span><span class="st">"</span></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> else</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> echo <span class="st">"Annotating </span><span class="va">$strain</span><span class="st">"</span></span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> rgi <span class="ex">main</span> <span class="at">--clean</span> <span class="at">--local</span> <span class="at">--include_loose</span> <span class="dt">\</span></span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> -i agalactiae_<span class="va">$strain</span>/<span class="pp">*</span>.fna <span class="dt">\</span></span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> -o ../results/resistomes/agalactiae_<span class="va">$strain</span> <span class="dt">\</span></span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> fi</span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> done</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Unleashing the power of the command line: building presence-absence tables from RGI main outputs
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<blockquote class="blockquote">
+<p>Bash is a powerful and flexible language; as an example of the possibilities that it enables, we will create a presence-absence table from our RGI results. This kind of table stores the presence or absence of features in a set of individuals. Each cell may contain a 1 if the feature is present or a 0 otherwise. In our case, each column will correspond to a genome, and each row to an ARO, which is a unique identifier for resistance genes.</p>
+<p>First, let’s create the script and grant it the permission to execute:</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> touch create-rgi-presence-table.sh</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> chmod +x create-rgi-presence-table.sh</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Next, open the script with any text editor and copy the following code into it. Several comments have been added throughout the script to make it clear what is being done at each step. Links to useful articles detailing specific Bash scripting tools are also provided.</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Set "Bash Strict Mode". [1]</span></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-euo</span> pipefail</span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a><span class="va">IFS</span><span class="op">=</span><span class="st">$'</span><span class="dt">\n\t</span><span class="st">'</span></span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Show help message when no arguments are passed and exit. [2]</span></span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">[</span> <span class="va">$#</span> <span class="ot">-lt</span> 1 <span class="bu">]</span><span class="kw">;</span> <span class="cf">then</span></span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>  <span class="bu">echo</span> <span class="st">"Usage: </span><span class="va">$0</span><span class="st"> [TXT FILES] &gt; [OUTPUT TSV FILE]"</span> <span class="op">&gt;&amp;</span><span class="dv">2</span></span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>  <span class="bu">echo</span> Create a presence-absence table from RGI main txt outputs. <span class="op">&gt;&amp;</span><span class="dv">2</span></span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a>  <span class="bu">exit</span> 1</span>
+<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a><span class="cf">fi</span></span>
+<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Output table parts.</span></span>
+<span id="cb40-15"><a href="#cb40-15" aria-hidden="true" tabindex="-1"></a><span class="va">header</span><span class="op">=</span><span class="st">"aro"</span></span>
+<span id="cb40-16"><a href="#cb40-16" aria-hidden="true" tabindex="-1"></a><span class="va">table</span><span class="op">=</span><span class="st">""</span></span>
+<span id="cb40-17"><a href="#cb40-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-18"><a href="#cb40-18" aria-hidden="true" tabindex="-1"></a><span class="co"># For each passed file. [2]</span></span>
+<span id="cb40-19"><a href="#cb40-19" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> file <span class="kw">in</span> <span class="va">$@</span><span class="kw">;</span> <span class="cf">do</span></span>
+<span id="cb40-20"><a href="#cb40-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-21"><a href="#cb40-21" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add column name to header.</span></span>
+<span id="cb40-22"><a href="#cb40-22" aria-hidden="true" tabindex="-1"></a>  <span class="va">header</span><span class="op">=</span><span class="va">$header</span><span class="st">'\t'</span><span class="va">$(</span><span class="fu">basename</span> <span class="va">$file</span> .txt<span class="va">)</span></span>
+<span id="cb40-23"><a href="#cb40-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-24"><a href="#cb40-24" aria-hidden="true" tabindex="-1"></a>  <span class="co"># List file's AROs and append the digit 1 at the right of each line. [3]</span></span>
+<span id="cb40-25"><a href="#cb40-25" aria-hidden="true" tabindex="-1"></a>  <span class="va">aros</span><span class="op">=</span><span class="va">$(</span><span class="fu">cut</span> <span class="at">-f</span> 11 <span class="va">$file</span> <span class="kw">|</span> <span class="fu">tail</span> +2 <span class="kw">|</span> <span class="fu">sort</span> <span class="kw">|</span> <span class="fu">uniq</span> <span class="kw">|</span> <span class="fu">sed</span> <span class="st">'s/$/ 1/'</span><span class="va">)</span></span>
+<span id="cb40-26"><a href="#cb40-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-27"><a href="#cb40-27" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Join the AROs into table, fill missing values with zeroes. [4] [5]</span></span>
+<span id="cb40-28"><a href="#cb40-28" aria-hidden="true" tabindex="-1"></a>  <span class="va">table</span><span class="op">=</span><span class="va">$(</span><span class="fu">join</span> <span class="at">-e</span> 0 <span class="at">-a</span> 1 <span class="at">-a</span> 2 <span class="op">&lt;(</span><span class="bu">echo</span> <span class="st">"</span><span class="va">${table}</span><span class="st">"</span><span class="op">)</span> <span class="op">&lt;(</span><span class="bu">echo</span> <span class="st">"</span><span class="va">${aros}</span><span class="st">"</span><span class="op">)</span> <span class="at">-o</span> auto<span class="va">)</span></span>
+<span id="cb40-29"><a href="#cb40-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-30"><a href="#cb40-30" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span>
+<span id="cb40-31"><a href="#cb40-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-32"><a href="#cb40-32" aria-hidden="true" tabindex="-1"></a><span class="co"># Print full tab-delimited table.</span></span>
+<span id="cb40-33"><a href="#cb40-33" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="at">-e</span> <span class="st">"</span><span class="va">${header}</span><span class="st">"</span></span>
+<span id="cb40-34"><a href="#cb40-34" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"</span><span class="va">${table}</span><span class="st">"</span> <span class="kw">|</span> <span class="fu">tr</span> <span class="st">' '</span> <span class="st">'\t'</span> <span class="kw">|</span> <span class="fu">tail</span> +2</span>
+<span id="cb40-35"><a href="#cb40-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-36"><a href="#cb40-36" aria-hidden="true" tabindex="-1"></a><span class="co"># Useful links:</span></span>
+<span id="cb40-37"><a href="#cb40-37" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] More info about the "Bash Strict Mode":</span></span>
+<span id="cb40-38"><a href="#cb40-38" aria-hidden="true" tabindex="-1"></a><span class="co">#     http://redsymbol.net/articles/unofficial-bash-strict-mode/</span></span>
+<span id="cb40-39"><a href="#cb40-39" aria-hidden="true" tabindex="-1"></a><span class="co"># [2] Both $# and $@ are examples of special variables. Learn about them here:</span></span>
+<span id="cb40-40"><a href="#cb40-40" aria-hidden="true" tabindex="-1"></a><span class="co">#     https://linuxhandbook.com/bash-special-variables/</span></span>
+<span id="cb40-41"><a href="#cb40-41" aria-hidden="true" tabindex="-1"></a><span class="co"># [3] Sed is a powerful text processing tool. Get started here:</span></span>
+<span id="cb40-42"><a href="#cb40-42" aria-hidden="true" tabindex="-1"></a><span class="co">#     https://www.geeksforgeeks.org/sed-command-in-linux-unix-with-examples/</span></span>
+<span id="cb40-43"><a href="#cb40-43" aria-hidden="true" tabindex="-1"></a><span class="co"># [4] Learn how to use the join command from this source:</span></span>
+<span id="cb40-44"><a href="#cb40-44" aria-hidden="true" tabindex="-1"></a><span class="co">#     https://www.ibm.com/docs/ro/aix/7.2?topic=j-join-command</span></span>
+<span id="cb40-45"><a href="#cb40-45" aria-hidden="true" tabindex="-1"></a><span class="co"># [5] The &lt;(EXPRESSION) notation is called process substitution, used here</span></span>
+<span id="cb40-46"><a href="#cb40-46" aria-hidden="true" tabindex="-1"></a><span class="co">#     because the join command only accepts files. Learn more from here:</span></span>
+<span id="cb40-47"><a href="#cb40-47" aria-hidden="true" tabindex="-1"></a><span class="co">#     https://medium.com/factualopinions/process-substitution-in-bash-739096a2f66d</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Finally, you can run this script by passing the eight <code>.txt</code> files we obtained from Exercise 4 as arguments:</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ./create-rgi-presence-table.sh ~/pan_workshop/results/resistomes/<span class="pp">*</span>.txt <span class="op">&gt;</span> agalactiae_rgi_presence.tsv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</blockquote>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" style="color:green">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Key Points
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><p>Prokka is a command line utility that provides rapid prokaryotic genome annotation.</p></li>
+<li><p>Sometimes we need manual curation of the output files of the software.</p></li>
+<li><p>Specialized software exist to perform annotation of specific genomic elements.</p></li>
+</ul>
 </div>
 </div>
 
