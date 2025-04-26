@@ -49,3 +49,7 @@ $ rm 'pan_workshop.zip?download=1'
 
 -   In a **closed pangenome**, only a few gene families are added to the pangenome when a new genome is introduced.
 :::
+
+References
+
+<https://carpentries-incubator.github.io/pangenomics/01-introduction/index.html>

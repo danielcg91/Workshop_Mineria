@@ -647,3 +647,7 @@ $ cat TettelinList.txt | while read strain; do
 
 -   Specialized software exist to perform annotation of specific genomic elements.
 :::
+
+References
+
+<https://carpentries-incubator.github.io/pangenomics/03-annotation-with-Prokka/index.html#annotating-antibiotic-resistance>

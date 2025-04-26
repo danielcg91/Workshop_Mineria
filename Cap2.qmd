@@ -552,3 +552,7 @@ ncbi-genome-download -F fasta --genera "Streptococcus" -n bacteria > ~/pan_works
 :::
 ::::
 :::::
+
+References
+
+<https://carpentries-incubator.github.io/pangenomics/02-downloading-genomes/index.html>
