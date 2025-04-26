@@ -420,7 +420,7 @@ agalactiae_18RS21.txt
 The `JSON` file stores the complete output whereas the `.TXT` file contains a subset of this information. However, the former isn’t very human-readable, and is mostly useful for downstream analyses with RGI; the latter, on the contrary, has everything we might need in a “friendlier” format. This file is tab-delimited, meaning that it is a table file which uses the tab symbol as separator. Have a look at the file by running `less -S agalactiae_18RS21.txt`; use the arrow keys to move left and right. A detailed description of the meaning of each column can be found in the table below (taken from RGI’s documentation):
 
 | Column | Field | Contents |
-|:---|:---|:---|
+|:-----------------------|:-----------------------|:-----------------------|
 | 1 | ORF_ID | Open Reading Frame identifier (internal to RGI) |
 | 2 | Contig | Source Sequence |
 | 3 | Start | Start co-ordinate of ORF |
@@ -636,10 +636,9 @@ $ cat TettelinList.txt | while read strain; do
 > ``` bash
 > $ ./create-rgi-presence-table.sh ~/pan_workshop/results/resistomes/*.txt > agalactiae_rgi_presence.tsv
 > ```
-
 :::
 
-::: {.callout-note style="color:green"}
+::: {.callout-note style="color:darkgreen"}
 ## Key Points
 
 -   Prokka is a command line utility that provides rapid prokaryotic genome annotation.
