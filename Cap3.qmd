@@ -187,16 +187,7 @@ $ head Streptococcus_agalactiae_18RS21_prokka/Streptococcus_agalactiae_18RS21_pr
 ## Output
 
 \
-LOCUS AAJO01000553.1 259 bp DNA linear 22-FEB-2023
-DEFINITION Streptococcus agalactiae strain 18RS21.
-ACCESSION
-VERSION
-KEYWORDS .
-SOURCE Streptococcus agalactiae
-ORGANISM Streptococcus agalactiae
-Unclassified.
-COMMENT Annotated using prokka 1.14.6 from
-https://github.com/tseemann/prokka.
+LOCUS AAJO01000553.1 259 bp DNA linear 22-FEB-2023 DEFINITION Streptococcus agalactiae strain 18RS21. ACCESSION VERSION KEYWORDS . SOURCE Streptococcus agalactiae ORGANISM Streptococcus agalactiae Unclassified. COMMENT Annotated using prokka 1.14.6 from https://github.com/tseemann/prokka.
 :::
 
 We can see that in the `ORGANISM` field we have the word “Unclassified”. If we compare it to the `gbk` file for the same strain, that came with the original data folder (which was obtained from the NCBI) we can see that the strain code should be there.
@@ -292,7 +283,7 @@ Note: We will use the `gff` file because the `gbk` contains the aminoacid sequen
 
 <div>
 
-:::: {.callout-warning collapse="TRUE"}
+:::: {.callout-important collapse="TRUE"}
 First inspect a `gff` file to see what you are working with. Open it with `nano` and scroll through the file to see its contents.
 
 ``` bash
@@ -362,4 +353,298 @@ Streptococcus_agalactiae_NEM316_prokka/Streptococcus_agalactiae_NEM316_prokka.gf
 >
 > This will convert `>NODE_1_length_44796_cov_57.856817` into `>c_000000000001` and the LOCUS name into `LOCUS c_000000000001 44796 bp DNA linear`.\
 > Problem solved!
+:::
+
+## **Annotating antibiotic resistance**
+
+Whereas Prokka is useful to identify all kinds of genomic elements, other more specialized pipelines are also available. For example, [antiSMASH](https://antismash.secondarymetabolites.org/) searches genomes for biosynthetic gene clusters, responsible for the production of secondary metabolites. Another pipeline of interest is [RGI](https://github.com/arpcard/rgi): the Resistance Gene Identifier. This program allows users to predict genes and SNPs which confer antibiotic resistance to an organism. It is a very complex piece of software subdivided into several subprograms; RGI main, for instance, is used to annotate contigs, and RGI bwt, on the other hand, annotates reads. In this lesson, we’ll learn how to use RGI main. To use it, first activate its virtual environment:
+
+``` bash
+$ conda activate /miniconda3/envs/rgi/
+```
+
+You can type `rgi --help` to list all subprograms that RGI provides. In order to get a manual of a specific subcommand, type `rgi [command] --help`, replacing `[command]` with your subprogram of interest. Before you do anything with RGI, however, you must download [CARD](https://card.mcmaster.ca/) (the Comprehensive Antibiotic Resistance Database), which is used by RGI as reference. To do so, we will use `wget` and one of the subcommands of RGI, `rgi load`, as follows:
+
+``` bash
+$ cd ~/pan_workshop/data/
+$ wget -O card_archive.tar.gz https://card.mcmaster.ca/latest/data
+$ tar -xf card_archive.tar.gz ./card.json
+$ rgi load --local -i card.json
+$ rm card_archive.tar.gz card.json
+```
+
+After performing this sequence of commands, you’ll find a directory called `localDB/` in your current working directory. Its location and name are extremely important: **you must always run RGI inside the parent directory of `localDB/`** (which, in our case, is `~/pan_workshop/data/`), and **you shall not rename `localDB/` to anything else**. RGI will fail if you don’t follow these rules.
+
+As we’ll be using RGI main, write `rgi main --help` and take a moment to read through the help page. The parameters we’ll be using in this lesson are:
+
+-   `-i` or `--input_sequence`. Sets the genomic sequence (in `fasta` or `fasta.gz` format) we want to annotate.
+
+-   `-o` or `--output_file`. Specifies the basename for the two output files RGI produces; for example, if you set this option to `outputs`, you’ll get two files: `outputs.json` and `outputs.txt`.
+
+-   `--include_loose`. When not using this option, RGI will only return hits with strict boundaries; on the other hand, if provided, RGI will also include hits with loose boundaries.
+
+-   `--local`. Tells RGI to use the database stored in `localDB/`.
+
+-   `--clean`. Removes temporary files created by RGI.
+
+We are now going to create a new directory for RGI main’s outputs:
+
+``` bash
+$ mkdir -p ../results/resistomes/
+```
+
+Next, let’s see how we would find the resistance genes in the 18RS21 strain of *S. agalactiae*:
+
+``` bash
+$ rgi main --clean --local --include_loose \
+> -i agalactiae_18RS21/Streptococcus_agalactiae_18RS21.fna \
+> -o ../results/resistomes/agalactiae_18RS21
+```
+
+Recall that RGI produces two output files; let’s have a look at them:
+
+``` bash
+$ cd ../results/resistomes/
+$ ls
+```
+
+::: callout-note
+## Output
+
+```         
+agalactiae_18RS21.json
+agalactiae_18RS21.txt
+```
+:::
+
+The `JSON` file stores the complete output whereas the `.TXT` file contains a subset of this information. However, the former isn’t very human-readable, and is mostly useful for downstream analyses with RGI; the latter, on the contrary, has everything we might need in a “friendlier” format. This file is tab-delimited, meaning that it is a table file which uses the tab symbol as separator. Have a look at the file by running `less -S agalactiae_18RS21.txt`; use the arrow keys to move left and right. A detailed description of the meaning of each column can be found in the table below (taken from RGI’s documentation):
+
+| Column | Field | Contents |
+|:---|:---|:---|
+| 1 | ORF_ID | Open Reading Frame identifier (internal to RGI) |
+| 2 | Contig | Source Sequence |
+| 3 | Start | Start co-ordinate of ORF |
+| 4 | Stop | End co-ordinate of ORF |
+| 5 | Orientation | Strand of ORF |
+| 6 | Cut_Off | RGI Detection Paradigm (Perfect, Strict, Loose) |
+| 7 | Pass_Bitscore | Strict detection model bitscore cut-off |
+| 8 | Best_Hit_Bitscore | Bitscore value of match to top hit in CARD |
+| 9 | Best_Hit_ARO | ARO term of top hit in CARD |
+| 10 | Best_Identities | Percent identity of match to top hit in CARD |
+| 11 | ARO | ARO accession of match to top hit in CARD |
+| 12 | Model_type | CARD detection model type |
+| 13 | SNPs_in_Best_Hit_ARO | Mutations observed in the ARO term of top hit in CARD (if applicable) |
+| 14 | Other_SNPs | Mutations observed in ARO terms of other hits indicated by model id (if applicable) |
+| 15 | Drug Class | ARO Categorization |
+| 16 | Resistance Mechanism | ARO Categorization |
+| 17 | AMR Gene Family | ARO Categorization |
+| 18 | Predicted_DNA | ORF predicted nucleotide sequence |
+| 19 | Predicted_Protein | ORF predicted protein sequence |
+| 20 | CARD_Protein_Sequence | Protein sequence of top hit in CARD |
+| 21 | Percentage Length of Reference Sequence | (length of ORF protein / length of CARD reference protein) |
+| 22 | ID | HSP identifier (internal to RGI) |
+| 23 | Model_id | CARD detection model id |
+| 24 | Nudged | TRUE = Hit nudged from Loose to Strict |
+| 25 | Note | Reason for nudge or other notes |
+| 26 | Hit_Start | Start co-ordinate for HSP in CARD reference |
+| 27 | Hit_End | End co-ordinate for HSP in CARD reference |
+| 28 | Antibiotic | ARO Categorization |
+
+When viewing wide tab-delimited files like this one, it might be useful to look at them one column at a time, which can be accomplished with the `cut` command. For example, if we wanted to look at the Drug Class field (which is the 15th column), we would write the following:
+
+``` bash
+$ cut -f 15 agalactiae_18RS21.txt | head
+```
+
+::: callout-note
+## Output
+
+Drug Class carbapenem mupirocin-like antibiotic phenicol antibiotic macrolide antibiotic macrolide antibiotic; tetracycline antibiotic; disinfecting agents and antiseptics diaminopyrimidine antibiotic carbapenem phenicol antibiotic carbapenem; cephalosporin; penam
+:::
+
+::::: callout-note
+## Exercise 3(Intermediate): The most abundant resistance mechanisms
+
+Complete the following bash command to get the counts of each unique resistance mechanism. Which one is the abundant?
+
+``` bash
+$ cut -f ____ agalactiae_18RS21.txt | tail +2 | ____ | ____
+```
+
+:::: {.callout-note collapse="TRUE"}
+## Solution
+
+The resistance mechanism is the 16th column, so we should pass the number 16 to `cut -f`. The `tail +2` part simply removes the header row. Next, we should sort the rows using `sort`, and, finally, count each occurrence with `uniq -c`. Thus, we get the following command:
+
+``` bash
+$ cut -f 16 agalactiae_18RS21.txt | tail +2 | sort | uniq -c
+```
+
+::: callout-note
+## Output
+
+```         
+ 574 antibiotic efflux
+      7 antibiotic efflux; reduced permeability to antibiotic
+    697 antibiotic inactivation
+    342 antibiotic target alteration
+     11 antibiotic target alteration; antibiotic efflux
+      2 antibiotic target alteration; antibiotic efflux; reduced permeability to antibiotic
+     12 antibiotic target alteration; antibiotic target replacement
+    170 antibiotic target protection
+     49 antibiotic target replacement
+     24 reduced permeability to antibiotic
+      2 resistance by host-dependent nutrient acquisition
+```
+
+From here, we can see that the **antibiotic inactivation** mechanism is the most abundant.
+:::
+::::
+:::::
+
+::::: callout-note
+## Exercise 4(Advanced): Annotating antibiotic resistance of multiple genomes
+
+Fill in the blanks in the following bash loop in order to annotate each of the eight genomes with RGI main and save outputs into `~/pan_workshop/results/resistomes/`. The basenames of the output files must have the form `agalactiae_[strain]`, where `[strain]` shall be replaced with the corresponding strain.
+
+``` bash
+$ cd ~/pan_workshop/data/
+$ cat TettelinList.txt | while read strain; do
+> rgi main --clean --local --include_loose \
+> -i ___________________________ \
+> -o ___________________________
+> done
+```
+
+To check your answer, confirm that you get the same output when running the following:
+
+``` bash
+$ ls ~/pan_workshop/results/resistomes/
+```
+
+::: callout-note
+## Output
+
+```         
+agalactiae_18RS21.json  agalactiae_515.json   agalactiae_CJB111.json  agalactiae_H36B.json
+agalactiae_18RS21.txt   agalactiae_515.txt    agalactiae_CJB111.txt   agalactiae_H36B.txt
+agalactiae_2603V.json   agalactiae_A909.json  agalactiae_COH1.json    agalactiae_NEM316.json
+agalactiae_2603V.txt    agalactiae_A909.txt   agalactiae_COH1.txt     agalactiae_NEM316.txt
+```
+:::
+
+**Bonus:** Notice that this command will execute RGI main even if the outputs already exist. How would you modify this script so that already processed files are skipped?
+
+::: {.callout-note collapse="TRUE"}
+## Solution
+
+Because `TettelinList.txt` only stores strains, we must write the complete name by appending `agalactiae_` before the `strain` variable and the corresponding file extensions. As such, we get the following command:
+
+``` bash
+$ cd ~/pan_workshop/data/
+$ cat TettelinList.txt | while read strain; do
+> rgi main --clean --local --include_loose \
+> -i agalactiae_$strain/*.fna \
+> -o ../results/resistomes/agalactiae_$strain
+> done
+```
+
+**Bonus:** In order to skip already processed files, we can add a conditional statement which tests for the existence of one of the output files, and run the command if this test fails. We’ll use the `.txt` file for this check. Recall that to test for the existence of a file, we use the following syntax: `if [ -f path/to/file ]`; taking this into account, we can now build our command:
+
+``` bash
+$ cd ~/pan_workshop/data/
+$ cat TettelinList.txt | while read strain; do
+> if [ -f ../results/resistomes/agalactiae_$strain.txt ]; then
+> echo "Skipping $strain"
+> else
+> echo "Annotating $strain"
+> rgi main --clean --local --include_loose \
+> -i agalactiae_$strain/*.fna \
+> -o ../results/resistomes/agalactiae_$strain \
+> fi
+> done
+```
+:::
+:::::
+
+::: callout-note
+## Unleashing the power of the command line: building presence-absence tables from RGI main outputs
+
+> Bash is a powerful and flexible language; as an example of the possibilities that it enables, we will create a presence-absence table from our RGI results. This kind of table stores the presence or absence of features in a set of individuals. Each cell may contain a 1 if the feature is present or a 0 otherwise. In our case, each column will correspond to a genome, and each row to an ARO, which is a unique identifier for resistance genes.
+>
+> First, let’s create the script and grant it the permission to execute:
+>
+> ``` bash
+> $ touch create-rgi-presence-table.sh
+> $ chmod +x create-rgi-presence-table.sh
+> ```
+>
+> Next, open the script with any text editor and copy the following code into it. Several comments have been added throughout the script to make it clear what is being done at each step. Links to useful articles detailing specific Bash scripting tools are also provided.
+>
+> ``` bash
+> #!/bin/bash
+>
+> # Set "Bash Strict Mode". [1]
+> set -euo pipefail
+> IFS=$'\n\t'
+>
+> # Show help message when no arguments are passed and exit. [2]
+> if [ $# -lt 1 ]; then
+>   echo "Usage: $0 [TXT FILES] > [OUTPUT TSV FILE]" >&2
+>   echo Create a presence-absence table from RGI main txt outputs. >&2
+>   exit 1
+> fi
+>
+> # Output table parts.
+> header="aro"
+> table=""
+>
+> # For each passed file. [2]
+> for file in $@; do
+>
+>   # Add column name to header.
+>   header=$header'\t'$(basename $file .txt)
+>
+>   # List file's AROs and append the digit 1 at the right of each line. [3]
+>   aros=$(cut -f 11 $file | tail +2 | sort | uniq | sed 's/$/ 1/')
+>
+>   # Join the AROs into table, fill missing values with zeroes. [4] [5]
+>   table=$(join -e 0 -a 1 -a 2 <(echo "${table}") <(echo "${aros}") -o auto)
+>
+> done
+>
+> # Print full tab-delimited table.
+> echo -e "${header}"
+> echo "${table}" | tr ' ' '\t' | tail +2
+>
+> # Useful links:
+> # [1] More info about the "Bash Strict Mode":
+> #     http://redsymbol.net/articles/unofficial-bash-strict-mode/
+> # [2] Both $# and $@ are examples of special variables. Learn about them here:
+> #     https://linuxhandbook.com/bash-special-variables/
+> # [3] Sed is a powerful text processing tool. Get started here:
+> #     https://www.geeksforgeeks.org/sed-command-in-linux-unix-with-examples/
+> # [4] Learn how to use the join command from this source:
+> #     https://www.ibm.com/docs/ro/aix/7.2?topic=j-join-command
+> # [5] The <(EXPRESSION) notation is called process substitution, used here
+> #     because the join command only accepts files. Learn more from here:
+> #     https://medium.com/factualopinions/process-substitution-in-bash-739096a2f66d
+> ```
+>
+> Finally, you can run this script by passing the eight `.txt` files we obtained from Exercise 4 as arguments:
+>
+> ``` bash
+> $ ./create-rgi-presence-table.sh ~/pan_workshop/results/resistomes/*.txt > agalactiae_rgi_presence.tsv
+> ```
+
+:::
+
+::: {.callout-note style="color:green"}
+## Key Points
+
+-   Prokka is a command line utility that provides rapid prokaryotic genome annotation.
+
+-   Sometimes we need manual curation of the output files of the software.
+
+-   Specialized software exist to perform annotation of specific genomic elements.
 :::

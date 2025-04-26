@@ -624,8 +624,9 @@ Exercise 2(Intermediate): Counting coding sequences
 Before we build our pangenome it can be useful to take a quick look at how many coding sequences each of our genomes have. This way we can know if they have a number close to the expected one (if we have some previous knowledge of our organism of study).</p>
 <p>Use your <code>grep</code>, looping, and piping abilities to count the number of coding sequences in the <code>gff</code> files of each genome.</p>
 <p>Note: We will use the <code>gff</code> file because the <code>gbk</code> contains the aminoacid sequences, so it is possible that with the <code>grep</code> command we find the string <code>CDS</code> in these sequences, and not only in the description of the features. The <code>gff</code> files also have the description of the features but in a different format.</p>
+<div>
 <div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -634,7 +635,7 @@ Warning
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-9" class="callout-9-contents callout-collapse collapse show">
+<div id="callout-10" class="callout-10-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <p>First inspect a <code>gff</code> file to see what you are working with. Open it with <code>nano</code> and scroll through the file to see its contents.</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nano</span> Streptococcus_agalactiae_18RS21_prokka/Streptococcus_agalactiae_18RS21_prokka.gff</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -644,9 +645,62 @@ Warning
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> echo <span class="va">$genome</span> <span class="co"># Print the name of the file</span></span>
 <span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> grep <span class="st">"CDS"</span> <span class="va">$genome</span> <span class="kw">|</span> <span class="fu">wc</span> <span class="at">-l</span> <span class="co"># Find the lines with the string "CDS" and pipe that to the command wc with the flag -l to count the lines</span></span>
 <span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> done</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Output
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code>Streptococcus_agalactiae_18RS21_prokka/Streptococcus_agalactiae_18RS21_prokka.gff
+1960
+Streptococcus_agalactiae_2603V_prokka/Streptococcus_agalactiae_2603V_prokka.gff
+2108
+Streptococcus_agalactiae_515_prokka/Streptococcus_agalactiae_515_prokka.gff
+1963
+Streptococcus_agalactiae_A909_prokka/Streptococcus_agalactiae_A909_prokka.gff
+2067
+Streptococcus_agalactiae_CJB111_prokka/Streptococcus_agalactiae_CJB111_prokka.gff
+2044
+Streptococcus_agalactiae_COH1_prokka/Streptococcus_agalactiae_COH1_prokka.gff
+1992
+Streptococcus_agalactiae_H36B_prokka/Streptococcus_agalactiae_H36B_prokka.gff
+2166
+Streptococcus_agalactiae_NEM316_prokka/Streptococcus_agalactiae_NEM316_prokka.gff
+2139</code></pre>
 </div>
 </div>
 </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Annotating your assemblies
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<blockquote class="blockquote">
+<p>f you work with your own assembled genomes, other problems may arise when annotating them. One likely problem is that the name of your contigs is very long, and since Prokka will use those names as the LOCUS names, the LOCUS names may turn out problematic.<br>
+Example of contig name:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="ex">NODE_1_length_44796_cov_57.856817</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Result of LOCUS name in <code>gbk</code> file:</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="ex">LOCUS</span>       NODE_1_length_44796_cov_57.85681744796 bp   DNA linear</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Here the coverage and the length of the locus are fused, so this will give problems downstream in your analysis.</p>
+<p>The tool <a href="https://anvio.org/help/main/programs/anvi-script-reformat-fasta/">anvi-script-reformat-fasta</a> can help you simplify the names of your assemblies and do other magic, such as removing the small contigs or sequences with too many gaps.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="ex">anvi-script-reformat-fasta</span> my_new_assembly.fasta <span class="at">-o</span> my_reformated_assembly.fasta <span class="at">--simplify-names</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This will convert <code>&gt;NODE_1_length_44796_cov_57.856817</code> into <code>&gt;c_000000000001</code> and the LOCUS name into <code>LOCUS c_000000000001 44796 bp DNA linear</code>.<br>
+Problem solved!</p>
+</blockquote>
 </div>
 </div>
 
