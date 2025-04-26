@@ -134,3 +134,177 @@ $ echo "515" >> TettelinList.txt
 $ sed -i 's/\/R//' TettelinList.txt
 $ cat TettelinList.txt
 ```
+
+::: callout-note
+## Output
+
+```         
+A909  
+COH1  
+CJB111 
+NEM316
+2603V
+18RS21
+H36B
+515
+```
+:::
+
+We can now run Prokka on each of these strains. Since the following command can take up to 8 minutes to run we will use a `screen` session to run it. The screen session will not have the conda environment activated, so let’s activate it again.
+
+``` bash
+screen -R prokka
+conda activate /miniconda3/envs/Prokka_Global
+```
+
+``` bash
+$ cat TettelinList.txt | while read line
+do 
+prokka agalactiae_$line/*.fna --kingdom Bacteria --genus Streptococcus --species agalactiae \
+--strain $line --usegenus --addgenes --prefix Streptococcus_agalactiae_${line}_prokka \
+--outdir ~/pan_workshop/results/annotated/Streptococcus_agalactiae_${line}_prokka
+done
+```
+
+Click `Ctrl`+ `a` + `d` to detach from the session and wait until it finishes the run.
+
+::: callout-note
+## Genome annotation services
+
+To learn more about Prokka you can read [Seemann T. 2014](https://academic.oup.com/bioinformatics/article/30/14/2068/2390517). Other valuable web-based genome annotation services are [RAST](https://rast.nmpdr.org/) and [PATRIC](https://www.patricbrc.org/). Both provide a web-based user interface where you can store your private genomes and share them 4 with your colleagues. If you want to use RAST as a command-line tool you can try the docker container [myRAST](https://github.com/nselem/myrast).
+:::
+
+## **Curating Prokka output files**
+
+Now that we have our genome annotations, let’s take a look at one of them. Fortunately, the `gbk` files are human-readable and we can look at a lot of the information in the first few lines:
+
+``` bash
+$ cd ../results/annotated/
+$ head Streptococcus_agalactiae_18RS21_prokka/Streptococcus_agalactiae_18RS21_prokka.gbk
+```
+
+::: callout-note
+## Output
+
+\
+LOCUS AAJO01000553.1 259 bp DNA linear 22-FEB-2023
+DEFINITION Streptococcus agalactiae strain 18RS21.
+ACCESSION
+VERSION
+KEYWORDS .
+SOURCE Streptococcus agalactiae
+ORGANISM Streptococcus agalactiae
+Unclassified.
+COMMENT Annotated using prokka 1.14.6 from
+https://github.com/tseemann/prokka.
+:::
+
+We can see that in the `ORGANISM` field we have the word “Unclassified”. If we compare it to the `gbk` file for the same strain, that came with the original data folder (which was obtained from the NCBI) we can see that the strain code should be there.
+
+``` bash
+$ head ../../data/agalactiae_18RS21/Streptococcus_agalactiae_18RS21.gbk
+```
+
+::: callout-note
+## Output
+
+```         
+LOCUS       AAJO01000169.1          2501 bp    DNA     linear   UNK 
+DEFINITION  Streptococcus agalactiae 18RS21
+ACCESSION   AAJO01000169.1
+KEYWORDS    .
+SOURCE      Streptococcus agalactiae 18RS21.
+  ORGANISM  Streptococcus agalactiae 18RS21
+            Bacteria; Terrabacteria group; Firmicutes; Bacilli;
+            Lactobacillales; Streptococcaceae; Streptococcus; Streptococcus
+            agalactiae.
+FEATURES             Location/Qualifiers
+```
+:::
+
+This difference could be a problem since some bioinformatics programs could classify two different strains within the same “Unclassified” group. For this reason, Prokka’s output files need to be corrected before moving forward with additional analyses.
+
+To do this “manual” curation we will use the script `correct_gbk.sh`. Let’s first make a directory for the scripts, and then use of nano text editor to create your file.
+
+``` bash
+$ mkdir ../../scripts
+$ nano ../../scripts/correct_gbk.sh
+```
+
+Paste the following content in your script:
+
+``` bash
+#This script will change the word Unclassified from the ORGANISM lines by that of the respective strain code.
+# Usage: sh correct_gbk.sh <gbk-file-to-edit>
+file=$1   # gbk file annotated with prokka
+strain=$(grep -m 1 "DEFINITION" $file |cut -d " " -f6,7) # Create a variable with the columns 6 and 7 from the DEFINITION line.
+
+sed -i '/ORGANISM/{N;s/\n//;}' $file # Put the ORGANISM field on a single line.
+
+sed -i "s/\s*Unclassified./ $strain/" $file # Substitute the word "Unclassified" with the value of the strain variable.
+```
+
+Press `Ctrl + X` to exit the text editor and save the changes. This script allows us to change the term “Unclassified.” from the rows ORGANISM with that of the respective strain.
+
+Now, we need to run this script for all the `gbk` files:
+
+``` bash
+$ ls */*.gbk | while read file
+do 
+bash ../../scripts/correct_gbk.sh $file
+done
+```
+
+Finally, let’s view the result:
+
+``` bash
+$ head Streptococcus_agalactiae_18RS21_prokka/Streptococcus_agalactiae_18RS21_prokka.gbk
+```
+
+::: callout-note
+## Output
+
+```         
+LOCUS       AAJO01000553.1           259 bp    DNA     linear       27-FEB-2023
+DEFINITION  Streptococcus agalactiae strain 18RS21.
+ACCESSION   
+VERSION
+KEYWORDS    .
+SOURCE      Streptococcus agalactiae
+  ORGANISM  Streptococcus agalactiae 18RS21.
+COMMENT     Annotated using prokka 1.14.6 from
+            https://github.com/tseemann/prokka.
+FEATURES             Location/Qualifiers
+```
+:::
+
+Voilà! Our `gbk` files now have the strain code in the `ORGANISM` line.
+
+:::: callout-note
+## Exercise 2(Intermediate): Counting coding sequences
+
+\
+Before we build our pangenome it can be useful to take a quick look at how many coding sequences each of our genomes have. This way we can know if they have a number close to the expected one (if we have some previous knowledge of our organism of study).
+
+Use your `grep`, looping, and piping abilities to count the number of coding sequences in the `gff` files of each genome.
+
+Note: We will use the `gff` file because the `gbk` contains the aminoacid sequences, so it is possible that with the `grep` command we find the string `CDS` in these sequences, and not only in the description of the features. The `gff` files also have the description of the features but in a different format.
+
+::: {.callout-warning collapse="TRUE"}
+First inspect a `gff` file to see what you are working with. Open it with `nano` and scroll through the file to see its contents.
+
+``` bash
+nano Streptococcus_agalactiae_18RS21_prokka/Streptococcus_agalactiae_18RS21_prokka.gff
+```
+
+Now make a loop that goes through every `gff` finding and counting each line with the string “CDS”.
+
+``` bash
+> for genome in */*.gff
+> do 
+> echo $genome # Print the name of the file
+> grep "CDS" $genome | wc -l # Find the lines with the string "CDS" and pipe that to the command wc with the flag -l to count the lines
+> done
+```
+:::
+::::
