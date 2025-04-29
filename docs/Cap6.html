@@ -221,7 +221,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Cap7.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Bases de datos de Minería Genómica</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Redes de similitud de BGCs</span></span></a>
   </div>
 </li>
     </ul>
@@ -470,6 +470,53 @@ Solution
 <li><p>Go to <a href="https://antismash.secondarymetabolites.org/#!/start">antiSMASH</a></p></li>
 <li><p>Choose the accession from NCBI and paste <code>CP000114.1</code></p></li>
 <li><p>Run antiSMASH and paste into the collaborative document your results id example ` bacteria-cbd13a47-8095-495f-957c-dcf58c261529`</p></li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Exercise 3: (*Optional exercise ) Run antiSMASH over thermophilus
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Try Download and annotate <em>S. thermophilus</em> genomes strains LMD-9 (MiBiG), and strain CIRM-BIA 65 reference genome. With the following information, generate the script to run antiSMASH only on the <em>S. thermophilus</em> annotated genomes.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a> <span class="cf">done</span>  </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="ex">antismash</span> <span class="at">--genefinding-tool</span><span class="op">=</span>none <span class="va">$__</span>  </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a> <span class="cf">for</span> ___ <span class="kw">in</span>  ____________  </span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="cf">do</span>  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>Guide to solve this problem First download genomes with genome-download. Remember to activate the conda environment!</p>
+<p>Download the annotated genomes, and then the genbank files.</p>
+<ol type="1">
+<li><p><code>ncbi-genome-download --formats genbank --genera "Streptococcus thermophilus" -S "LMD-9" -o thermophilus bacteria</code> <code>ncbi-genome-download --formats fasta --genera "Streptococcus thermophilus" -S "CIRM-BIA 65" -n bacteria</code> Then, move the genomes to the directory <code>~/pan_workshop/results/annotated/S*.gbk</code></p></li>
+<li><p>First, we need to start the for cycle: <code>for mygenome in ~/pan_workshop/results/annotated/S*.gbk</code><br>
+note that we are using the name <code>mygenome</code> as the variable name in the for cycle.</p></li>
+<li><p>Then you need to use the reserved word <code>do</code> to start the cycle.</p></li>
+<li><p>Then you have to call antiSMASH over your variable <code>mygenome</code>. Remember the <code>$</code> before your variable to indicate to bash that now you are using the value of the variable.</p></li>
+<li><p>Finally, use the reserved word <code>done</code> to finish the cycle.<br>
+~~~ for variable in ~/pan_workshop/results/annotated/t*.gbk<br>
+do<br>
+antismash –genefinding-tool=none $mygenome<br>
+done<br>
+~~~ {: .language-bash}</p></li>
 </ol>
 </div>
 </div>
@@ -1053,8 +1100,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./Cap7.html" class="pagination-link" aria-label="Bases de datos de Minería Genómica">
-        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Bases de datos de Minería Genómica</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./Cap7.html" class="pagination-link" aria-label="Redes de similitud de BGCs">
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Redes de similitud de BGCs</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

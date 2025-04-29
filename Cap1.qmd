@@ -13,7 +13,7 @@ The term “pangenome” is a fusion of the Greek words *pan*, which means ‘wh
 
 Do you feel confused about what a pangenome is? Look at this analogy!
 
-::: {.callout-note collapse="FALSE"}
+::: {.callout-note collapse="false"}
 ## Solution
 
 Imagine you’re on a mission to open the finest pizza restaurant, aiming to offer your customers a wide variety of pizzas from around the world. To achieve this, you set out to gather all the pizza recipes ever created, including margherita, quattro formaggi, pepperoni, Hawaiian, and more. As you examine these recipes, you begin to notice that certain ingredients appear in multiple pizzas, while others are unique to specific recipes.
@@ -33,7 +33,7 @@ The pangenome consists of two primary components or partitions: core genome and 
 
 > What are the partitions in your pizza pangenome?
 >
-> ::: {.callout-note collapse="TRUE"}
+> ::: {.callout-note collapse="false"}
 > ## Solution
 >
 > During your expedition of gathering pizza recipes you find that only flour, water, salt, and yeast are in all the recipes, this is your pizza **core genome**. Since the vast majority of pizzas have tomato sauce and cheese (believe it or not, there are white pizzas without tomato sauce and pizzas without cheese), you put the tomato and the cheese in the **soft-core genome**. Other ingredients like basil and olive oil are very common so they go to the **shell genome**, and finally the weirdos like pineapple go to the **cloud genome**.Genome database for this workshop
