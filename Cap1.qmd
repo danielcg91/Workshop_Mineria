@@ -13,7 +13,7 @@ The term “pangenome” is a fusion of the Greek words *pan*, which means ‘wh
 
 Do you feel confused about what a pangenome is? Look at this analogy!
 
-::: {.callout-note collapse="false"}
+::: {.callout-note collapse="true"}
 ## Solution
 
 Imagine you’re on a mission to open the finest pizza restaurant, aiming to offer your customers a wide variety of pizzas from around the world. To achieve this, you set out to gather all the pizza recipes ever created, including margherita, quattro formaggi, pepperoni, Hawaiian, and more. As you examine these recipes, you begin to notice that certain ingredients appear in multiple pizzas, while others are unique to specific recipes.
@@ -33,7 +33,7 @@ The pangenome consists of two primary components or partitions: core genome and 
 
 > What are the partitions in your pizza pangenome?
 >
-> ::: {.callout-note collapse="false"}
+> ::: {.callout-note collapse="true"}
 > ## Solution
 >
 > During your expedition of gathering pizza recipes you find that only flour, water, salt, and yeast are in all the recipes, this is your pizza **core genome**. Since the vast majority of pizzas have tomato sauce and cheese (believe it or not, there are white pizzas without tomato sauce and pizzas without cheese), you put the tomato and the cheese in the **soft-core genome**. Other ingredients like basil and olive oil are very common so they go to the **shell genome**, and finally the weirdos like pineapple go to the **cloud genome**.Genome database for this workshop
@@ -55,7 +55,7 @@ The size of a pangenome can be influenced by factors such as the extent of gene 
 
 Considering a human lung pathogen and a soil bacterium, which one do you believe is more likely to have a closed pangenome, characterized by a relatively stable gene pool, and why?
 
-> ::: {.callout-note collapse="TRUE"}
+> ::: {.callout-note collapse="true"}
 > ## Solution
 >
 > Based on the assumption that a human lung pathogen may have a more specialized lifestyle and limited exposure to diverse environments, it is likely to possess a closed pangenome. In contrast, a soil bacterium, which encounters a wide range of ecological niches and interacts with various organisms, is more likely to have an open pangenome. However, these assumptions are not always true. Thus, further investigation and analysis are required to confirm these assumptions for the different species of interest.
@@ -97,7 +97,7 @@ $ rm 'pan_workshop.zip?download=1'
 :::
 
 ::: {.callout-tip style="color:darkgreen" appearance="minimal"}
-## Key Points {style="color:black"}
+## Key Points {style="color:darkgreen"}
 
 -   A **pangenome** encompasses the complete collection of genes found in all genomes within a specific group, typically a species.
 
