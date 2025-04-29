@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -30,6 +64,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<link href="./Cap8.html" rel="next">
 <link href="./Cap6.html" rel="prev">
 <link href="./rsgMexico.jpeg" rel="icon" type="image/jpeg">
 <script src="site_libs/quarto-html/quarto.js"></script>
@@ -189,13 +224,33 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Redes de similitud de BGCs</span></span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Cap8.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Encontrando Variaciones en Vecindades Genómicas</span></span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#bgc-similarity-networks" id="toc-bgc-similarity-networks" class="nav-link active" data-scroll-target="#bgc-similarity-networks"><span class="header-section-number">8.1</span> <strong>BGC Similarity Networks</strong></a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction"><span class="header-section-number">8.2</span> <strong>Introduction</strong></a></li>
+  <li><a href="#preparing-the-input" id="toc-preparing-the-input" class="nav-link" data-scroll-target="#preparing-the-input"><span class="header-section-number">8.3</span> <strong>Preparing the input</strong></a></li>
+  <li><a href="#running-big-scape" id="toc-running-big-scape" class="nav-link" data-scroll-target="#running-big-scape"><span class="header-section-number">8.4</span> <strong>Running BiG-SCAPE</strong></a></li>
+  <li><a href="#viewing-the-results" id="toc-viewing-the-results" class="nav-link" data-scroll-target="#viewing-the-results"><span class="header-section-number">8.5</span> <strong>Viewing the results</strong></a></li>
+  <li><a href="#cytoscape-visualization-of-the-results" id="toc-cytoscape-visualization-of-the-results" class="nav-link" data-scroll-target="#cytoscape-visualization-of-the-results"><span class="header-section-number">8.6</span> <strong>Cytoscape visualization of the results</strong></a>
+  <ul>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">8.6.1</span> <strong>References</strong></a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -219,8 +274,319 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<section id="bgc-similarity-networks" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="bgc-similarity-networks"><span class="header-section-number">8.1</span> <strong>BGC Similarity Networks</strong></h2>
+</section>
+<section id="introduction" class="level2" data-number="8.2">
+<h2 data-number="8.2" class="anchored" data-anchor-id="introduction"><span class="header-section-number">8.2</span> <strong>Introduction</strong></h2>
+<p>In the previous section, we learned how to study the BGCs encoded by each of the genomes of our analyses. In case you are interested in the study of a certain BGC or a certain strain, this may be enough. However, sometimes the aim is to compare the biosynthetic potential of tens or hundreds of genomes. To perform this kind of analysis, we will use BiG-SCAPE (Navarro-Muñoz et al., 2019), a workflow that compares all the BGCs detected by antiSMASH to find their relatedness. BiG-SCAPE will search for Pfam domains (Mistry et al., 2021) in the protein sequences of each BGC. Then, the Pfam domains will be linearized and compared, creating different similarity networks and scoring the similarity of each pair of clusters. Based on a cutoff value for this score, the diverse BGCs will be classified on Gene Cluster Families (GCFs) to facilitate their study. A single GCF is supposed to encompass BGCs that produce chemically related metabolites (molecular families). Lower cutoffs would create families of BGCs that produce identical compounds, while higher cutoffs would create families of more loosely related compounds.</p>
+</section>
+<section id="preparing-the-input" class="level2" data-number="8.3">
+<h2 data-number="8.3" class="anchored" data-anchor-id="preparing-the-input"><span class="header-section-number">8.3</span> <strong>Preparing the input</strong></h2>
+<p>In each of the antiSMASH output directories, we will find a single <code>.gbk</code> file for each BGC, which includes “region” within its filename. Thus, we will copy all these files to the new directory.</p>
+<p>Move into the directory that has the antiSMASH results of each genome:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> conda deactivate  </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> conda activate /miniconda3/envs/bigscape/  </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cd ~/pan_workshop/results/antismash/</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ls</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Since we will put together in the same directory many files with similar names, we want to make sure that nothing is left behind or overwritten. For this, we will count all the <code>gbk</code> files of all the genomes.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ls Streptococcus_agalactiae_<span class="pp">*</span>/<span class="pp">*</span>region<span class="pp">*</span>gbk <span class="kw">|</span> <span class="fu">wc</span> <span class="at">-l</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="{#Output}"><code>16</code></pre>
+<p>Since the names are somewhat cryptic, they could be repeated, so we will rename the <code>gbks</code> in such a way that they include the genome name.</p>
+<p>Copy the following script to a file named <code>change-names.sh</code> using <code>nano</code>:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This script is to rename the antiSMASH gbks for them to include the species and strain names, taken from the directory name.</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># The argument it requires is the name of the directory with the AntiSMASH output, which must NOT contain a slash at the end.</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Usage for one AntiSMASH output directory:</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">#     sh change-names.sh &lt;folder&gt;</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Usage for multiple AntiSMASH output directory:</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co">#     for species in &lt;output-directory-pattern*&gt;</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co">#        do</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co">#            sh change-names.sh $species</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co">#        done</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-1</span> <span class="st">"</span><span class="va">$1</span><span class="st">"</span>/<span class="pp">*</span>region<span class="pp">*</span>gbk <span class="kw">|</span> <span class="cf">while</span> <span class="bu">read</span> <span class="va">line</span> <span class="co"># enlist the gbks of all regions in the directory and start a while loop</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a> <span class="cf">do</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    <span class="va">dir</span><span class="op">=</span><span class="va">$(</span><span class="bu">echo</span> <span class="va">$line</span> <span class="kw">|</span> <span class="fu">cut</span> <span class="at">-d</span><span class="st">'/'</span> <span class="at">-f1</span><span class="va">)</span> <span class="co"># save the directory name in a variable</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    <span class="va">file</span><span class="op">=</span><span class="va">$(</span><span class="bu">echo</span> <span class="va">$line</span> <span class="kw">|</span> <span class="fu">cut</span> <span class="at">-d</span><span class="st">'/'</span> <span class="at">-f2</span><span class="va">)</span> <span class="co"># save the file name in a variable</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> directory <span class="kw">in</span> <span class="va">$dir</span> <span class="co"># start a for loop</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">do</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>         <span class="bu">cd</span> <span class="va">$directory</span> <span class="co"># enter the directory</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>        <span class="va">newfile</span><span class="op">=</span><span class="va">$(</span><span class="bu">echo</span> <span class="va">$dir</span>-<span class="va">$file)</span> <span class="co"># make a new variable that fuses the directory name with the file name</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>                <span class="bu">echo</span> <span class="st">"Renaming"</span> <span class="va">$file</span> <span class="st">" to"</span> <span class="va">$newfile</span> <span class="co"># print a message showing the old and new file names</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>                <span class="fu">mv</span> <span class="va">$file</span> <span class="va">$newfile</span> <span class="co"># rename</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>                <span class="bu">cd</span> .. <span class="co"># return to main directory before it begins again</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>         <span class="cf">done</span></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a> <span class="cf">done</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Run the script for all the directory:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> for species in Streptococcus_agalactiae_<span class="pp">*</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> do</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span>        sh <span class="ex">change-names.sh</span> <span class="va">$species</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span>    done</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Now make a directory for all your BiG-SCAPE analyses and inside it make a directory that contains all of the <code>gbks</code> of all of your genomes. This one will be the input for BiG-SCAPE. (For convenience <code>bigscape/</code> will be inside <code>antismash/</code> while we run BiG-SCAPE).</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> mkdir <span class="at">-p</span> bigscape/bgcs_gbks/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Now copy all the region <code>gbks</code>to this new directory, and look at its content:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cp Streptococcus_agalactiae_<span class="pp">*</span>/<span class="pp">*</span>region<span class="pp">*</span>gbk bigscape/bgcs_gbks/</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ls bigscape/bgcs_gbks/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Output
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code>Streptococcus_agalactiae_18RS21_prokka-AAJO01000016.1.region001.gbk
+Streptococcus_agalactiae_18RS21_prokka-AAJO01000043.1.region001.gbk
+Streptococcus_agalactiae_2603V_prokka-NC_004116.1.region001.gbk
+Streptococcus_agalactiae_2603V_prokka-NC_004116.1.region002.gbk
+Streptococcus_agalactiae_515_prokka-NZ_CP051004.1.region001.gbk
+Streptococcus_agalactiae_515_prokka-NZ_CP051004.1.region002.gbk
+Streptococcus_agalactiae_A909_prokka-NC_007432.1.region001.gbk
+Streptococcus_agalactiae_A909_prokka-NC_007432.1.region002.gbk
+Streptococcus_agalactiae_CJB111_prokka-NZ_AAJQ01000010.region001.gbk
+Streptococcus_agalactiae_CJB111_prokka-NZ_AAJQ01000025.region001.gbk
+Streptococcus_agalactiae_COH1_prokka-NZ_HG939456.1.region001.gbk
+Streptococcus_agalactiae_COH1_prokka-NZ_HG939456.1.region002.gbk
+Streptococcus_agalactiae_H36B_prokka-AAJS01000020.1.region001.gbk
+Streptococcus_agalactiae_H36B_prokka-AAJS01000117.1.region001.gbk
+Streptococcus_agalactiae_NEM316_prokka-NC_004368.1.region001.gbk
+Streptococcus_agalactiae_NEM316_prokka-NC_004368.1.region002.gbk</code></pre>
+</div>
+</div>
+</section>
+<section id="running-big-scape" class="level2" data-number="8.4">
+<h2 data-number="8.4" class="anchored" data-anchor-id="running-big-scape"><span class="header-section-number">8.4</span> <strong>Running BiG-SCAPE</strong></h2>
+<p>BiG-SCAPE can be executed in different ways, depending on the installation mode that you applied. You could call the program through <code>bigscape</code>, <code>run_bigscape</code>or <code>run_bigscape.py</code>. Here, based on our installation (see <a href="https://carpentries-incubator.github.io/genome-mining/04-bigscape/setup.html">Setup</a>), we will use <code>bigscape</code>.</p>
+<p>The options that we will use are described in the help page:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">-i</span> INPUTDIR, <span class="at">--inputdir</span> INPUTDIR</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>                        <span class="ex">Input</span> directory of gbk files, if left empty, all gbk</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>                        <span class="ex">files</span> in current and lower directories will be used.</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="ex">-o</span> OUTPUTDIR, <span class="at">--outputdir</span> OUTPUTDIR</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>                        <span class="ex">Output</span> directory, this will contain all output data</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>                        <span class="ex">files.</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="ex">--mix</span>               By default, BiG-SCAPE separates the analysis according</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>                    <span class="ex">to</span> the BGC product <span class="er">(</span><span class="ex">PKS</span> Type I, NRPS, RiPPs, etc.<span class="kw">)</span> <span class="ex">and</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>                    <span class="ex">will</span> create network directories for each class. Toggle</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>                    <span class="ex">to</span> include an analysis mixing all classes</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>                     </span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="ex">--hybrids-off</span>       Toggle to also add BGCs with hybrid predicted products</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>                        <span class="ex">from</span> the PKS/NRPS Hybrids and Others classes to each</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>                        <span class="ex">subclass</span> <span class="er">(</span><span class="ex">e.g.</span> a <span class="st">'terpene-nrps'</span> BGC from Others would</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>                        <span class="ex">be</span> added to the Terpene and NRPS classes<span class="kw">)</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="ex">--mode</span> <span class="dt">{global</span><span class="op">,</span><span class="dt">glocal</span><span class="op">,</span><span class="dt">auto}</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>                        <span class="ex">Alignment</span> mode for each pair of gene clusters.</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>                        <span class="st">'global'</span><span class="ex">:</span> the whole list of domains of each BGC are</span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>                        <span class="ex">compared</span><span class="kw">;</span> <span class="st">'glocal'</span><span class="ex">:</span> Longest Common Subcluster mode.</span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>                        <span class="ex">Redefine</span> the subset of the domains used to calculate</span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>                        <span class="ex">distance</span> by trying to find the longest slice of common</span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>                        <span class="ex">domain</span> content per gene in both BGCs, then expand each</span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>                        <span class="ex">slice.</span> <span class="st">'auto'</span>: use glocal when at least one of the</span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>                        <span class="ex">BGCs</span> in each pair has the <span class="st">'contig_edge'</span> annotation</span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>                        <span class="ex">from</span> antiSMASH v4+, otherwise use global mode on that</span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>                        <span class="ex">pair</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>We will use the option <code>--mix</code> to have an analysis of all of the BGCs together besides the analyses of the BGCs separated by class. The <code>--hybrids-off</code> option will prevent from having the same BGC twice (in the case of hybrid BGCs that could belong to two classes) in our results. And since none of the BGCs is on a contig edge, we could use the global mode. However, frequently, when analyzing draft genomes, this is not the case. Thus, the auto mode will be the most appropriate, which will use the global mode to align domains except for those cases in which the BGC is located near to a contig end, for which the glocal mode is automatically selected. For this run we will use only the default cutoff value (0.3).</p>
+<p>Now we are ready to run BiG-SCAPE:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> bigscape <span class="at">-i</span> bigscape/bgcs_gbks/ <span class="at">-o</span> bigscape/output_220124 <span class="at">--mix</span> <span class="at">--hybrids-off</span> <span class="at">--mode</span> auto <span class="at">--pfam_dir</span> /miniconda3/envs/bigscape/BiG-SCAPE-1.1.5/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Output names
+</div>
+</div>
+<div class="callout-body-container callout-body">
+
+</div>
+</div>
+<blockquote class="blockquote">
+<p>Most of the times you will need to re-run a software once you have explored the results; maybe you want to change parameters or add more samples. For this reason, you will need a flexible way to organize your project, including the names of the outputs. Usually, a good idea is to put the date in the name of the folder and keep track of the analyses you are running in your research notes.</p>
+</blockquote>
+<p>Once the process is finished, you will find in your terminal screen some basic results, such as the number of BGCs included in each type of network. In the output folder you will find all the data.<br>
+Since BiG-SCAPE does not produce a file with the run information, it is useful to copy the text printed on the screen to a file. Use <code>nano</code> to paste all the text that BiG-SCAPE generated in a file named <code>bigscape.log</code> inside the folder <code>output_100722/logs/</code>.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> nano bigscape/output_220124/logs/bigscape.log</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Take a look at the BiG-SCAPE outputs:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ls <span class="at">-F</span> bigscape/output_220124/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Output
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code>cache/  html_content/  index.html*  logs/  network_files/  SVG/</code></pre>
+</div>
+</div>
+<p>To keep ordered your directories, move your <code>bigscape/</code> directory to <code>results/</code>:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> mv bigscape/ ../</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>And move the file <code>change-names</code> to folder <code>scripts/</code> in the <code>pan_workshop/</code>directory to save our little script:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> mv change-names.sh ~/pan_workshop/scripts/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="viewing-the-results" class="level2" data-number="8.5">
+<h2 data-number="8.5" class="anchored" data-anchor-id="viewing-the-results"><span class="header-section-number">8.5</span> <strong>Viewing the results</strong></h2>
+<p>An easy way to prospect your results is by opening the <code>index.html</code> file with a browser (Firefox, Chrome, Safari, etc.). In order to do this, you need to go to your local machine and locate in the folder where you want to store your BiG-SCAPE results. Now we compress the folder <code>output_100622/</code> and download it to your local machine.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cd ~/pan_workshop/results/bigscape/</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> zip <span class="at">-r</span> output_220124.zip output_220124</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ls</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>In the JupyterHub we navigate to the folders and go to <code>/pan_workshop/results/bigscape</code> and select the one we just created <code>output_220124.zip</code> and download it.</p>
+<p>On your local computer we unzip the files and open <code>output_220124/index.html</code> with a browser:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> firefox output_100622/index.html <span class="co"># If you have Firefox available, otherwise open it using the GUI.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>There are diverse sections in the visualization. The following image shows the overview page. At the left there is the run information and there are pie chart representations of the number of BGCs per genome and per class. At the right there is the Network Overview for each of the BGC classes found and the mix category. They show the Number of Families, Average number of BGCs per family, Max number of BGCs in a family and the Families with MIBiG Reference BGCs. You can click on the name of the class to see its Network Overview.</p>
+<p><img src="https://carpentries-incubator.github.io/genome-mining/fig/02_05_01.png" class="img-fluid"></p>
+<p>Clicking any of the class names of the upper left bar displays a similarity network of BGCs. It may take some time to load the network. A single network is represented for each GCF of each Gene Cluster Clan (GCC), which may comprise several GCFs. Each dot represents a BGC. These dots with bold circles are already described BGCs that have been recruited from the MiBIG database (Kautsar et al., 2020) because of its similarity with some BGC of the analysis.</p>
+<p><img src="https://carpentries-incubator.github.io/genome-mining/fig/02_05_03.png" class="img-fluid"></p>
+<p>When you click on a BGC (dot), it appears its GCF at the right. You can click on the GCF name to see the phylogenetic distances among all the BGCs comprised by a single GCF. Within the tree there is an arrow diagram of the genes in the BGCs and the protein domains in the genes. These trees are useful to prioritize the search of secondary metabolites, for example, by focusing on the most divergent BGC clade or those that are distant to already described BGCs.</p>
+<p><img src="https://carpentries-incubator.github.io/genome-mining/fig/02_05_04.png" class="img-fluid"></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Discussion 1: Reading the GCF networks
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>What can you conclude about the diversity of BGCs between <em>S. agalactiae</em> and <em>S. thermophilus</em>? Are they equally diverse? Do they share GCFs?</p>
+<p>Digging deeper: Why do you think the strain <em>S. agalactiae</em> H36B has a BGC that is not part of the other GCF in the same class?</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><em>S. agalactiae</em> and <em>S. thermophilus</em> seem to have no diversity in common because there is no GCF with members from both species. All strains of <em>S.agalactiae</em> seem to have a very similar set of BGCs. While <em>S. thermophilus</em> has several BGCs that are not related to any other BGC.</p>
+<p>Digging deeper: The BGC of the class PKSother in <em>S. agalactiae</em> H3B6 has only 3 genes, which are also present in the BGCs of the other GCF in this class. It is possible that these genes are in a fragmented part of the assembled genome, but are actually part of a BGC that is similar to the other ones. And it is also possible that these 3 genes are present in the genome without being part of a bigger BGC.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Exercise 1: Using the text output
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Use one of the commands from the following list to make a reduced version of the <code>Network_Annotations_full.tsv</code>, it should only contain the information of the type of product, the BGC class of each BGC, and its name. And save it in a file.</p>
+<p><code>grep</code> <code>cut</code> <code>ls</code> <code>cat</code> <code>mv</code></p>
+<p><strong>Tip</strong>: The file is inside <code>network_files/</code>.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Take a look at the content of the file:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a> <span class="fu">head</span> <span class="at">-n</span> 3 network_files/2022-06-10_21-27-26_auto/Network_Annotations_Full.tsv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Output
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code>BGC    Accession ID    Description    Product Prediction    BiG-SCAPE class    Organism    Taxonomy
+Streptococcus_agalactiae_18RS21-AAJO01000016.1.region001    AAJO01000016.1    Streptococcus agalactiae
+18RS21    arylpolyene    Others    Streptococcus agalactiae 18RS21    Bacteria,Terrabacteria
+group,Firmicutes,Bacilli,Lactobacillales,Streptococcaceae,Streptococcus,Streptococcus agalactiae
+Streptococcus_agalactiae_18RS21-AAJO01000043.1.region001    AAJO01000043.1    Streptococcus agalactiae
+18RS21    T3PKS    PKSother    Streptococcus agalactiae 18RS21    Bacteria,Terrabacteria
+group,Firmicutes,Bacilli,Lactobacillales,Streptococcaceae,Streptococcus,Streptococcus agalactiae</code></pre>
+</div>
+</div>
+<p>This table is difficult to read because of the amount of information it has. The first line has the names of the columns; <code>BGC</code>, <code>Product Prediction</code> and <code>BiG-SCAPE class</code> are the ones we are interested in. So we will extract those.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cut</span> <span class="at">-f</span> 1,4,5 network_files/2022-06-10_21-27-26_auto/Network_Annotations_Full.tsv <span class="op">&gt;</span> type_of_BGC.tsv</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> type_of_BGCs.tsv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Output
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code>BGC    Product Prediction    BiG-SCAPE class
+Streptococcus_agalactiae_18RS21-AAJO01000016.1.region001    arylpolyene    Others
+Streptococcus_agalactiae_18RS21-AAJO01000043.1.region001    T3PKS    PKSother
+Streptococcus_agalactiae_515-AAJP01000027.1.region001    arylpolyene    Others
+Streptococcus_agalactiae_515-AAJP01000037.1.region001    T3PKS    PKSother
+.
+.
+.</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="cytoscape-visualization-of-the-results" class="level2" data-number="8.6">
+<h2 data-number="8.6" class="anchored" data-anchor-id="cytoscape-visualization-of-the-results"><span class="header-section-number">8.6</span> <strong>Cytoscape visualization of the results</strong></h2>
+<p>You can also customize and re-renderize the similarity networks of your results with Cytoscape (https://cytoscape.org/). To do so, you will need some files included in the output directory of BiG-SCAPE. Both are located in the same folder. You can choose any folder included in the Network_files/(date)hybrids_auto/ directory, depending on your interest. The “Mix/” folder represents the complete network, including all the BGCs of the analysis. There, you will need the files “mix_c0.30.network” and “mix_clans_0.30_0.70.tsv”. When you upload the “.network” file, it is required that you select as “source” the first column and as “target” the second one. Then, you can upload the “.tsv” and just select the first column as “source”. Finally, you need to click on Tools -&gt; merge -&gt; Networks -&gt; Union to combine both GCFs and singletons. Now you can change colors, labels, etc. according to your specific requirements.</p>
+<section id="references" class="level3" data-number="8.6.1">
+<h3 data-number="8.6.1" class="anchored" data-anchor-id="references"><span class="header-section-number">8.6.1</span> <strong>References</strong></h3>
+<ul>
+<li><p>Navarro-Muñoz, J.C., Selem-Mojica, N., Mullowney, M.W. et al.&nbsp;“A computational framework to explore large-scale biosynthetic diversity”. Nature Chemical Biology (2019).</p></li>
+<li><p>Mistry, J., Chuguransky, S., Williams, L., Qureshi, M., Salazar, G. A., Sonnhammer, E. L., … &amp; Bateman, A. (2021). Pfam: The protein families database in 2021. Nucleic Acids Research, 49(D1), D412-D419.</p></li>
+<li><p>Kautsar, S. A., Blin, K., Shaw, S., Navarro-Muñoz, J. C., Terlouw, B. R., van der Hooft, J. J., … &amp; Medema, M. H. (2020). MIBiG 2.0: a repository for biosynthetic gene clusters of known function. Nucleic acids research, 48(D1), D454-D458.</p></li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled" style="color:darkgreen">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Keypoints
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><p>BGC similarity is measured by BiG-SCAPE according to protein domain content, adjacency and sequence identity.</p></li>
+<li><p>The <code>gbks</code> of the regions identified by antiSMASH are the input for BiG-SCAPE.</p></li>
+<li><p>BiG-SCAPE delivers BGCs similarity networks with which it delimits Gene Cluster Families and creates a phylogeny of the BGCs in each GCF.</p></li>
+</ul>
+</div>
+</div>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -794,6 +1160,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="./Cap8.html" class="pagination-link" aria-label="Encontrando Variaciones en Vecindades Genómicas">
+        <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Encontrando Variaciones en Vecindades Genómicas</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->
