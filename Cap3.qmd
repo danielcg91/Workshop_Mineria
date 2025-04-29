@@ -1,6 +1,6 @@
 # Anotación
 
-# **Annotating Genomic Data**
+## **Annotating Genomic Data**
 
 ## **Annotating genomes**
 
@@ -108,7 +108,7 @@ c) Prokka identifies tRNA genes but doesn’t mention the anticodon located on t
 d) Prokka doesn’t provide the positions in which a feature starts or ends.\
 e) The coding sequences are identified with the CDS acronym in the `FEATURES` section of each `LOCUS`.
 
-::: {.callout-warning collapse="TRUE" appearance="simple"}
+::: {.callout-warning collapse="true"}
 ## Solution
 
 a\) FALSE. Prokka successfully identifies non-coding sequences and doesn’t translate them. Instead, it provides alternative information (e.g. if it’s a rRNA gene, it tells if it’s 5S, 16S, or 23S).\
@@ -283,7 +283,7 @@ Note: We will use the `gff` file because the `gbk` contains the aminoacid sequen
 
 <div>
 
-:::: {.callout-important collapse="TRUE"}
+:::: {.callout-important collapse="true"}
 First inspect a `gff` file to see what you are working with. Open it with `nano` and scroll through the file to see its contents.
 
 ``` bash
@@ -535,7 +535,7 @@ agalactiae_2603V.txt    agalactiae_A909.txt   agalactiae_COH1.txt     agalactiae
 
 **Bonus:** Notice that this command will execute RGI main even if the outputs already exist. How would you modify this script so that already processed files are skipped?
 
-::: {.callout-note collapse="TRUE"}
+::: {.callout-note collapse="true"}
 ## Solution
 
 Because `TettelinList.txt` only stores strains, we must write the complete name by appending `agalactiae_` before the `strain` variable and the corresponding file extensions. As such, we get the following command:

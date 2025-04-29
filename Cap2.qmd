@@ -1,4 +1,4 @@
-# Descarga y exploración de datos
+# Descarga de datos genómicos
 
 ## **Downloading Genomic Data**
 
@@ -521,7 +521,7 @@ Until now we have downloaded only specific strains that we were looking for. Wri
 
 **Bonus**: Make a file with the output of your search.
 
-:::: {.callout-warning collapse="TRUE" appearance="simple"}
+:::: {.callout-warning collapse="true"}
 ## Solution
 
 Use the `-n` flag to make it a dry run. Search only for the genus *Streptococcus* without using the strain flag.
