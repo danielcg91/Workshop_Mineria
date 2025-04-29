@@ -259,3 +259,15 @@ LOCUS   	CP000114.1         	42196 bp	DNA 	linear   UNK 13-JUN-2022
 In this case the size of the region is 42196 bp
 :::
 ::::
+
+:::: callout-note
+## Discussion 1: BGC classes in Streptococcus
+
+What BGC classes does the genus *Streptococcus* have ?
+
+::: {.callout-note collapse="false"}
+## Solution
+
+In antiSMASH website output of A909 strain we see clusters of two classes, T3PKS and arylpolyene. Nevertheless, this is only one *Streptococcus* in order to infer all BGC classes in the genus we need to run antiSMASH in more genome
+:::
+::::
