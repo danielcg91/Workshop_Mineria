@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -200,8 +234,16 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#finding-variation-on-genomic-vicinities" id="toc-finding-variation-on-genomic-vicinities" class="nav-link active" data-scroll-target="#finding-variation-on-genomic-vicinities"><span class="header-section-number">9.1</span> <strong>Finding Variation on Genomic Vicinities</strong></a></li>
+  <li><a href="#corason-is-a-visual-tool-that-identifies-gene-clusters-that-share-a-common-genomic-core-and-reconstructs-multi-locus-phylogenies-of-these-gene-clusters-to-explore-their-evolutionary-relationships.-corason-was-developed-to-find-and-prioritize-biosynthetic-gene-clusters-bgc-but-can-be-used-for-any-kind-of-clusters." id="toc-corason-is-a-visual-tool-that-identifies-gene-clusters-that-share-a-common-genomic-core-and-reconstructs-multi-locus-phylogenies-of-these-gene-clusters-to-explore-their-evolutionary-relationships.-corason-was-developed-to-find-and-prioritize-biosynthetic-gene-clusters-bgc-but-can-be-used-for-any-kind-of-clusters." class="nav-link" data-scroll-target="#corason-is-a-visual-tool-that-identifies-gene-clusters-that-share-a-common-genomic-core-and-reconstructs-multi-locus-phylogenies-of-these-gene-clusters-to-explore-their-evolutionary-relationships.-corason-was-developed-to-find-and-prioritize-biosynthetic-gene-clusters-bgc-but-can-be-used-for-any-kind-of-clusters."><span class="header-section-number">9.2</span> CORASON is a visual tool that identifies gene clusters that share a common genomic core and reconstructs multi-locus phylogenies of these gene clusters to explore their evolutionary relationships. CORASON was developed to find and prioritize biosynthetic gene clusters (BGC), but can be used for any kind of clusters.</a></li>
+  <li><a href="#corason-conda" id="toc-corason-conda" class="nav-link" data-scroll-target="#corason-conda"><span class="header-section-number">9.3</span> <strong>CORASON conda</strong></a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -225,8 +267,176 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<section id="finding-variation-on-genomic-vicinities" class="level2" data-number="9.1">
+<h2 data-number="9.1" class="anchored" data-anchor-id="finding-variation-on-genomic-vicinities"><span class="header-section-number">9.1</span> <strong>Finding Variation on Genomic Vicinities</strong></h2>
+<p><img src="https://carpentries-incubator.github.io/genome-mining/fig/corason.png" class="img-fluid"></p>
+</section>
+<section id="corason-is-a-visual-tool-that-identifies-gene-clusters-that-share-a-common-genomic-core-and-reconstructs-multi-locus-phylogenies-of-these-gene-clusters-to-explore-their-evolutionary-relationships.-corason-was-developed-to-find-and-prioritize-biosynthetic-gene-clusters-bgc-but-can-be-used-for-any-kind-of-clusters." class="level2" data-number="9.2">
+<h2 data-number="9.2" class="anchored" data-anchor-id="corason-is-a-visual-tool-that-identifies-gene-clusters-that-share-a-common-genomic-core-and-reconstructs-multi-locus-phylogenies-of-these-gene-clusters-to-explore-their-evolutionary-relationships.-corason-was-developed-to-find-and-prioritize-biosynthetic-gene-clusters-bgc-but-can-be-used-for-any-kind-of-clusters."><span class="header-section-number">9.2</span> CORASON is a visual tool that identifies gene clusters that share a common genomic core and reconstructs multi-locus phylogenies of these gene clusters to explore their evolutionary relationships. CORASON was developed to find and prioritize biosynthetic gene clusters (BGC), but can be used for any kind of clusters.</h2>
+<p>Input: query gene, reference BGC and genome database. Output: SVG figure with BGC in the family sorted according to the multi-locus phylogeny of the core genes.</p>
+<p>Advantages</p>
+<ul>
+<li><p>SVG graphs Scalable graphs that allow metadata easy display.</p></li>
+<li><p>Interactive, CORASON is not a static database, it allows to explore your own genomes.</p></li>
+<li><p>Reproducibility, since CORASON runs on docker and conda, the containerization allows to always perform the same analysis even if you change your Linux/perl/blast/muscle/Gblocks/quicktree local distributions.</p></li>
+</ul>
+</section>
+<section id="corason-conda" class="level2" data-number="9.3">
+<h2 data-number="9.3" class="anchored" data-anchor-id="corason-conda"><span class="header-section-number">9.3</span> <strong>CORASON conda</strong></h2>
+<p>Here we are testing the new stand-alone <a href="https://github.com/miguel-mx/corason-conda">corason in a conda environment</a> with gbk as input-files. Firstly, activate the corason-conda environment.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> conda deactivate </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> conda activate /miniconda3/envs/corason  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code>(corason) user@server:~$</code></pre>
+</div>
+</div>
+<p>With the environment activated, all CORASON-dependencies are ready to be used. The next step is to clone CORASON-software from its GitHub repository. Firstly, place yourself at the results directory and then clone CORASON-code.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> mkdir <span class="at">-p</span> ~/pan_workshop/results/genome-mining </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cd ~/pan_workshop/results/genome-mining</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> git clone https://github.com/miguel-mx/corason-conda.git </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ls</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The GitHub CORASON repository must be now in your directory.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code>corason-conda </code></pre>
+</div>
+</div>
+<p>Change directory by descending to EXAMPLE2. The file <code>cpsg.query</code>, contains the reference protein cpsG, whose encoding gene is part of the <a href="https://mibig.secondarymetabolites.org/repository/BGC0000744/index.html#r1c1">polysaccharide BGC</a> produced by some <em>S. agalactiae</em></p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cd corason-conda/EXAMPLE2        </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ls  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code>cpsg.query  </code></pre>
+</div>
+</div>
+<p>As genomic database we will use the prokka-annotated <code>gbk</code> files of <em>S. agalactiae</em>. This database will be stored in the reserved directory <code>CORASON_GENOMES</code>.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> mkdir  CORASON_GENOMES  </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cp ~/pan_workshop/results/annotated/Streptococcus_agalactiae_<span class="pp">*</span>/<span class="pp">*</span>gbk CORASON_GENOMES/  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>CORASON was written to be used with RAST annotation as input files, in this case we are using a genome database composed of <code>.gbk</code> files. Thus, we need to convert gbk files into CORASON-compatible input files.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ../CORASON/gbkIndex.pl CORASON_GENOMES ../CORASON CORASON_GENOMES </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Output
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code>Directory CORASON_GENOMES                                                                                                
+../CORASON/gbk_to_fasta.pl CORASON_GENOMES agalactiae_18RS21_prokka.gbk 100001 ../CORASON                                 
+../CORASON/gbk_to_fasta.pl CORASON_GENOMES agalactiae_515_prokka.gbk 100002 ../CORASON                                   
+../CORASON/gbk_to_fasta.pl CORASON_GENOMES agalactiae_A909_prokka.gbk 100003 ../CORASON                             
+../CORASON/gbk_to_fasta.pl CORASON_GENOMES agalactiae_CJB111_prokka.gbk 100004 ../CORASON                         
+../CORASON/gbk_to_fasta.pl CORASON_GENOMES agalactiae_COH1_prokka.gbk 100005 ../CORASON                           
+../CORASON/gbk_to_fasta.pl CORASON_GENOMES agalactiae_H36B_prokka.gbk 100006 ../CORASON                            
+../CORASON/gbk_to_fasta.pl CORASON_GENOMES thermophilus_LMD-9_prokka.gbk 100007 ../CORASON                          
+../CORASON/gbk_to_fasta.pl CORASON_GENOMES thermophilus_LMG_18311_prokka.gbk 100008 ../CORASON   </code></pre>
+</div>
+</div>
+<p>Now, all converted genome files, aminoacid fasta files (.faa) and annotation files (.txt) should be placed in the ‘GENOMES directory’ one level up outside output.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> mv output/<span class="pp">*</span> . </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ls</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Output
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code>CORASON_GENOMES  Corason_Rast.IDs  cpsg.query  GENOMES  output </code></pre>
+</div>
+</div>
+<p>Finally, we have the query enzyme, the IDs file and a genomic database of <em>S. agalactiae</em> in the same directory. Run CORASON with cpsg.query as query with 1000006 as an example of reference BGC.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ../CORASON/corason.pl <span class="at">-q</span> cpsg.query <span class="at">-s</span> 100006  <span class="at">-rast_ids</span> Corason_Rast.IDs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Output
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code>&gt;&gt; 100001_666.input  Cluster1237  Cluster1245  Cluster1253       cpsg.query_BGC.tre            cpsg.query_tree.svg        
+&gt;&gt; 100002_2002.input Cluster1238  Cluster1246  Cluster1254       cpsg.query.BLAST              Frequency                  
+&gt;&gt; 100003_1173.input Cluster1239  Cluster1247  Cluster1255       cpsg.query.BLAST.pre          GBK                        
+&gt;&gt; 100004_35.input   Cluster1240  Cluster1248  Cluster1256       cpsg.query.parser             Joined.svg                 
+&gt;&gt; 100005_912.input  Cluster1241  Cluster1249  Cluster1257       cpsg.query.parser.pre         MINI                       
+&gt;&gt; 100006_1247.input Cluster1242  Cluster1250  Concatenados.faa  cpsg.query_PrincipalHits.tre  PrincipalHits.muscle       
+&gt;&gt; 100007_1022.input Cluster1243  Cluster1251  CORASON           cpsg.query_Report             PrincipalHits.muscle-gb    
+&gt;&gt; 100008_1024.input Cluster1244  Cluster1252  cpsg.query        cpsg.query.svg                TempConcatenados.faa </code></pre>
+</div>
+</div>
+<p>Finally, we have all the genomic vicinities sorted phylogenetically according to the genes in the core-cluster. We can either see the output directly on the server or download the resulting svg file to our local computer. The format svg stands for scalable vector graphics, we are save it as an html file in order to get the option of open it as html. To see it in the server we must first copy the Joined.svg into Joined.html, then, go to the EXAMPLE2 directory in the r-studio files panel located at the bottom right. Once there clik in the Joined.html file and chose the option View in Web Browser. The corason figure will output in a new tab.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cp output/cpsg.query-output/Joined.svg  Joined.html</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><img src="https://carpentries-incubator.github.io/genome-mining/fig/ViewOutput.jpg" class="img-fluid"></p>
+<p>You can also use <code>scp</code> in a local terminal to download the resulting svg file to your local computer.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> scp <span class="er">(</span><span class="ex">remoto</span><span class="kw">)</span><span class="ex">/corason-conda/EXAMPLE2/output/cpsg.query-output</span>  Downloads/.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><img src="https://carpentries-incubator.github.io/genome-mining/fig/Joined.svg" class="img-fluid"></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+CORASON has several installation and a conda beta versions
+</div>
+</div>
+<div class="callout-body-container callout-body">
+
+</div>
+</div>
+<p>CORASON has one <a href="https://github.com/nselem/corason">docker installation</a> where you have to go inside the docker container, its input are RAST files. The script <a href="https://bigscape-corason.secondarymetabolites.org/index.html">run_corason</a> belongs to another installation that accepts gbk as input files. And finally, this is a beta version of CORASON <a href="https://github.com/miguel-mx/corason-conda">conda container</a>.</p>
+<div class="callout callout-style-default callout-note callout-titled" style="color:darkgreen">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Key Points
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><p>CORASON is a command-line tool that finds BGC-families</p></li>
+<li><p>Genomic vicinity variation is organized phylogenetically according to the conserved genes in the BGC-family</p></li>
+</ul>
+</div>
+</div>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

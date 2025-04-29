@@ -308,7 +308,7 @@ You can also customize and re-renderize the similarity networks of your results 
 -   Kautsar, S. A., Blin, K., Shaw, S., Navarro-Muñoz, J. C., Terlouw, B. R., van der Hooft, J. J., … & Medema, M. H. (2020). MIBiG 2.0: a repository for biosynthetic gene clusters of known function. Nucleic acids research, 48(D1), D454-D458.
 
 ::: {.callout-note style="color:darkgreen"}
-## Keypoints
+## Key Points
 
 -   BGC similarity is measured by BiG-SCAPE according to protein domain content, adjacency and sequence identity.
 
