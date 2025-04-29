@@ -1,1 +1,87 @@
 # Redes de similitud de BGCs
+
+## **BGC Similarity Networks**
+
+## **Introduction**
+
+In the previous section, we learned how to study the BGCs encoded by each of the genomes of our analyses. In case you are interested in the study of a certain BGC or a certain strain, this may be enough. However, sometimes the aim is to compare the biosynthetic potential of tens or hundreds of genomes. To perform this kind of analysis, we will use BiG-SCAPE (Navarro-Muñoz et al., 2019), a workflow that compares all the BGCs detected by antiSMASH to find their relatedness. BiG-SCAPE will search for Pfam domains (Mistry et al., 2021) in the protein sequences of each BGC. Then, the Pfam domains will be linearized and compared, creating different similarity networks and scoring the similarity of each pair of clusters. Based on a cutoff value for this score, the diverse BGCs will be classified on Gene Cluster Families (GCFs) to facilitate their study. A single GCF is supposed to encompass BGCs that produce chemically related metabolites (molecular families). Lower cutoffs would create families of BGCs that produce identical compounds, while higher cutoffs would create families of more loosely related compounds.
+
+## **Preparing the input**
+
+In each of the antiSMASH output directories, we will find a single `.gbk` file for each BGC, which includes “region” within its filename. Thus, we will copy all these files to the new directory.
+
+Move into the directory that has the antiSMASH results of each genome:
+
+``` bash
+$ conda deactivate  
+$ conda activate /miniconda3/envs/bigscape/  
+$ cd ~/pan_workshop/results/antismash/
+$ ls
+```
+
+Since we will put together in the same directory many files with similar names, we want to make sure that nothing is left behind or overwritten. For this, we will count all the `gbk` files of all the genomes.
+
+``` bash
+$ ls Streptococcus_agalactiae_*/*region*gbk | wc -l
+```
+
+``` {#Output}
+16
+```
+
+Since the names are somewhat cryptic, they could be repeated, so we will rename the `gbks` in such a way that they include the genome name.
+
+Copy the following script to a file named `change-names.sh` using `nano`:
+
+``` bash
+# This script is to rename the antiSMASH gbks for them to include the species and strain names, taken from the directory name.
+# The argument it requires is the name of the directory with the AntiSMASH output, which must NOT contain a slash at the end.
+
+# Usage for one AntiSMASH output directory:
+#     sh change-names.sh <folder>
+
+# Usage for multiple AntiSMASH output directory:
+#     for species in <output-directory-pattern*>
+#    	 do
+#    		 sh change-names.sh $species
+#    	 done
+
+
+
+ls -1 "$1"/*region*gbk | while read line # enlist the gbks of all regions in the directory and start a while loop
+ do
+    dir=$(echo $line | cut -d'/' -f1) # save the directory name in a variable
+    file=$(echo $line | cut -d'/' -f2) # save the file name in a variable
+	for directory in $dir # start a for loop
+    	do
+   		 cd $directory # enter the directory
+      	newfile=$(echo $dir-$file) # make a new variable that fuses the directory name with the file name
+			 	echo "Renaming" $file " to" $newfile # print a message showing the old and new file names
+			 	mv $file $newfile # rename
+			 	cd .. # return to main directory before it begins again
+		 done
+ done
+```
+
+Run the script for all the directory:
+
+``` bash
+$ for species in Streptococcus_agalactiae_*
+> do
+>   	 sh change-names.sh $species
+>    done
+
+```
+
+Now make a directory for all your BiG-SCAPE analyses and inside it make a directory that contains all of the `gbks` of all of your genomes. This one will be the input for BiG-SCAPE. (For convenience `bigscape/` will be inside `antismash/` while we run BiG-SCAPE).
+
+``` bash
+$ mkdir -p bigscape/bgcs_gbks/
+```
+
+Now copy all the region `gbks`to this new directory, and look at its content:
+
+``` bash
+$ cp Streptococcus_agalactiae_*/*region*gbk bigscape/bgcs_gbks/
+$ ls bigscape/bgcs_gbks/
+```
