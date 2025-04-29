@@ -13,7 +13,7 @@ The term “pangenome” is a fusion of the Greek words *pan*, which means ‘wh
 
 Do you feel confused about what a pangenome is? Look at this analogy!
 
-::: {.callout-note collapse="TRUE"}
+::: {.callout-note collapse="FALSE"}
 ## Solution
 
 Imagine you’re on a mission to open the finest pizza restaurant, aiming to offer your customers a wide variety of pizzas from around the world. To achieve this, you set out to gather all the pizza recipes ever created, including margherita, quattro formaggi, pepperoni, Hawaiian, and more. As you examine these recipes, you begin to notice that certain ingredients appear in multiple pizzas, while others are unique to specific recipes.

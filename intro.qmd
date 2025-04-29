@@ -2,6 +2,6 @@
 
 **Minería Genómica Bacteriana: Identificación de genes de producción y resistencia antimicrobiana**
 
-### Referencias
+**Referencias**
 
 No olvides las referencias
