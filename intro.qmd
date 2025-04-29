@@ -1,4 +1,4 @@
-# Introducción Sobre el Workshop
+## Introducción Sobre el Workshop
 
 **Minería Genómica Bacteriana: Identificación de genes de producción y resistencia antimicrobiana**
 
