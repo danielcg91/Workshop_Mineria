@@ -337,7 +337,7 @@ H\) `echo Downloading $strain`
 ```
 :::
 
-::: {.callout-note collapse="TRUE"}
+::: {.callout-note collapse="true"}
 ## Solution
 
 B, F, H, G, D

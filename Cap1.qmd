@@ -1,4 +1,6 @@
-# Introduction to Pangenomics
+# Introducción a pangenómica
+
+## Introduction to Pangenomics
 
 ## Unveiling the Genomic Complexity: The Pangenome Paradigm
 
