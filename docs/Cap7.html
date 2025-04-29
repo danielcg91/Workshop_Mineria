@@ -6,10 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Dr.&nbsp;Daniel Chávez, M.C. Marisol Navarro">
-<meta name="dcterms.date" content="2027-04-04">
 
-<title>Workshop</title>
+<title>8&nbsp; Bases de datos de Minería Genómica – Workshop</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -32,7 +64,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./intro.html" rel="next">
+<link href="./Cap6.html" rel="prev">
 <link href="./rsgMexico.jpeg" rel="icon" type="image/jpeg">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -85,7 +117,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Información general</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Cap7.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Bases de datos de Minería Genómica</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -139,7 +171,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Información general</span></a>
   </div>
 </li>
@@ -187,7 +219,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Cap7.html" class="sidebar-item-text sidebar-link">
+  <a href="./Cap7.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Bases de datos de Minería Genómica</span></span></a>
   </div>
 </li>
@@ -201,7 +233,16 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#información-general" id="toc-información-general" class="nav-link active" data-scroll-target="#información-general">Información general</a></li>
+  <li><a href="#genome-mining-databases" id="toc-genome-mining-databases" class="nav-link active" data-scroll-target="#genome-mining-databases"><span class="header-section-number">8.1</span> <strong>Genome Mining Databases</strong></a></li>
+  <li><a href="#mibig-database" id="toc-mibig-database" class="nav-link" data-scroll-target="#mibig-database"><span class="header-section-number">8.2</span> <strong>MIBiG Database</strong></a>
+  <ul>
+  <li><a href="#browsing-and-querying-in-the-mibig-database" id="toc-browsing-and-querying-in-the-mibig-database" class="nav-link" data-scroll-target="#browsing-and-querying-in-the-mibig-database"><span class="header-section-number">8.2.1</span> <strong>Browsing and Querying in the MIBiG database</strong></a></li>
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results"><span class="header-section-number">8.2.2</span> <strong>Results</strong></a></li>
+  </ul></li>
+  <li><a href="#antismash-database" id="toc-antismash-database" class="nav-link" data-scroll-target="#antismash-database"><span class="header-section-number">8.3</span> <strong>antiSMASH database</strong></a>
+  <ul>
+  <li><a href="#browsing-and-querying-in-the-antismash-database" id="toc-browsing-and-querying-in-the-antismash-database" class="nav-link" data-scroll-target="#browsing-and-querying-in-the-antismash-database"><span class="header-section-number">8.3.1</span> <strong>Browsing and Querying in the antiSMASH database</strong></a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -210,26 +251,14 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Workshop</h1>
+<h1 class="title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Bases de datos de Minería Genómica</span></h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Dr.&nbsp;Daniel Chávez, M.C. Marisol Navarro </p>
-          </div>
-  </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">April 4, 2027</p>
-    </div>
-  </div>
   
     
   </div>
@@ -239,192 +268,124 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<div>
-
+<section id="genome-mining-databases" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="genome-mining-databases"><span class="header-section-number">8.1</span> <strong>Genome Mining Databases</strong></h2>
+</section>
+<section id="mibig-database" class="level2" data-number="8.2">
+<h2 data-number="8.2" class="anchored" data-anchor-id="mibig-database"><span class="header-section-number">8.2</span> <strong>MIBiG Database</strong></h2>
+<p>The Minimum Information about a Biosynthetic Gene cluster <a href="https://mibig.secondarymetabolites.org/repository">MIBiG</a> is a database that facilitates consistent and systematic deposition and retrieval of data on biosynthetic gene clusters. MIBiG provides a robust community standard for annotations and metadata on biosynthetic gene clusters and their molecular products. It will empower next-generation research on the biosynthesis, chemistry and ecology of broad classes of societally relevant bioactive secondary metabolites, guided by robust experimental evidence and rich metadata components.</p>
+<section id="browsing-and-querying-in-the-mibig-database" class="level3" data-number="8.2.1">
+<h3 data-number="8.2.1" class="anchored" data-anchor-id="browsing-and-querying-in-the-mibig-database"><span class="header-section-number">8.2.1</span> <strong>Browsing and Querying in the MIBiG database</strong></h3>
+<p>Select “Search” on the upper right corner of the menu bar</p>
+<p><img src="https://carpentries-incubator.github.io/genome-mining/fig/MIBiG_search.png" class="img-fluid"></p>
+<p>For simple queries, such as <em>Streptococcus agalactiae</em> or searching for a specific strain you can use the “Simple search” function.</p>
+<p><img src="https://carpentries-incubator.github.io/genome-mining/fig/MIBiG_query.png" class="img-fluid"></p>
+<p>For complex queries, the database also provides a sophisticated query builder that allows querying on all antiSMASH annotations. To enable this function, click on “Build a query”</p>
+</section>
+<section id="results" class="level3" data-number="8.2.2">
+<h3 data-number="8.2.2" class="anchored" data-anchor-id="results"><span class="header-section-number">8.2.2</span> <strong>Results</strong></h3>
+<p><img src="https://carpentries-incubator.github.io/genome-mining/fig/MIBiG_results.png" class="img-fluid"></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
-<div class="quarto-layout-panel" data-layout-ncol="2">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="figures/rsgMexico.jpeg" class="img-fluid" width="200"></p>
+<div class="callout-title-container flex-fill">
+Exercise 1
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Enter to <a href="https://mibig.secondarymetabolites.org/">MIBiG</a> and search BGCs from <em>Streptococcus</em>. Search the BGCs that produce the products Thermophilin 1277 and Streptolysin S. Based on the table on MIBiG, which of these organisms has the most complete annotation?</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p><em>Streptococcus thermophilus</em> produce Thermophilin 1277 while <em>Streptococcus pyogenes</em> M1 GAS produces Streptolysin S. According to MIBiG metadata Streptolysin S BGC is complete while Thermophilin 1277 is not. So Streptolysin S BGC is better annotated.</p>
 </div>
 </div>
 </div>
-<section id="información-general" class="level1 unnumbered">
-<h1 class="unnumbered">Información general</h1>
+</div>
+</div>
+</section>
+</section>
+<section id="antismash-database" class="level2" data-number="8.3">
+<h2 data-number="8.3" class="anchored" data-anchor-id="antismash-database"><span class="header-section-number">8.3</span> <strong>antiSMASH database</strong></h2>
+<p>The <a href="https://antismash-db.secondarymetabolites.org/">antiSMASH database</a> provides an easy to use, up-to-date collection of annotated BGC data. It allows to easily perform cross-genome analyses by offering complex queries on the datasets.</p>
+<section id="browsing-and-querying-in-the-antismash-database" class="level3" data-number="8.3.1">
+<h3 data-number="8.3.1" class="anchored" data-anchor-id="browsing-and-querying-in-the-antismash-database"><span class="header-section-number">8.3.1</span> <strong>Browsing and Querying in the antiSMASH database</strong></h3>
+<p>Select “Browse” on the top menu bar, alternatively you can select “Query” in the center</p>
+<p><img src="https://carpentries-incubator.github.io/genome-mining/fig/antiSMASH_db.png" class="img-fluid"></p>
+<p>For simple queries, such as “<em>Streptococcus</em>” or searching for a specific strain you can use the “Simple search” function.</p>
+<p><img src="https://carpentries-incubator.github.io/genome-mining/fig/antiSMASH_search.png" class="img-fluid"></p>
+<p>For complex queries, the database also provides a sophisticated query builder that allows querying on all antiSMASH annotations. To enable this function, click on “Build a query”</p>
+<p><img src="https://carpentries-incubator.github.io/genome-mining/fig/antiSMASH_query.png" class="img-fluid"></p>
+<p>Use antiSMASH database to analyse the BGC contained in the <em>Streptococcus</em> genomes. We’ll use Python to visualize the data. First, import pandas, matplotlib.pyplot and seaborn libraries.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Secondly, store in a dataframe variable the content of the <em>Streptococcus</em> predicted BGC downloaded from antiSMASH-db.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> pd.read_csv(<span class="st">"https://raw.githubusercontent.com/AxelRamosGarcia/Genome-Mining/gh-pages/data/antismash_db.csv"</span>, sep<span class="op">=</span><span class="st">"</span><span class="ch">\t</span><span class="st">"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><img src="https://carpentries-incubator.github.io/genome-mining/fig/21-08-24-chapter9-table.png" class="img-fluid"></p>
+<p>Now, group the data by the variables Species and BGC type:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>occurences <span class="op">=</span> data.groupby([<span class="st">"Species"</span>, <span class="st">"BGC type"</span>]).size().reset_index(name<span class="op">=</span><span class="st">"Occurrences"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>And visualize the content of the ocurrences grouped by species column:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>occurences</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><img src="https://carpentries-incubator.github.io/genome-mining/fig/21-08-24-chapter9-occurences.png" class="img-fluid"></p>
+<p>Let’s see our first visualization of the BGC content on a heatmap.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>pivot <span class="op">=</span> occurences.pivot(index<span class="op">=</span><span class="st">"BGC type"</span>, columns<span class="op">=</span><span class="st">"Species"</span>, values<span class="op">=</span><span class="st">"Occurrences"</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">10</span>))</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>sns.heatmap(pivot, cmap<span class="op">=</span><span class="st">"coolwarm"</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><img src="https://carpentries-incubator.github.io/genome-mining/fig/21-08-24-chapter9-heatmap.png" class="img-fluid"></p>
+<p>Now, let’s restrict ourselves to <em>S. agalactiae</em>.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>agalactiae <span class="op">=</span> occurences[occurences[<span class="st">"Species"</span>] <span class="op">==</span> <span class="st">"agalactiae"</span>]</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>sns.scatterplot(agalactiae, x<span class="op">=</span><span class="st">"BGC type"</span>, y<span class="op">=</span><span class="st">"Occurrences"</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>plt.xticks(rotation<span class="op">=</span><span class="st">"vertical"</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><img src="https://carpentries-incubator.github.io/genome-mining/fig/21-08-24-chapter9.dotplot.png" class="img-fluid"></p>
+<p>Finally, let’s restrict ourselves to BGC predicted less than 200 times.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>filtered <span class="op">=</span> occurences[occurences[<span class="st">"Occurrences"</span>] <span class="op">&lt;</span> <span class="dv">200</span>]</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">15</span>, <span class="dv">5</span>))</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>sns.scatterplot(filtered, x<span class="op">=</span><span class="st">"BGC type"</span>, y<span class="op">=</span><span class="st">"Occurrences"</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>plt.xticks(rotation<span class="op">=</span><span class="st">"vertical"</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>plt.grid(axis<span class="op">=</span><span class="st">"y"</span>)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><img src="https://carpentries-incubator.github.io/genome-mining/fig/21-08-24-chapter9.dotplot2.png" class="img-fluid"></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>filtered_pivot <span class="op">=</span> filtered.pivot(index<span class="op">=</span><span class="st">"BGC type"</span>, columns<span class="op">=</span><span class="st">"Species"</span>, values<span class="op">=</span><span class="st">"Occurrences"</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">10</span>))</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>sns.heatmap(filtered_pivot, cmap<span class="op">=</span><span class="st">"coolwarm"</span>)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><img src="https://carpentries-incubator.github.io/genome-mining/fig/21-08-24-chapter9-pivot-filtered.png" class="img-fluid"></p>
+<div class="callout callout-style-default callout-note callout-titled" style="color:darkgreen">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Key Points
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <ul>
-<li><div class="tabset-margin-container"></div><div class="panel-tabset" data-group="globalInfo">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Sobre el curso 📌</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Requisitos previos</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">Agenda 29 de abril📆</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false">Agenda 30 de abril 📆</a></li></ul>
-<div class="tab-content" data-group="globalInfo">
-<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<p>Fuente del curso</p>
-<ul>
-<li><p><strong>Fechas:</strong> Del 29 al 30 de abril del 2025</p></li>
-<li><p><strong>Duración del curso:</strong> 8 horas</p></li>
-</ul>
-<h4 id="instructores" class="anchored"><strong>Instructores:</strong></h4>
-<ul>
-<li><p><strong>Marisol Navarro</strong> - <a href="https://comunidadbioinfo.github.io/es/#:~:text=%C2%A1Bienvenidos%20a%20la%20Comunidad%20de,la%20comunidad%20de%20software%20libre.">RSG-México</a> y <a href="https://r-ladies-morelia.github.io/">RLadies Morelia</a>.</p></li>
-<li><p><strong>Johana Castelán</strong> - <a href="https://comunidadbioinfo.github.io/es/#:~:text=%C2%A1Bienvenidos%20a%20la%20Comunidad%20de,la%20comunidad%20de%20software%20libre.">RSG-México</a> y <a href="https://r-ladies-morelia.github.io/">RLadies Morelia</a>.</p></li>
-<li><p><strong>Evelia Coss</strong> - posdoctoral LIIGH-UNAM. Miembro de <a href="https://lupusrgmx.liigh.unam.mx/quienes-somos.html">LupusRGMX</a>, <a href="https://jaguar.liigh.unam.mx/">Project JAGUAR</a>, <a href="https://twitter.com/RiaBioNet">RiaBio</a>, <a href="https://twitter.com/CDSBMexico">CDSB-Mexico</a>, <a href="https://comunidadbioinfo.github.io/es/#:~:text=%C2%A1Bienvenidos%20a%20la%20Comunidad%20de,la%20comunidad%20de%20software%20libre.">RSG-México</a> y <a href="https://r-ladies-morelia.github.io/">RLadies Morelia</a>. Coordinadora de los <a href="https://viernesbioinformatica.github.io/">VieRnes de Bioinformatica en el LIIGH</a>. Instructora Certificada de <a href="https://carpentries.org/">The Carpentries</a>. Contacto: <a href="https://iscb-rsg-mexico.github.io/Reprohack2025_RLadiesMorelia_RSGMexico/docs/ecoss@liigh.unam.mx">correo</a>, <a href="https://eveliacoss.github.io/">pagina web</a></p></li>
-</ul>
-<p><strong>Ayudantes:</strong></p>
-<ul>
-<li><p>Mayela Fosado - Instituto de Neurobiología (INB)-UNAM.</p></li>
-<li><p>Emilio Ortíz - Instituto de Neurobiología (INB)-UNAM.</p></li>
-<li><p>Mariana Devon - Departamento de Bioinformática en Enfermedades Infecciosas, ESPM-INSP.</p></li>
-<li><p>Andrés Arredondo - Ciencias Agrogenómicas, ENES León-UNAM.</p></li>
-<li><p>Reynaldo Villanueva Enríquez - Instituto de Química (UNAM).</p></li>
-<li><p>Francisco Maximiliano González Serrano - Centro de Ciencias Genómicas (CCG)-UNAM.</p></li>
-</ul>
-<h4 id="resumen" class="anchored"><strong>Resumen:</strong></h4>
-<h4 id="objetivos" class="anchored"><strong>Objetivos:</strong></h4>
-<p>En esta guía rápida aprenderás a:</p>
-<h2 id="citar-y-reutilizar-el-material-del-curso" class="anchored" data-anchor-id="información-general">Citar y reutilizar el material del curso</h2>
-<p>Los datos del curso se pueden reutilizar y adaptar libremente con la debida atribución. Todos los datos de los cursos de estos repositorios están sujetos a la licencia <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)</a>.</p>
-</div>
-<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<ul>
-<li><p>Debes tener una <strong>cuenta de usuario de GitHub</strong>. Para más información, consulta “<a href="https://docs.github.com/es/get-started/start-your-journey/creating-an-account-on-github">Creación de una cuenta en GitHub</a>”.</p></li>
-<li><p>No necesitas saber cómo codificar, utilizar la línea de comandos o instalar Git (el software de control de versiones en el que está compilado GitHub).</p></li>
-<li><p>Contar con una terminal con Git, en Windows puedes usar <a href="https://miguel-mx.github.io/2024-01-24-ccm-unam-swc/">Git Bash.</a></p></li>
+<li><p>MIBiG provides BGCs that have been experimentally tested</p></li>
+<li><p>antiSMASH database comprises predicted BGCs of each organism</p></li>
 </ul>
 </div>
-<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
-<table class="caption-top table">
-<colgroup>
-<col style="width: 79%">
-<col style="width: 20%">
-</colgroup>
-<tbody>
-<tr class="odd">
-<td><strong>Martes</strong></td>
-<td></td>
-</tr>
-<tr class="even">
-<td><strong>Tema</strong></td>
-<td>Tiempo</td>
-</tr>
-<tr class="odd">
-<td><ol type="1">
-<li><p><strong>Presentación del taller (15 min)</strong></p></li>
-<li><p><strong>Introducción a la Resistencia a Antibióticos (15 min)</strong></p></li>
-</ol></td>
-<td>09:00 a 09:30</td>
-</tr>
-<tr class="even">
-<td><ol start="3" type="1">
-<li><strong>Descripción de los datos (10 min)</strong></li>
-<li><strong>Descarga y exploración de datos (20 min)</strong></li>
-</ol></td>
-<td>09:30 a 10:00</td>
-</tr>
-<tr class="odd">
-<td><ol start="5" type="1">
-<li><p><strong>Anotación (25 min)</strong></p></li>
-<li><p>Encuesta 1 de 3 (05 min)</p></li>
-</ol></td>
-<td>10:00 a 10:30</td>
-</tr>
-<tr class="even">
-<td>☕ <em>Coffee break (30 min) - (12:00-12:10) ☕</em></td>
-<td>10:30 a 11:00</td>
-</tr>
-<tr class="odd">
-<td><ol start="7" type="1">
-<li><strong>CARD (25 min)</strong></li>
-</ol></td>
-<td>11:00 a 11:30</td>
-</tr>
-<tr class="even">
-<td><ol start="8" type="1">
-<li><strong>Introducción a Minería Genómica (30 min)</strong></li>
-</ol></td>
-<td>11:30 a 12:00</td>
-</tr>
-<tr class="odd">
-<td><ol start="9" type="1">
-<li><strong>Bases de datos de Minería Genómica (30 min)</strong></li>
-</ol></td>
-<td>12:00 a 12:30</td>
-</tr>
-<tr class="even">
-<td><ul>
-<li><p>Encuesta 2 de 3 (05 min)</p></li>
-<li><p>Plática Reynaldo (15 min) más preguntas</p></li>
-</ul></td>
-<td>12:30 a 13:00</td>
-</tr>
-</tbody>
-</table>
 </div>
-<div id="tabset-1-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-4-tab">
-<table class="caption-top table">
-<colgroup>
-<col style="width: 85%">
-<col style="width: 14%">
-</colgroup>
-<tbody>
-<tr class="odd">
-<td><strong>Miercoles</strong></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>Tema</td>
-<td>Tiempo</td>
-</tr>
-<tr class="odd">
-<td><ol type="1">
-<li><strong>Identificación de Clusters de Genes Biosintéticos de metabolitos secundarios (30 min)</strong></li>
-</ol></td>
-<td>09:00 a 09:30</td>
-</tr>
-<tr class="even">
-<td><ol start="2" type="1">
-<li><strong>Redes de similitud de BGCs (30 min)</strong></li>
-</ol></td>
-<td>09:30 a 10:00</td>
-</tr>
-<tr class="odd">
-<td><ol start="3" type="1">
-<li><p><strong>Homologous BGCs clusterization (30 min)</strong></p>
-<p><strong>Clusterización BGC Homologa</strong></p></li>
-</ol></td>
-<td>10:00 a 10:30</td>
-</tr>
-<tr class="even">
-<td>☕ <em>Coffee break (30 min) ☕</em></td>
-<td>10:30 a 11:00</td>
-</tr>
-<tr class="odd">
-<td>Plática Francisco (15 min)</td>
-<td>11:00 a 11:30</td>
-</tr>
-<tr class="even">
-<td><ol start="4" type="1">
-<li><strong>Encontrando Variaciones en Vecindades Genómicas&nbsp; (30 min)</strong></li>
-</ol></td>
-<td>11:30 a 12:00</td>
-</tr>
-<tr class="odd">
-<td><ol start="5" type="1">
-<li><strong>Minería Genómica Evolutiva (30 min)</strong></li>
-</ol></td>
-<td>12:00 a 12:30</td>
-</tr>
-<tr class="even">
-<td><ul>
-<li>Presentaciones de asistentes</li>
-</ul></td>
-<td>12:30 a 13:00</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div></li>
-</ul>
+<p>References</p>
+<p><a href="https://carpentries-incubator.github.io/genome-mining/03-antiSMASHdb-MiBiG/index.html" class="uri">https://carpentries-incubator.github.io/genome-mining/03-antiSMASHdb-MiBiG/index.html</a></p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -994,11 +955,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./Cap6.html" class="pagination-link" aria-label="Identificación de Clusters de Genes Biosintéticos de metabolitos secundarios">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Identificación de Clusters de Genes Biosintéticos de metabolitos secundarios</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./intro.html" class="pagination-link" aria-label="intro.html">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">intro.html</span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->

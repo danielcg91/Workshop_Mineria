@@ -6,10 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Dr.&nbsp;Daniel Chávez, M.C. Marisol Navarro">
-<meta name="dcterms.date" content="2027-04-04">
 
-<title>Workshop</title>
+<title>7&nbsp; Identificación de Clusters de Genes Biosintéticos de metabolitos secundarios – Workshop</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -32,7 +64,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./intro.html" rel="next">
+<link href="./Cap7.html" rel="next">
+<link href="./Cap5.html" rel="prev">
 <link href="./rsgMexico.jpeg" rel="icon" type="image/jpeg">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -85,7 +118,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Información general</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Cap6.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Identificación de Clusters de Genes Biosintéticos de metabolitos secundarios</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -139,7 +172,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Información general</span></a>
   </div>
 </li>
@@ -181,7 +214,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Cap6.html" class="sidebar-item-text sidebar-link">
+  <a href="./Cap6.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Identificación de Clusters de Genes Biosintéticos de metabolitos secundarios</span></span></a>
   </div>
 </li>
@@ -201,7 +234,19 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#información-general" id="toc-información-general" class="nav-link active" data-scroll-target="#información-general">Información general</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">7.1</span> <strong>Introduction</strong></a></li>
+  <li><a href="#antismash-input-files" id="toc-antismash-input-files" class="nav-link" data-scroll-target="#antismash-input-files"><span class="header-section-number">7.2</span> <strong>antiSMASH input files</strong></a></li>
+  <li><a href="#running-antismash" id="toc-running-antismash" class="nav-link" data-scroll-target="#running-antismash"><span class="header-section-number">7.3</span> <strong>Running antiSMASH</strong></a></li>
+  <li><a href="#run-your-own-antismash-analysis" id="toc-run-your-own-antismash-analysis" class="nav-link" data-scroll-target="#run-your-own-antismash-analysis"><span class="header-section-number">7.4</span> <strong>Run your own antiSMASH analysis</strong></a>
+  <ul>
+  <li><a href="#running-antismash-in-a-single-file" id="toc-running-antismash-in-a-single-file" class="nav-link" data-scroll-target="#running-antismash-in-a-single-file"><span class="header-section-number">7.4.1</span> <strong>Running antiSMASH in a single file</strong></a></li>
+  <li><a href="#running-antismash-over-a-list-of-files" id="toc-running-antismash-over-a-list-of-files" class="nav-link" data-scroll-target="#running-antismash-over-a-list-of-files"><span class="header-section-number">7.4.2</span> <strong>Running antiSMASH over a list of files</strong></a></li>
+  </ul></li>
+  <li><a href="#visualizing-antismash-results" id="toc-visualizing-antismash-results" class="nav-link" data-scroll-target="#visualizing-antismash-results"><span class="header-section-number">7.5</span> <strong>Visualizing antiSMASH results</strong></a></li>
+  <li><a href="#antismash-web-services" id="toc-antismash-web-services" class="nav-link" data-scroll-target="#antismash-web-services"><span class="header-section-number">7.6</span> <strong>antiSMASH web services</strong></a>
+  <ul>
+  <li><a href="#exercises-and-discussion" id="toc-exercises-and-discussion" class="nav-link" data-scroll-target="#exercises-and-discussion"><strong>Exercises and discussion</strong></a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -210,26 +255,14 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Workshop</h1>
+<h1 class="title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Identificación de Clusters de Genes Biosintéticos de metabolitos secundarios</span></h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Dr.&nbsp;Daniel Chávez, M.C. Marisol Navarro </p>
-          </div>
-  </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">April 4, 2027</p>
-    </div>
-  </div>
   
     
   </div>
@@ -239,192 +272,213 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<div>
-
-</div>
-<div class="quarto-layout-panel" data-layout-ncol="2">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="figures/rsgMexico.jpeg" class="img-fluid" width="200"></p>
-</div>
-</div>
-</div>
-<section id="información-general" class="level1 unnumbered">
-<h1 class="unnumbered">Información general</h1>
-<ul>
-<li><div class="tabset-margin-container"></div><div class="panel-tabset" data-group="globalInfo">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Sobre el curso 📌</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Requisitos previos</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">Agenda 29 de abril📆</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false">Agenda 30 de abril 📆</a></li></ul>
-<div class="tab-content" data-group="globalInfo">
-<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<p>Fuente del curso</p>
-<ul>
-<li><p><strong>Fechas:</strong> Del 29 al 30 de abril del 2025</p></li>
-<li><p><strong>Duración del curso:</strong> 8 horas</p></li>
-</ul>
-<h4 id="instructores" class="anchored"><strong>Instructores:</strong></h4>
-<ul>
-<li><p><strong>Marisol Navarro</strong> - <a href="https://comunidadbioinfo.github.io/es/#:~:text=%C2%A1Bienvenidos%20a%20la%20Comunidad%20de,la%20comunidad%20de%20software%20libre.">RSG-México</a> y <a href="https://r-ladies-morelia.github.io/">RLadies Morelia</a>.</p></li>
-<li><p><strong>Johana Castelán</strong> - <a href="https://comunidadbioinfo.github.io/es/#:~:text=%C2%A1Bienvenidos%20a%20la%20Comunidad%20de,la%20comunidad%20de%20software%20libre.">RSG-México</a> y <a href="https://r-ladies-morelia.github.io/">RLadies Morelia</a>.</p></li>
-<li><p><strong>Evelia Coss</strong> - posdoctoral LIIGH-UNAM. Miembro de <a href="https://lupusrgmx.liigh.unam.mx/quienes-somos.html">LupusRGMX</a>, <a href="https://jaguar.liigh.unam.mx/">Project JAGUAR</a>, <a href="https://twitter.com/RiaBioNet">RiaBio</a>, <a href="https://twitter.com/CDSBMexico">CDSB-Mexico</a>, <a href="https://comunidadbioinfo.github.io/es/#:~:text=%C2%A1Bienvenidos%20a%20la%20Comunidad%20de,la%20comunidad%20de%20software%20libre.">RSG-México</a> y <a href="https://r-ladies-morelia.github.io/">RLadies Morelia</a>. Coordinadora de los <a href="https://viernesbioinformatica.github.io/">VieRnes de Bioinformatica en el LIIGH</a>. Instructora Certificada de <a href="https://carpentries.org/">The Carpentries</a>. Contacto: <a href="https://iscb-rsg-mexico.github.io/Reprohack2025_RLadiesMorelia_RSGMexico/docs/ecoss@liigh.unam.mx">correo</a>, <a href="https://eveliacoss.github.io/">pagina web</a></p></li>
-</ul>
-<p><strong>Ayudantes:</strong></p>
-<ul>
-<li><p>Mayela Fosado - Instituto de Neurobiología (INB)-UNAM.</p></li>
-<li><p>Emilio Ortíz - Instituto de Neurobiología (INB)-UNAM.</p></li>
-<li><p>Mariana Devon - Departamento de Bioinformática en Enfermedades Infecciosas, ESPM-INSP.</p></li>
-<li><p>Andrés Arredondo - Ciencias Agrogenómicas, ENES León-UNAM.</p></li>
-<li><p>Reynaldo Villanueva Enríquez - Instituto de Química (UNAM).</p></li>
-<li><p>Francisco Maximiliano González Serrano - Centro de Ciencias Genómicas (CCG)-UNAM.</p></li>
-</ul>
-<h4 id="resumen" class="anchored"><strong>Resumen:</strong></h4>
-<h4 id="objetivos" class="anchored"><strong>Objetivos:</strong></h4>
-<p>En esta guía rápida aprenderás a:</p>
-<h2 id="citar-y-reutilizar-el-material-del-curso" class="anchored" data-anchor-id="información-general">Citar y reutilizar el material del curso</h2>
-<p>Los datos del curso se pueden reutilizar y adaptar libremente con la debida atribución. Todos los datos de los cursos de estos repositorios están sujetos a la licencia <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)</a>.</p>
-</div>
-<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<ul>
-<li><p>Debes tener una <strong>cuenta de usuario de GitHub</strong>. Para más información, consulta “<a href="https://docs.github.com/es/get-started/start-your-journey/creating-an-account-on-github">Creación de una cuenta en GitHub</a>”.</p></li>
-<li><p>No necesitas saber cómo codificar, utilizar la línea de comandos o instalar Git (el software de control de versiones en el que está compilado GitHub).</p></li>
-<li><p>Contar con una terminal con Git, en Windows puedes usar <a href="https://miguel-mx.github.io/2024-01-24-ccm-unam-swc/">Git Bash.</a></p></li>
-</ul>
-</div>
-<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+<section id="introduction" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">7.1</span> <strong>Introduction</strong></h2>
+<p>Within microbial genomes, we can find some specific regions that take part in the biosynthesis of secondary metabolites, these sections are known as Biosynthetic Gene Clusters, which are relevant due to the possible applications that they may have, for example: antimicrobials, antitumors, cholesterol-lowering, immunosuppressants, antiprotozoal, antihelminth, antiviral and anti-aging activities.</p>
+<p>What is a natural Product?</p>
+<p>antiSMASH is a pipeline based on <a href="https://www.ebi.ac.uk/training/online/courses/pfam-creating-protein-families/what-are-profile-hidden-markov-models-hmms/#:~:text=Profile%20HMMs%20are%20probabilistic%20models,the%20alignment%2C%20see%20Figure%202">profile hidden Markov models</a> that allow us to identify the gene clusters contained within the genome sequences that encode secondary metabolites of all known broad chemical classes.</p>
+</section>
+<section id="antismash-input-files" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="antismash-input-files"><span class="header-section-number">7.2</span> <strong>antiSMASH input files</strong></h2>
+<p>antiSMASH pipeline can work with three different file formats <code>GenBank</code>, <code>FASTA</code> and <code>EMBL</code>. Both <code>GenBank</code> and <code>EMBL</code> formats include genome annotations, while a <code>FASTA</code> file just comprises the nucleotides of each genomic contig.</p>
+</section>
+<section id="running-antismash" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="running-antismash"><span class="header-section-number">7.3</span> <strong>Running antiSMASH</strong></h2>
+<p>The command line usage of antiSMASH is detailed in the following <a href="https://docs.antismash.secondarymetabolites.org/command_line/">repositories:</a></p>
+<p>In summary, you will need to use your genome as the input. Then, antiSMASH will create an output folder for each of your genomes. Within this folder, you will find a single <code>.gbk</code> file for each of the detected Biosynthetic Gene Clusters (we will use these files for subsequent analyses) and a <code>.html</code> file, among others. By opening the <code>.html</code> file, you can explore the antiSMASH annotations.</p>
+<p>You can run antiSMASH in two ways <strong>Minimal and Full-featured run</strong>, as follows:</p>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 79%">
-<col style="width: 20%">
+<col style="width: 50%">
+<col style="width: 50%">
 </colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Run type</th>
+<th style="text-align: left;">Command</th>
+</tr>
+</thead>
 <tbody>
 <tr class="odd">
-<td><strong>Martes</strong></td>
-<td></td>
+<td style="text-align: left;">Minimal run</td>
+<td style="text-align: left;">antismash genome.gbk</td>
 </tr>
 <tr class="even">
-<td><strong>Tema</strong></td>
-<td>Tiempo</td>
-</tr>
-<tr class="odd">
-<td><ol type="1">
-<li><p><strong>Presentación del taller (15 min)</strong></p></li>
-<li><p><strong>Introducción a la Resistencia a Antibióticos (15 min)</strong></p></li>
-</ol></td>
-<td>09:00 a 09:30</td>
-</tr>
-<tr class="even">
-<td><ol start="3" type="1">
-<li><strong>Descripción de los datos (10 min)</strong></li>
-<li><strong>Descarga y exploración de datos (20 min)</strong></li>
-</ol></td>
-<td>09:30 a 10:00</td>
-</tr>
-<tr class="odd">
-<td><ol start="5" type="1">
-<li><p><strong>Anotación (25 min)</strong></p></li>
-<li><p>Encuesta 1 de 3 (05 min)</p></li>
-</ol></td>
-<td>10:00 a 10:30</td>
-</tr>
-<tr class="even">
-<td>☕ <em>Coffee break (30 min) - (12:00-12:10) ☕</em></td>
-<td>10:30 a 11:00</td>
-</tr>
-<tr class="odd">
-<td><ol start="7" type="1">
-<li><strong>CARD (25 min)</strong></li>
-</ol></td>
-<td>11:00 a 11:30</td>
-</tr>
-<tr class="even">
-<td><ol start="8" type="1">
-<li><strong>Introducción a Minería Genómica (30 min)</strong></li>
-</ol></td>
-<td>11:30 a 12:00</td>
-</tr>
-<tr class="odd">
-<td><ol start="9" type="1">
-<li><strong>Bases de datos de Minería Genómica (30 min)</strong></li>
-</ol></td>
-<td>12:00 a 12:30</td>
-</tr>
-<tr class="even">
-<td><ul>
-<li><p>Encuesta 2 de 3 (05 min)</p></li>
-<li><p>Plática Reynaldo (15 min) más preguntas</p></li>
-</ul></td>
-<td>12:30 a 13:00</td>
+<td style="text-align: left;">Full-featured run</td>
+<td style="text-align: left;">antismash –cb-general –cb-knownclusters –cb-subclusters –asf –pfam2go –smcog-trees genome.gbk</td>
 </tr>
 </tbody>
 </table>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
-<div id="tabset-1-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-4-tab">
-<table class="caption-top table">
-<colgroup>
-<col style="width: 85%">
-<col style="width: 14%">
-</colgroup>
-<tbody>
-<tr class="odd">
-<td><strong>Miercoles</strong></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>Tema</td>
-<td>Tiempo</td>
-</tr>
-<tr class="odd">
-<td><ol type="1">
-<li><strong>Identificación de Clusters de Genes Biosintéticos de metabolitos secundarios (30 min)</strong></li>
-</ol></td>
-<td>09:00 a 09:30</td>
-</tr>
-<tr class="even">
-<td><ol start="2" type="1">
-<li><strong>Redes de similitud de BGCs (30 min)</strong></li>
-</ol></td>
-<td>09:30 a 10:00</td>
-</tr>
-<tr class="odd">
-<td><ol start="3" type="1">
-<li><p><strong>Homologous BGCs clusterization (30 min)</strong></p>
-<p><strong>Clusterización BGC Homologa</strong></p></li>
-</ol></td>
-<td>10:00 a 10:30</td>
-</tr>
-<tr class="even">
-<td>☕ <em>Coffee break (30 min) ☕</em></td>
-<td>10:30 a 11:00</td>
-</tr>
-<tr class="odd">
-<td>Plática Francisco (15 min)</td>
-<td>11:00 a 11:30</td>
-</tr>
-<tr class="even">
-<td><ol start="4" type="1">
-<li><strong>Encontrando Variaciones en Vecindades Genómicas&nbsp; (30 min)</strong></li>
-</ol></td>
-<td>11:30 a 12:00</td>
-</tr>
-<tr class="odd">
-<td><ol start="5" type="1">
-<li><strong>Minería Genómica Evolutiva (30 min)</strong></li>
-</ol></td>
-<td>12:00 a 12:30</td>
-</tr>
-<tr class="even">
-<td><ul>
-<li>Presentaciones de asistentes</li>
-</ul></td>
-<td>12:30 a 13:00</td>
-</tr>
-</tbody>
-</table>
+<div class="callout-title-container flex-fill">
+Exercise 1: antiSMASH scope
 </div>
 </div>
-</div></li>
+<div class="callout-body-container callout-body">
+<p>If you run an <em>Streptococcus agalactiae</em> annotated genome using antiSMASH, what results do you expect?</p>
+<p>a. The substances that a cluster produces</p>
+<p>b. A prediction of the metabolites that the clusters can produce</p>
+<p>c. A prediction of genes that belong to a biosynthetic cluster</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>a. False. antiSMASH is not an algorithm devoted to substance prediction.<br>
+b. False. Although antiSMASH does have some information about metabolites produced by similar clusters, this is not its main purpose.<br>
+c.&nbsp;True. antiSMASH compares domains and performs a prediction of the genes that belong to biosynthetic gene clusters.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="run-your-own-antismash-analysis" class="level2" data-number="7.4">
+<h2 data-number="7.4" class="anchored" data-anchor-id="run-your-own-antismash-analysis"><span class="header-section-number">7.4</span> <strong>Run your own antiSMASH analysis</strong></h2>
+<p>First, activate the GenomeMining conda environment:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> conda deactivate</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> conda activate /miniconda3/envs/GenomeMining_Global</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Second, run the antiSMASH command shown earlier in this lesson on the data <code>.gbk</code> or <code>.fasta</code> files. The command can be executed either in one single file, all the files contained within a folder or in a specific list of files. Here we show how it can be performed in these three different cases:</p>
+<section id="running-antismash-in-a-single-file" class="level3" data-number="7.4.1">
+<h3 data-number="7.4.1" class="anchored" data-anchor-id="running-antismash-in-a-single-file"><span class="header-section-number">7.4.1</span> <strong>Running antiSMASH in a single file</strong></h3>
+<p>Choose the annotated file ´agalactiae_A909_prokka.gbk´</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> mkdir <span class="at">-p</span> ~/pan_workshop/results/antismash  </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cd ~/pan_workshop/results/antismash  </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> antismash <span class="at">--genefinding-tool</span><span class="op">=</span>none ~/pan_workshop/results/annotated/Streptococcus_agalactiae_A909_prokka/Streptococcus_agalactiae_A909_prokka.gbk    </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>To see the antiSMASH generated outcomes do the following:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> tree <span class="at">-L</span> 1 ~/pan_workshop/results/antismash/Streptococcus_agalactiae_A909_prokka</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Output
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code>.
+├── CP000114.1.region001.gbk
+├── CP000114.1.region002.gbk
+├── css
+├── images
+├── index.html
+├── js
+├── regions.js
+├── Streptococcus_agalactiae_A909.gbk
+├── Streptococcus_agalactiae_A909.json
+├── Streptococcus_agalactiae_A909.zip
+└── svg</code></pre>
+</div>
+</div>
+</section>
+<section id="running-antismash-over-a-list-of-files" class="level3" data-number="7.4.2">
+<h3 data-number="7.4.2" class="anchored" data-anchor-id="running-antismash-over-a-list-of-files"><span class="header-section-number">7.4.2</span> <strong>Running antiSMASH over a list of files</strong></h3>
+<p>Now, imagine that you want to run antiSMASH over all <em>Streptococcus agalactiae</em> annotated genomes. Use a <code>for</code> cycle and <code>*</code> as a wildcard to run antiSMASH over all files that start with “S” in the annotated directory.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> for gbk_file in ~/pan_workshop/results/annotated/<span class="pp">*</span>/S<span class="pp">*</span>.gbk</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> do</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span>   antismash <span class="ex">--genefinding-tool=none</span> <span class="va">$gbk_file</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> done</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="visualizing-antismash-results" class="level2" data-number="7.5">
+<h2 data-number="7.5" class="anchored" data-anchor-id="visualizing-antismash-results"><span class="header-section-number">7.5</span> <strong>Visualizing antiSMASH results</strong></h2>
+<p>In order to see the results after an antiSMASH run, we need to access to the <code>index.html</code> file. Where is this file located?</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cd Streptococcus_agalactiae_A909_prokka</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> pwd</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Output
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code>~/pan_workshop/results/antismash/Streptococcus_agalactiae_A909_prokka</code></pre>
+</div>
+</div>
+<p>As outcomes you should get a folder comprised mainly by the following files:</p>
+<ul>
+<li><p><strong><code>.gbk</code> files</strong> For each Biosynthetic Gene cluster region found.</p></li>
+<li><p><strong><code>.json</code> file</strong> To know the input file name, the antiSMASH used version and the regions data (id,sequence_data).</p></li>
+<li><p><strong><code>index.html</code> file</strong> To visualize the outcomes from the analysis.</p></li>
 </ul>
+<p>In order to access these results, we can use scp protocol to download the directory in your local computer.</p>
+<p>If using <code>scp</code> , on your local machine, open a GIT bash terminal in the <strong>destiny</strong> folder and execute the following command:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> scp <span class="at">-r</span> user@bioinformatica.matmor.unam.mx:~/pan_workshop/results/antismash/S<span class="pp">*</span>A909.prokka/<span class="pp">*</span> ~/Downloads/.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>If using R-studio then in the left panel, choose the “more” option, and “export” your file to your local computer. Decompress the Streptococcus_agalactiae_A909.prokka.zip file.</p>
+<p>Another way to download the data to your computer, you first compress the folder and download the compressed file from JupyterHub</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cd ~/pan_workshop/results/antismash</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> zip <span class="at">-r</span> Streptococcus_agalactiae_A909_prokka.zip Streptococcus_agalactiae_A909_prokka</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ls</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>In the JupyterHub, navigate to the pan_workshop/results/antismash/ folder, select the file we just created, and press the download button at the top</p>
+<p>Once in your local machine, in the directory, Streptococcus_agalactiae_A909.prokka, open the <code>index.html</code> file on your local web browser.</p>
+<p>The visualization of the results includes many different options. To understand all the possibilities, we suggest reading the following <a href="https://docs.antismash.secondarymetabolites.org/understanding_output/">tutorial:</a></p>
+<p>Briefly, in the “Overview” page ´.HTML´ you can find all the regions found within every analyzed record/contig (antiSMASH inputs), and summarized all this information in five main features:</p>
+<ul>
+<li><p><strong>Region:</strong> The region number.</p></li>
+<li><p><strong>Type:</strong> Type of the product detected by antiSMASH.</p></li>
+<li><p><strong>From,To:</strong> The region’s location (nucleotides).</p></li>
+<li><p><strong>Most similar known cluster:</strong> The closest compound from th MIBiG database.</p></li>
+<li><p><strong>Similarity:</strong> Percentage of genes within the closest known compound that have significant BLAST hit (The last two columns containing comparisons to the MIBiG database will only be shown if antiSMASH was run with the KnownClusterBlast option ´–cc-mibig´).</p></li>
+</ul>
+</section>
+<section id="antismash-web-services" class="level2" data-number="7.6">
+<h2 data-number="7.6" class="anchored" data-anchor-id="antismash-web-services"><span class="header-section-number">7.6</span> <strong>antiSMASH web services</strong></h2>
+<p>antiSMASH can also be used in an online server in the <a href="https://antismash.secondarymetabolites.org/#!/start">antiSMASH website:</a> You will be asked to give your email. Then, the results will be sent to you and you will be allowed to donwload a folder with the annotations.</p>
+<section id="exercises-and-discussion" class="level4">
+<h4 class="anchored" data-anchor-id="exercises-and-discussion"><strong>Exercises and discussion</strong></h4>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Exercise 2: NCBI and antiSMASH webserver
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Run antiSMASH web server over <em>S. agalactiae</em> A909. First, explore the NCBI assembly database to obtain the accession. Get the id of your results.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li><p>Go to <a href="https://www.ncbi.nlm.nih.gov/">NCBI</a> and search <em>S. agalactiae</em> A909.</p></li>
+<li><p>Choose the assembly database and copy the GenBank sequence ID at the bottom of the site.</p></li>
+<li><p>Go to <a href="https://antismash.secondarymetabolites.org/#!/start">antiSMASH</a></p></li>
+<li><p>Choose the accession from NCBI and paste <code>CP000114.1</code></p></li>
+<li><p>Run antiSMASH and paste into the collaborative document your results id example ` bacteria-cbd13a47-8095-495f-957c-dcf58c261529`</p></li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -994,10 +1048,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./Cap5.html" class="pagination-link" aria-label="Bases de datos de Minería Genómica">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Bases de datos de Minería Genómica</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./intro.html" class="pagination-link" aria-label="intro.html">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">intro.html</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./Cap7.html" class="pagination-link" aria-label="Bases de datos de Minería Genómica">
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Bases de datos de Minería Genómica</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
