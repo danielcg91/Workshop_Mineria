@@ -225,3 +225,37 @@ Download the annotated genomes, and then the genbank files.
     \~\~\~ {: .language-bash}
 :::
 ::::
+
+:::: callout-note
+## Exercise 4: The size of a region
+
+Sort the structure of the next commands that attempt to know the size of a region:
+
+`SOURCE` `ORGANISM` `LOCUS`\
+`head` `grep`
+
+``` bash
+ $ _____  region.gbk  
+ $ _____ __________ region.gbk  
+```
+
+Apply your solution to get the size of the first region of *S. agalactiae* A909
+
+::: {.callout-note collapse="false"}
+## Solution
+
+``` bash
+$ cd ~/pan_workshop/results/antismash  
+$ head Streptococcus_agalactiae_A909.prokka/CP000114.1.region001.gbk
+$ grep LOCUS Streptococcus_agalactiae_A909.prokka/CP000114.1.region001.gbk
+```
+
+Locus contains the information of the characteristics of the sequence
+
+``` bash
+LOCUS   	CP000114.1         	42196 bp	DNA 	linear   UNK 13-JUN-2022
+```
+
+In this case the size of the region is 42196 bp
+:::
+::::
