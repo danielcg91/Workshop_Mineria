@@ -21,7 +21,7 @@ In summary, you will need to use your genome as the input. Then, antiSMASH will 
 You can run antiSMASH in two ways **Minimal and Full-featured run**, as follows:
 
 | Run type | Command |
-|:---|:---|
+|:-----------------------------------|:-----------------------------------|
 | Minimal run | antismash genome.gbk |
 | Full-featured run | antismash –cb-general –cb-knownclusters –cb-subclusters –asf –pfam2go –smcog-trees genome.gbk |
 
@@ -36,7 +36,7 @@ b\. A prediction of the metabolites that the clusters can produce
 
 c\. A prediction of genes that belong to a biosynthetic cluster
 
-::: {.callout-note collapse="TRUE"}
+::: {.callout-note collapse="true"}
 ## Solution
 
 a\. False. antiSMASH is not an algorithm devoted to substance prediction.\
@@ -98,7 +98,7 @@ Now, imagine that you want to run antiSMASH over all *Streptococcus agalactiae* 
 ``` bash
 $ for gbk_file in ~/pan_workshop/results/annotated/*/S*.gbk
 > do
->	antismash --genefinding-tool=none $gbk_file
+>   antismash --genefinding-tool=none $gbk_file
 > done
 ```
 
@@ -174,7 +174,7 @@ antiSMASH can also be used in an online server in the [antiSMASH website:](https
 
 Run antiSMASH web server over *S. agalactiae* A909. First, explore the NCBI assembly database to obtain the accession. Get the id of your results.
 
-::: {.callout-note collapse="TRUE"}
+::: {.callout-note collapse="true"}
 ## Solution
 
 1.  Go to [NCBI](https://www.ncbi.nlm.nih.gov/) and search *S. agalactiae* A909.
@@ -196,12 +196,12 @@ Try Download and annotate *S. thermophilus* genomes strains LMD-9 (MiBiG), and s
 
 ``` bash
  done  
-	antismash --genefinding-tool=none $__  
+    antismash --genefinding-tool=none $__  
  for ___ in  ____________  
 do  
 ```
 
-::: {.callout-note collapse="TRUE"}
+::: {.callout-note collapse="true"}
 ## Solution
 
 Guide to solve this problem First download genomes with genome-download. Remember to activate the conda environment!
@@ -241,7 +241,7 @@ Sort the structure of the next commands that attempt to know the size of a regio
 
 Apply your solution to get the size of the first region of *S. agalactiae* A909
 
-::: {.callout-note collapse="false"}
+::: {.callout-note collapse="true"}
 ## Solution
 
 ``` bash
@@ -253,7 +253,7 @@ $ grep LOCUS Streptococcus_agalactiae_A909.prokka/CP000114.1.region001.gbk
 Locus contains the information of the characteristics of the sequence
 
 ``` bash
-LOCUS   	CP000114.1         	42196 bp	DNA 	linear   UNK 13-JUN-2022
+LOCUS       CP000114.1          42196 bp    DNA     linear   UNK 13-JUN-2022
 ```
 
 In this case the size of the region is 42196 bp
@@ -265,7 +265,7 @@ In this case the size of the region is 42196 bp
 
 What BGC classes does the genus *Streptococcus* have ?
 
-::: {.callout-note collapse="false"}
+::: {.callout-note collapse="true"}
 ## Solution
 
 In antiSMASH website output of A909 strain we see clusters of two classes, T3PKS and arylpolyene. Nevertheless, this is only one *Streptococcus* in order to infer all BGC classes in the genus we need to run antiSMASH in more genome

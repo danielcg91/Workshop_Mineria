@@ -36,7 +36,7 @@ Once inside the environment, we are ready to run our first annotation.
 In this example, we will use the following options:
 
 | Code | Meaning |
-|:-----------------------------------|:-----------------------------------|
+|:---|:---|
 | –prefix | Filename output prefix \[auto\] (default ‘’) |
 | –outdir | Output folder \[auto\] (default ‘’) |
 | –kingdom | Annotation mode: Archaea Bacteria Mitochondria Viruses (default ‘Bacteria’) |
@@ -81,7 +81,7 @@ tree
 We encourage you to explore each output. The following table describes the contents of each output file:
 
 | Extension | Description |
-|:-----------------------------------|:-----------------------------------|
+|:---|:---|
 | .gff | This is the master annotation in GFF3 format, containing both sequences and annotations. It can be viewed directly in Artemis or IGV. |
 | .gbk | This is a standard GenBank file derived from the master `.gff`. If the input to Prokka was a multi-FASTA, then this will be a multi-GenBank, with one record for each sequence. |
 | .fna | Nucleotide FASTA file of the input contig sequences. |
@@ -420,7 +420,7 @@ agalactiae_18RS21.txt
 The `JSON` file stores the complete output whereas the `.TXT` file contains a subset of this information. However, the former isn’t very human-readable, and is mostly useful for downstream analyses with RGI; the latter, on the contrary, has everything we might need in a “friendlier” format. This file is tab-delimited, meaning that it is a table file which uses the tab symbol as separator. Have a look at the file by running `less -S agalactiae_18RS21.txt`; use the arrow keys to move left and right. A detailed description of the meaning of each column can be found in the table below (taken from RGI’s documentation):
 
 | Column | Field | Contents |
-|:-----------------------|:-----------------------|:-----------------------|
+|:---|:---|:---|
 | 1 | ORF_ID | Open Reading Frame identifier (internal to RGI) |
 | 2 | Contig | Source Sequence |
 | 3 | Start | Start co-ordinate of ORF |
